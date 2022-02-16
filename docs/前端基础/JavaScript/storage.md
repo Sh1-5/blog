@@ -2,7 +2,7 @@
 title: storage
 ---
 
-## localStorage 与 sessionStorage
+### localStorage 与 sessionStorage
 
 相似之处：
 
@@ -16,7 +16,7 @@ title: storage
 
 打开多个相同的 URL 的 Tabs 页面，会创建各自的 sessionStorage，关闭对应浏览器窗口（Window）/ tab，会清除对应的 sessionStorage。
 
-## 例子
+### 例子
 
 键值对总是以字符串的形式存储
 
@@ -40,7 +40,7 @@ const height = JSON.parse(window.localStorage.getItem('height'))
 console.log(typeof height, height) // number 180
 ```
 
-## 作为开发中经常使用的工具类
+### 作为开发中经常使用的工具类
 
 ```javascript
 class LocalCache {
