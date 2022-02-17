@@ -1,5 +1,9 @@
 module.exports = [
   {
+    text: '涨知识了',
+    link: '/涨知识了/'
+  },
+  {
     text: '前端基础',
     items: [
       {

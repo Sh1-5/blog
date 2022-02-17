@@ -13,6 +13,10 @@
   "license": "ISC",
   "devDependencies": {
     "vuepress": "^1.9.7",
+    "vuepress-plugin-baidu-autopush": "^1.0.1",
+    "vuepress-plugin-code-copy": "^1.0.6",
+    "vuepress-plugin-nprogress": "^1.1.8",
+    "vuepress-plugin-reading-progress": "^1.0.10",
     "vuepress-theme-note": "^1.1.3"
   }
 }

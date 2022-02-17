@@ -14,5 +14,17 @@ module.exports = {
     lastUpdated: 'Last Updated',
     nextLinks: true,
     prevLinks: true
-  }
+  },
+  plugins: [
+    'vuepress-plugin-nprogress',
+    'vuepress-plugin-baidu-autopush',
+    'reading-progress',
+    [
+      'vuepress-plugin-code-copy',
+      {
+        color: '#ffffff',
+        successText: '复制成功！'
+      }
+    ]
+  ]
 }

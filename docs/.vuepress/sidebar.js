@@ -1,4 +1,12 @@
 module.exports = {
+  '/涨知识了/': [
+    {
+      title: '涨知识了',
+      collapsable: false,
+      sidebarDepth: 0,
+      children: ['']
+    }
+  ],
   '/前端基础/JavaScript/': [
     {
       title: 'JavaScript',
@@ -28,7 +36,15 @@ module.exports = {
       title: 'Vue',
       collapsable: false,
       sidebarDepth: 0,
-      children: ['', '重点', '源码', 'router', 'vite', 'browserslist']
+      children: [
+        '',
+        '重点',
+        '源码',
+        'router',
+        '捕获404路由',
+        'vite',
+        'browserslist'
+      ]
     }
   ],
   '/前端框架/React/': [
