@@ -3,7 +3,6 @@ const sidebar = require('./sidebar')
 
 module.exports = {
   title: 'Sh1-5',
-  theme: 'vuepress-theme-note',
   themeConfig: {
     logo: '/assets/img/star.png',
     nav,
