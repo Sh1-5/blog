@@ -40,7 +40,8 @@ module.exports = {
         '',
         '重点',
         '源码',
-        'router',
+        'vue-router',
+        'vuex',
         '捕获404路由',
         'vite',
         'browserslist'
