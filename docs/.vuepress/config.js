@@ -10,7 +10,7 @@ module.exports = {
     smoothScroll: true,
     search: true,
     searchMaxSuggestions: 10,
-    lastUpdated: 'Last Updated',
+    lastUpdated: '上次更新',
     nextLinks: true,
     prevLinks: true
   },

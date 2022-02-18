@@ -7,12 +7,20 @@ module.exports = {
       children: ['']
     }
   ],
+  '/前端基础/浏览器/': [
+    {
+      title: '浏览器',
+      collapsable: false,
+      sidebarDepth: 0,
+      children: ['', 'cookie', 'storage', 'http', 'cors']
+    }
+  ],
   '/前端基础/JavaScript/': [
     {
       title: 'JavaScript',
       collapsable: false,
       sidebarDepth: 0,
-      children: ['', 'cookie', 'storage', '数组方法']
+      children: ['', '数组方法']
     }
   ],
   '/前端基础/Node/': [

@@ -7,6 +7,10 @@ module.exports = [
     text: '前端基础',
     items: [
       {
+        text: '浏览器',
+        link: '/前端基础/浏览器/'
+      },
+      {
         text: 'JavaScript',
         link: '/前端基础/JavaScript/'
       },
