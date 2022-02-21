@@ -2,7 +2,7 @@
 title: vuex
 ---
 
-### vuex 是什么
+## vuex 是什么
 
 状态管理模式 + 库，采用集中式存储管理应用所有的状态，并以相应的规则保证状态以一种可预测的方式发生变化
 
@@ -10,13 +10,13 @@ title: vuex
 
 ![vuex原理](https://vuex.vuejs.org/vuex.png)
 
-### 安装
+## 安装
 
 ```bash
 npm install vuex@next
 ```
 
-### 核心一：state
+## 核心一：state
 
 vuex 使用单一状态树，用一个对象包含了全部的应用层级状态，作为“唯一数据源（SSOT，single source of truth）”
 
@@ -33,13 +33,13 @@ const store = createStore({
 })
 ```
 
-#### 基本使用
+### 基本使用
 
 ```html
 <h1>{{ $store.state.name }}-{{ $store.state.age }}</h1>
 ```
 
-#### 使用计算属性
+### 使用计算属性
 
 ```html
 <h1>{{ name }}-{{ age }}</h1>
@@ -106,7 +106,7 @@ export default {
 }
 ```
 
-### 核心二：getter
+## 核心二：getter
 
 store 里的 computed
 
@@ -144,7 +144,7 @@ const store = createStore({
 })
 ```
 
-#### 基本使用
+### 基本使用
 
 ```html
 <!-- 1.通过属性访问 -->
@@ -153,11 +153,11 @@ const store = createStore({
 <!-- <h1>总价格：{{ $store.getters.totalPrice() }}</h1> -->
 ```
 
-#### 使用计算属性
+### 使用计算属性
 
 类似 state
 
-### 核心三：mutation
+## 核心三：mutation
 
 mutation 必须是同步函数
 
@@ -184,7 +184,7 @@ const store = createStore({
 })
 ```
 
-#### 基本使用
+### 基本使用
 
 ```html
 <h1>{{ $store.state.counter }}</h1>
@@ -194,7 +194,7 @@ const store = createStore({
 <!-- <button @click="$store.commit({ type: 'increment', amount: 5 })">+</button> -->
 ```
 
-#### 使用常量替代 mutation
+### 使用常量替代 mutation
 
 ```javascript
 // mutation-types.js
@@ -217,7 +217,7 @@ const store = createStore({
 })
 ```
 
-#### mapMutations
+### mapMutations
 
 ```html
 <h1>当前计数：{{ $store.state.counter }}</h1>
@@ -250,7 +250,7 @@ export default {
 }
 ```
 
-### 核心四：action
+## 核心四：action
 
 action 存在的意义是做一些异步操作
 
@@ -279,7 +279,7 @@ const store = createStore({
 })
 ```
 
-#### 基本使用
+### 基本使用
 
 ```html
 <h1>{{ $store.state.counter }}</h1>
@@ -289,7 +289,7 @@ const store = createStore({
 <!-- <button @click="$store.dispatch({ type: 'increment', amount: 5 })">+</button> -->
 ```
 
-#### mapActions
+### mapActions
 
 ```html
 <h1>当前计数：{{ $store.state.counter }}</h1>
@@ -322,7 +322,7 @@ export default {
 }
 ```
 
-#### 组合 action
+### 组合 action
 
 action 是异步的，那么什么时候结束
 
@@ -380,7 +380,7 @@ actions: {
 }
 ```
 
-### 核心五：module
+## 核心五：module
 
 套娃，将 store 分成多个模块，每个模块又有 state、getters、mutations、actions、modules
 
@@ -409,4 +409,4 @@ store.state.a // -> moduleA 的状态
 store.state.b // -> moduleB 的状态
 ```
 
-#### 命名空间：namespaced
+### 命名空间：namespaced

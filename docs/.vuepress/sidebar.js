@@ -3,7 +3,7 @@ module.exports = {
     {
       title: '涨知识了',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['']
     }
   ],
@@ -11,7 +11,7 @@ module.exports = {
     {
       title: '浏览器',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['', 'cookie', 'storage', 'http', 'cors']
     }
   ],
@@ -19,7 +19,7 @@ module.exports = {
     {
       title: 'JavaScript',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['', '数组方法']
     }
   ],
@@ -27,7 +27,7 @@ module.exports = {
     {
       title: 'Node',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['']
     }
   ],
@@ -35,7 +35,7 @@ module.exports = {
     {
       title: 'Webpack',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['']
     }
   ],
@@ -43,7 +43,7 @@ module.exports = {
     {
       title: 'Vue',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: [
         '',
         '重点',
@@ -60,7 +60,7 @@ module.exports = {
     {
       title: 'React',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['']
     }
   ],
@@ -68,7 +68,7 @@ module.exports = {
     {
       title: 'Express',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['']
     }
   ],
@@ -76,7 +76,7 @@ module.exports = {
     {
       title: 'Koa',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['']
     }
   ],
@@ -84,7 +84,7 @@ module.exports = {
     {
       title: 'TypeScript',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['']
     }
   ],
@@ -92,7 +92,7 @@ module.exports = {
     {
       title: 'git',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['', 'SSH克隆失败']
     }
   ],
@@ -100,7 +100,7 @@ module.exports = {
     {
       title: 'npm',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['', '安装依赖失败']
     }
   ],
@@ -108,7 +108,7 @@ module.exports = {
     {
       title: 'VSCode',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['']
     }
   ],
@@ -116,7 +116,7 @@ module.exports = {
     {
       title: 'WebStorm',
       collapsable: false,
-      sidebarDepth: 0,
+      sidebarDepth: 2,
       children: ['']
     }
   ]

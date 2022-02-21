@@ -2,14 +2,14 @@
 title: 笔记
 ---
 
-### 一、邂逅 Vuejs
+## 一、邂逅 Vuejs
 
-#### 1.1 认识 Vuejs
+### 1.1 认识 Vuejs
 
 - Vue 的渐进式：可以将 Vue 作为应用的一部分嵌入其中
 - Vue 的特点：1.解耦视图和数据 2.可复用的组件 3.前端路由技术 4.状态管理 5.虚拟 DOM
 
-#### 1.2 安装 Vue
+### 1.2 安装 Vue
 
 - CDN 引入（开发环境使用开发版本，有命令行警告。生产环境使用部署版本，优化了尺寸和速度）
 - 下载引入
@@ -17,7 +17,7 @@ title: 笔记
 
 注意：Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECMAScript 5 特性。但它支持所有兼容 ECMAScript 5 的浏览器。
 
-#### 1.3 Vue 的初体验
+### 1.3 Vue 的初体验
 
 - Hello Vue
   - Mustache 语法 -> 体验 Vue 响应式（当数据发送改变的时候，显示的界面会跟着改）
@@ -28,12 +28,12 @@ title: 笔记
 - Vue 计数器
   - 事件监听：click -> methods
 
-#### 1.4 Vue 中的 MVVM
+### 1.4 Vue 中的 MVVM
 
 - 什么是 MVVM？ Model（JS） View（DOM） ViewModel（通信桥梁，Vue）
 - ViewModel：数据绑定、Dom 监听
 
-#### 1.5 创建 Vue 时,options 可以放哪些东西
+### 1.5 创建 Vue 时,options 可以放哪些东西
 
 - el
 - data
@@ -51,7 +51,7 @@ title: 笔记
 - destroyed()
 - errorCaptured() 2.5.0+新增
 
-### 二、插值语法
+## 二、插值语法
 
 - Mustache 语法
 - v-once：只渲染一次，数据更改后不会改变显示的内容
@@ -60,52 +60,52 @@ title: 笔记
 - v-pre：mustache 语法失效
 - v-cloak：斗篷，通过设置样式：[v-cloak] {display: none;}在还未取得数据时不显示
 
-### 三、v-bind
+## 三、v-bind
 
-#### 3.1 v-bind 绑定基本属性
+## 3.1 v-bind 绑定基本属性
 
 - Mustache 语法只能用在元素的内容中
 - v-bind:src
 - :href
 
-#### 3.2 v-bind 动态绑定 class
+## 3.2 v-bind 动态绑定 class
 
 - 对象语法:作业:class='{类名:boolean}'
 - 数组语法
 
-#### 3.3 v-bind 动态绑定 style
+## 3.3 v-bind 动态绑定 style
 
 - 对象语法
 - 数组语法
 
-### 四、计算属性
+## 四、计算属性
 
 - 案例一: firstname+lastName
 - 案例二: books -> price
 - 计算属性是有缓存的
 
-#### 4.1 计算属性的本质
+### 4.1 计算属性的本质
 
 - fullname: {set(), get()}
 
-#### 4.2 计算属性和 methods 对比
+### 4.2 计算属性和 methods 对比
 
 - 计算属性在多次使用时，只会调用一次
 - 它是有缓存的
 
-### 五、事件监听
+## 五、事件监听
 
-#### 5.1 事件监听基本使用
+### 5.1 事件监听基本使用
 
 事件监听且不需要传参数的时候，可以省略'()',但是在 mustache 语法中，不能省略'()'
 
-#### 5.2 参数问题
+### 5.2 参数问题
 
 - bntClick
 - btnClick(event)
 - btnClick(abc, event) -> $event
 
-#### 5.3 修饰符
+### 5.3 修饰符
 
 - .stop 阻止冒泡
 - .prevent 阻止默认行为
@@ -113,27 +113,27 @@ title: 笔记
 - .once 点击回调只会触发一次
 - .native 组件相关
 
-### 六、条件判断
+## 六、条件判断
 
-#### 6.1 v-if/v-else-if/v-else
+### 6.1 v-if/v-else-if/v-else
 
-#### 6.2 登录小案例
+### 6.2 登录小案例
 
-#### 6.3 v-show
+### 6.3 v-show
 
 - v-show 和 v-if 区别
   v-if="false"时 不会渲染
   v-show="false"时 只是给元素加上了行内样式：display: none;
 - 当切换频率高的时候，使用 v-show，只有一次切换时，使用 v-if
 
-### 七、循环遍历
+## 七、循环遍历
 
-#### 7.1 遍历数组
+### 7.1 遍历数组
 
 - value
 - value, index
 
-#### 7.2 遍历对象
+### 7.2 遍历对象
 
 - value
 - value, key
@@ -141,7 +141,7 @@ title: 笔记
 
 在数组中插入值时，加上 key 可以高效地更新虚拟 DOM
 
-#### 7.3 数组哪些方法是响应式的
+### 7.3 数组哪些方法是响应式的
 
 - pop()
 - push()
@@ -154,33 +154,33 @@ title: 笔记
 直接根据索引修改数据不是响应式的
 Vue.set(数组, 索引, 修改后的值)
 
-#### 7.4 作业完成
+### 7.4 作业完成
 
-### 八、书籍案例
+## 八、书籍案例
 
 - 过滤器的使用
 
-### 九、v-model 的使用
+## 九、v-model 的使用
 
-#### 9.1 v-model 的基本使用
+### 9.1 v-model 的基本使用
 
 - v-model => v-bind:value v-on:input
 
-#### 9.2 v-model 和 radio/checkbox/select
+### 9.2 v-model 和 radio/checkbox/select
 
-#### 9.3 修饰符
+### 9.3 修饰符
 
 - lazy
 - number
 - trim
 
-### 十、组件化开发
+## 十、组件化开发
 
-#### 10.1 认识组件化
+### 10.1 认识组件化
 
-#### 10.2 组件的基本使用
+### 10.2 组件的基本使用
 
-#### 10.3 全局组件和局部组件
+### 10.3 全局组件和局部组件
 
 - 全局组件：
 
@@ -192,23 +192,23 @@ Vue.set(数组, 索引, 修改后的值)
 
 在 components 对象中注册
 
-#### 10.4 父组件和子组件
+### 10.4 父组件和子组件
 
-#### 10.5 注册的语法糖
+### 10.5 注册的语法糖
 
-#### 10.6 模版的分类写法
+### 10.6 模版的分类写法
 
 - script
 - template
 
-#### 10.7 数据的存放
+### 10.7 数据的存放
 
 - 组件不能直接访问实例的数据
 - 子组件不能直接访问父组件
 - 子组件中有自己的 data，而且必须是一个函数
 - 为什么必须是一个函数
 
-#### 10.8 父子组件的通信
+### 10.8 父子组件的通信
 
 - 父传子: props
 - 子传父: $emit
@@ -216,31 +216,31 @@ Vue.set(数组, 索引, 修改后的值)
 v-bind 不支持驼峰，请用中划线
 避免直接在子组件改变 props 中的值
 
-#### 10.9 父子访问
+### 10.9 父子访问
 
 - 父访问子：\$children、$refs(推荐)
 - 子访问父：$parent(不推荐，使组件的复用性降低)
 - 根组件：$root(Vue 实例)
 
-### 十一、组件化高级
+## 十一、组件化高级
 
-#### slot 的使用
+### slot 的使用
 
 - 基本使用、默认值、插槽中有多个内容时全部替换
 - 具名插槽
 - 编译的作用域
 - 作用域插槽：父组件替换插槽的标签，但是内容由子组件提供
 
-### 十二、前端模块化
+## 十二、前端模块化
 
-#### 12.1 为什么要使用模块化
+### 12.1 为什么要使用模块化
 
 - 简单写 js 代码带来的问题
 - 闭包引起代码不可复用
 - 自己实现了简单的模块化
 - 模块化规范：AMD/CMD/CommonJS(node)/ES6
 
-#### 12.2 CommonJS 需要 node 环境
+### 12.2 CommonJS 需要 node 环境
 
 导出：
 module.exports = {
@@ -250,7 +250,7 @@ module.exports = {
 导入：
 let { } = require('')
 
-#### 12.3 ES6 中模块的使用
+### 12.3 ES6 中模块的使用
 
 script 标签中添加属性 type="module"
 
@@ -270,9 +270,9 @@ import { } from ''
 或
 import \* as xxx from ''(导入所有)
 
-### 十三、webpack
+## 十三、webpack
 
-#### 13.1 什么是 webpack
+### 13.1 什么是 webpack
 
 静态的模块化打包工具
 
@@ -280,7 +280,7 @@ import \* as xxx from ''(导入所有)
 - webpack 依赖 node 环境，node 环境依赖各种包
 - 安装 webpack：npm install webpack@3.6.0 -g 因为 vue-cli2 依赖该版本
 
-#### 13.2 webpack 起步
+### 13.2 webpack 起步
 
 - webpack 命令
   webpack ./src/main.js ./dist/bundle.js
@@ -291,90 +291,36 @@ import \* as xxx from ''(导入所有)
 2. 在终端中输入命令，使用的都是全局的 webpack
 3. 如果需要使用本地的，先要进入 node_modules 文件夹中
 
-#### 13.3 webpack 的 loader
+### 13.3 webpack 的 loader
 
 - css-loader(只负责加载)/style-loader(将样式添加到 DOM 中)，使用多个 loader 时，从右向左读，所以顺序很重要
 - less-loader/less
 - url-loader/file-loader
 - babel-loader(ES6 转 ES5)
 
-#### 13.4 webpack 中配置 Vue
+### 13.4 webpack 中配置 Vue
 
 - vue-loader
 - template 替换 el
 
-#### 13.5 webpack 的 plugin
+### 13.5 webpack 的 plugin
 
-#### 13.6 搭建本地服务器
+### 13.6 搭建本地服务器
 
-#### 13.7 配置文件的分离
+### 13.7 配置文件的分离
 
 开发时依赖和生产时依赖的不同
 
 npm insatll webpack-merge
 
-### 十四、Vue CLI
+## 十四、Vue CLI
 
-#### 14.1 什么是 CLI
+### 14.1 什么是 CLI
 
 - 脚手架是什么东西
 
-#### 14.2 runtime-compiler 和 runtime-only 的区别
+### 14.2 runtime-compiler 和 runtime-only 的区别
 
 - ESLint 到底是什么
 - runtime-compiler：template -(解析)> ast -(编译)> render -> vdom -> 真实 dom
 - runtime-only：render:(h) => h, -> createElement
-
-#### 14.3 Vue CLI4
-
-- 如何通过 CLI4 创建项目
-  vue create my-project
-- CLI4 的目录结构
-- 配置文件：1.Vue UI 2.隐藏的配置文件 3.自定义 vue.config.js
-
-删除配置文件 rm-f ~/.vuerc
-修改配置文件 vi ~/.vuerc
-
-### 十六、Promise
-
-- Promis 是异步编程的一种解决方案
-- 同步 sync
-- 异步 async
-- 回调地狱，不容易维护
-- Promise.all()
-
-### 十七、Vuex
-
-状态管理模式
-需要在多个组件间共享的状态（比如登录状态）
-![Vuex](https://vuex.vuejs.org/vuex.png)
-
-- 安装
-  npm install vuex --save
-  Vue.use
-- state 单一状态树
-  修改 state
-  ```js
-  this.$state.commit('')
-  ```
-- mutations 初始化的所有属性是响应式的
-  Vue.set()
-  Vue.delete()
-  为了使用 devtools，只能使用同步操作
-- actions
-  异步操作
-- getters function(state, getters?)
-  如果需要传参
-
-  ```js
-  function(state, getters?) {
-    return function(query) {
-
-    }
-  }
-  ```
-
-- modules
-- 异步操作在 Actions 进行
-
-### 十八、网络请求的封装

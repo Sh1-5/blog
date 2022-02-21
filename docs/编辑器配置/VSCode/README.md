@@ -2,7 +2,7 @@
 title: 配置
 ---
 
-### 插件
+## 插件
 
 - Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code
 - One Dark Pro：VSCode
@@ -35,7 +35,7 @@ title: 配置
 - Vue 3 Snippets
 - Vue Language Features (Volar)
 
-### settings.json
+## settings.json
 
 > Mac(Command + Shift + P) / Win(Ctrl + Shift + P)
 
