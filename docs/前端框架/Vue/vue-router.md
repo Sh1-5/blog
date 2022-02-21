@@ -261,3 +261,5 @@ router.beforeEach((to, from) => {
   // 逻辑处理
 })
 ```
+
+### historyApiFallback
