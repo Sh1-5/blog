@@ -72,13 +72,13 @@ export const mul = (num1, num2) => {
 
 打开 index.html，报错，浏览器不支持 commonJS
 
-使用 webpack 打包，进入项目目录下，进行打包
+进入项目目录下，使用 webpack 打包
 
 ```sh
 webpack
 ```
 
-产生了打包后的文件夹 dist，将其引入
+产生了打包后的文件夹 dist，在 index.html 中将其引入
 
 ```html
 <!-- <script src="./src/index.js" type="module"></script> -->
@@ -106,5 +106,45 @@ npx webpack
 ```json
 "scripts": {
   "build": "webpack"
+}
+```
+
+## 指定入口和出口打包
+
+```sh
+npx webpack --entry ./src/index.js --output-path ./build
+```
+
+或配置 package.json 后使用 npm run build 打包
+
+```json
+"scripts": {
+  "build": "webpack --entry ./src/index.js --output-path ./build"
+}
+```
+
+也可以使用配置文件 webpack.config.js
+
+```javascript
+module.exports = {
+  const path = require('path')
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, './build'),
+    filename: 'bundle.js'
+  }
+}
+}
+```
+
+注意：path 需为绝对路径
+
+## 指定配置文件
+
+```json
+"scripts": {
+  "build": "webpack --config 配置文件路径"
 }
 ```

@@ -7,6 +7,14 @@ module.exports = {
       children: ['']
     }
   ],
+  '/看书/': [
+    {
+      title: '看书',
+      collapsable: false,
+      sidebarDepth: 2,
+      children: ['']
+    }
+  ],
   '/前端基础/浏览器/': [
     {
       title: '浏览器',
@@ -20,7 +28,7 @@ module.exports = {
       title: 'JavaScript',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['', '数组方法']
+      children: ['', '数组方法', '类的定义']
     }
   ],
   '/前端基础/Node/': [
@@ -36,7 +44,7 @@ module.exports = {
       title: 'Webpack',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['']
+      children: ['', 'css相关loader', 'browserslist', 'PostCSS工具']
     }
   ],
   '/前端框架/Vue/': [
@@ -51,8 +59,7 @@ module.exports = {
         'vue-router',
         'vuex',
         '捕获404路由',
-        'vite',
-        'browserslist'
+        'vite'
       ]
     }
   ],
@@ -88,17 +95,17 @@ module.exports = {
       children: ['']
     }
   ],
-  '/开发工具/git/': [
+  '/开发工具/Git/': [
     {
-      title: 'git',
+      title: 'Git',
       collapsable: false,
       sidebarDepth: 2,
       children: ['', 'SSH克隆失败']
     }
   ],
-  '/开发工具/npm/': [
+  '/开发工具/Npm/': [
     {
-      title: 'npm',
+      title: 'Npm',
       collapsable: false,
       sidebarDepth: 2,
       children: ['', '安装依赖失败']

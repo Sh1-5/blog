@@ -141,3 +141,19 @@ const name: string = 'kobe'
 const age: number = 18
 const height = 1.8 // 类型推导
 ```
+
+- boolean
+- number
+- string
+- array
+- object
+- null/undefined
+- symbol
+
+## TypeScript 类型
+
+- any：不想写类型，或者进行类型断言（as any）
+- unknown：any 类型可以赋值给任意类型，unknown 类型只可以赋值给 any 和 unknown 类型
+- void：一个函数没返回值的时候
+- never
+- tuple：元组，多种元素的组合
