@@ -12,7 +12,7 @@ module.exports = {
       title: '看书',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['']
+      children: ['', 'Vue.js设计与实现']
     }
   ],
   '/前端基础/浏览器/': [
@@ -68,7 +68,7 @@ module.exports = {
       title: 'React',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['']
+      children: ['', 'createElement', '插件使用']
     }
   ],
   '/前端进阶/Express/': [

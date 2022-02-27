@@ -137,8 +137,8 @@ title: 笔记
     <script type="text/babel">
       // 封装App组件
       class App extends React.Component {
-        constructor() {
-          super()
+        constructor(props) {
+          super(props)
           // this.message = 'Hello World'
           this.state = {
             message: 'Hello World'
@@ -190,8 +190,8 @@ title: 笔记
 
     <script type="text/babel">
       class App extends React.Component {
-        constructor() {
-          super()
+        constructor(props) {
+          super(props)
           this.state = {
             movies: ['星际穿越', '火星救援', '流浪地球']
           }
@@ -236,8 +236,8 @@ title: 笔记
 
     <script type="text/babel">
       class App extends React.Component {
-        constructor() {
-          super()
+        constructor(props) {
+          super(props)
           this.state = {
             counter: 0
           }
@@ -303,3 +303,62 @@ React 认为渲染逻辑本质上与其他 UI 逻辑存在内在耦合
 - 当变量是 Null、Undefined、Boolean 类型时，内容为空
   如果希望可以显示，那么转成字符串
 - 对象类型不能作为子元素
+
+### JSX 本质
+
+是 React.createElement(type, config, children)的语法糖，目的是创建 ReactElement 对象
+
+```html
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<!-- <script src="../js/babel.js"></script> -->
+
+<!-- <script type="text/babel"> -->
+<script>
+  // const message1 = <h1>Hello React</h1>
+  const message2 = React.createElement('h1', null, 'Hello React')
+
+  ReactDOM.render(message2, document.getElementById('app'))
+</script>
+```
+
+> jsx -> createElement 函数 -> ReactElement 对象树 -> ReactDON.render 函数 -> 真实 DOM
+
+## 为什么使用虚拟 DOM
+
+- 很难跟踪状态发生的改变
+- 操作真实 DOM 性能低（引起浏览器的回流和重绘）
+
+## 脚手架
+
+安装
+
+```sh
+npm install create-react-app -g
+```
+
+创建项目
+
+```sh
+create-react-app 项目名称
+```
+
+## 组件化开发
+
+### 类式组件和函数式组件
+
+函数式组件特点：
+
+1.没有 this
+
+2.没有内部的状态（所以有 hooks）
+
+### render 函数返回值
+
+- React 元素
+- 数组
+- Portals
+- 字符串或数值类型
+- 布尔型或 null
+
+### 类式组件的生命周期

@@ -107,4 +107,4 @@ scheme://user:password@host:post/path?query#fragment
 
 ## https
 
-hypertext transfer protocol secure，批了一层 SSL 的 http
+hypertext transfer protocol secure，披了一层 SSL 的 http
