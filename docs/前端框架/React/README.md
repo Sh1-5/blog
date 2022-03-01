@@ -362,3 +362,10 @@ create-react-app 项目名称
 - 布尔型或 null
 
 ### 类式组件的生命周期
+
+[生命周期图示](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+
+- constructor：初始化 state，为事件绑定 this
+- componentDidMount：DOM 操作，发送网络请求（官方建议），添加一些订阅
+- componentDidUpdate：DOM 操作，前后 props 对比
+- componentWillUnmount： 清理操作，清除 timer，取消网络请求，取消创建的订阅
