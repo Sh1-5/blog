@@ -369,3 +369,18 @@ create-react-app 项目名称
 - componentDidMount：DOM 操作，发送网络请求（官方建议），添加一些订阅
 - componentDidUpdate：DOM 操作，前后 props 对比
 - componentWillUnmount： 清理操作，清除 timer，取消网络请求，取消创建的订阅
+
+### setState 是同步还是异步
+
+分两种情况：
+
+- 在组件生命周期或 React 合成事件中，setState 是异步的
+- 在 setTimeout 或者原生 DOM 事件中，setState 是同步的
+
+### React 更新机制
+
+props/state 改变 -> render 函数重新执行 -> 产生新的虚拟 DOM -> 新旧对比 -> 计算差异进行更新 -> 更新到真实 DOM
+
+diff 算法
+
+### 列表循环-key
