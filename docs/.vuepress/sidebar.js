@@ -68,7 +68,7 @@ module.exports = {
       title: 'React',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['', 'createElement', '插件使用']
+      children: ['', 'createElement', '插件使用', 'redux']
     }
   ],
   '/前端进阶/Express/': [
@@ -114,14 +114,6 @@ module.exports = {
   '/编辑器配置/VSCode/': [
     {
       title: 'VSCode',
-      collapsable: false,
-      sidebarDepth: 2,
-      children: ['']
-    }
-  ],
-  '/编辑器配置/WebStorm/': [
-    {
-      title: 'WebStorm',
       collapsable: false,
       sidebarDepth: 2,
       children: ['']

@@ -20,7 +20,7 @@ module.exports = [
       },
       {
         text: 'Node',
-        link: '/前端基础/node/'
+        link: '/前端基础/Node/'
       },
       {
         text: 'Webpack',
@@ -77,10 +77,6 @@ module.exports = [
       {
         text: 'VSCode',
         link: '/编辑器配置/VSCode/'
-      },
-      {
-        text: 'WebStorm',
-        link: '/编辑器配置/WebStorm/'
       }
     ]
   }

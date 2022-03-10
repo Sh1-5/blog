@@ -3,9 +3,6 @@ home: true
 heroImage: /assets/img/star.png
 heroText: Sh1-5
 tagline: 博客不仅是知识的记录，更是成长的记录
-actions:
-  - text: 查看 →
-    link: /涨知识了/
 features:
   - title: 前端
     details: Vue2/3全家桶，React17，微信小程序
