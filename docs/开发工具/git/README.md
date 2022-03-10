@@ -29,6 +29,6 @@ git commit --amend 修改注释
 
 ## 版本回退 & 强制上传
 
-git reset 版本号
+git reset --soft 版本号
 
 git push -f
