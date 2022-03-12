@@ -1,5 +1,5 @@
 ---
-title: vite
+title: vite项目基本配置
 ---
 
 ## 创建项目
@@ -108,7 +108,7 @@ module.exports = {
 使用 husky 生成 commit-msg 文件，验证提交信息
 
 ```bash
-npx husky add .husky/commit-msg "npx --no-install commitlint --edit $1"
+npx husky add .husky/commit-msg 'npx --no-install commitlint --edit $1'
 ```
 
 ## 安装 vuex@next、vue-router@4、axios 、element-plus、echarts、dayjs、sass
@@ -120,3 +120,15 @@ npm install vuex@next vue-router@4 axios element-plus echarts dayjs
 ```bash
 npm install sass -D
 ```
+
+## 若要在 template 中使用 $store
+
+配置 env.d.ts
+
+```typescript
+declare let $store: any
+```
+
+## 自定义环境变量
+
+[vite 文档](https://cn.vitejs.dev/guide/env-and-mode.html#intellisense)

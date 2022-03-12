@@ -72,12 +72,7 @@ module.exports = [
     ]
   },
   {
-    text: '编辑器配置',
-    items: [
-      {
-        text: 'VSCode',
-        link: '/编辑器配置/VSCode/'
-      }
-    ]
+    text: '配置',
+    link: '/配置/'
   }
 ]

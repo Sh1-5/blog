@@ -59,7 +59,8 @@ module.exports = {
         'vue-router',
         'vuex',
         '捕获404路由',
-        'vite'
+        'vite',
+        'axios封装'
       ]
     }
   ],
@@ -108,15 +109,15 @@ module.exports = {
       title: 'Npm',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['', '安装依赖失败']
+      children: ['', '安装依赖失败', 'ts-node运行失败']
     }
   ],
-  '/编辑器配置/VSCode/': [
+  '/配置/': [
     {
-      title: 'VSCode',
+      title: '配置',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['']
+      children: ['', 'Nginx']
     }
   ]
 }
