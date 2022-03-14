@@ -4,7 +4,7 @@ module.exports = {
       title: '涨知识了',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['']
+      children: ['', 'cdn']
     }
   ],
   '/看书/': [
@@ -20,7 +20,7 @@ module.exports = {
       title: '浏览器',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['', 'cookie', 'storage', 'http', 'cors']
+      children: ['', 'cookie', 'storage', 'http', 'cors与crossorigin']
     }
   ],
   '/前端基础/JavaScript/': [
@@ -28,7 +28,7 @@ module.exports = {
       title: 'JavaScript',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['', '数组方法', '类的定义', 'Promise']
+      children: ['', '数组方法', '类的定义', 'Promise', '浅拷贝与深拷贝']
     }
   ],
   '/前端基础/Node/': [
@@ -44,7 +44,13 @@ module.exports = {
       title: 'Webpack',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['', 'css相关loader', 'browserslist', 'PostCSS工具']
+      children: [
+        '',
+        'css相关loader',
+        'img相关loader',
+        'browserslist',
+        'PostCSS工具'
+      ]
     }
   ],
   '/前端框架/Vue/': [
@@ -59,8 +65,8 @@ module.exports = {
         'vue-router',
         'vuex',
         '捕获404路由',
-        'vue3项目基本配置',
-        'vite',
+        'vue项目基本配置',
+        'vite项目注意事项',
         'axios封装'
       ]
     }
