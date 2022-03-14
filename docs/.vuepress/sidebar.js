@@ -28,7 +28,7 @@ module.exports = {
       title: 'JavaScript',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['', '数组方法', '类的定义']
+      children: ['', '数组方法', '类的定义', 'Promise']
     }
   ],
   '/前端基础/Node/': [
@@ -59,6 +59,7 @@ module.exports = {
         'vue-router',
         'vuex',
         '捕获404路由',
+        'vue3项目基本配置',
         'vite',
         'axios封装'
       ]
