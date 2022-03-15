@@ -62,12 +62,12 @@ module.exports = [
     text: '开发工具',
     items: [
       {
-        text: 'git',
-        link: '/开发工具/git/'
+        text: 'Git',
+        link: '/开发工具/Git/'
       },
       {
-        text: 'npm',
-        link: '/开发工具/npm/'
+        text: 'Npm',
+        link: '/开发工具/Npm/'
       }
     ]
   },
