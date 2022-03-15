@@ -60,7 +60,7 @@ module.exports = {
       sidebarDepth: 2,
       children: [
         '',
-        '重点',
+        '需要注意的点',
         '源码',
         'vue-router',
         'vuex',
