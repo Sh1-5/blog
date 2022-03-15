@@ -58,7 +58,7 @@ title: VSCode
   "explorer.confirmDragAndDrop": true, // 控制在资源管理器内拖放移动文件或文件夹时是否进行确认
 
   "workbench.colorTheme": "One Dark Pro", // 主题
-  "workbench.iconTheme": "file-icons", // 文件主题
+  "workbench.iconTheme": "vscode-great-icons", // 文件主题
   "workbench.tree.indent": 16, // 树缩进
 
   "terminal.integrated.defaultProfile.windows": "PowerShell", // 默认终端
