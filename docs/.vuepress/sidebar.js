@@ -47,9 +47,9 @@ module.exports = {
       children: [
         '',
         'css相关loader',
+        'postcss工具',
         'img相关loader',
-        'browserslist',
-        'PostCSS工具'
+        'browserslist'
       ]
     }
   ],
@@ -62,8 +62,9 @@ module.exports = {
         '',
         '需要注意的点',
         '源码',
-        'vue-router',
         'vuex',
+        'pinia',
+        'vue-router',
         '捕获404路由',
         'vue项目基本配置',
         'vite项目注意事项',

@@ -8,7 +8,7 @@ title: css相关loader
 
 ## style-loader
 
-把 CSS 插入到 DOM 中
+把 css 插入到 dom 中
 
 ## css 处理
 
@@ -33,7 +33,7 @@ module.exports = {
 
 ## less-loader
 
-将 Less 编译为 CSS，同时需要 less
+将 less 编译为 css，同时需要 less
 
 ## less 处理
 

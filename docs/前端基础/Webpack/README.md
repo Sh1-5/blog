@@ -126,16 +126,14 @@ npx webpack --entry ./src/index.js --output-path ./build
 也可以使用配置文件 webpack.config.js
 
 ```javascript
-module.exports = {
-  const path = require('path')
+const { resolve } = require('path')
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, './build'),
+    path: resolve(__dirname, 'build'),
     filename: 'bundle.js'
   }
-}
 }
 ```
 

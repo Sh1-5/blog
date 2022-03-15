@@ -35,3 +35,17 @@ title: 冷门知识
 ```
 
 使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击
+
+## v-model 修饰符
+
+```html
+<!-- 失去焦点后再更新 -->
+<input type="text" v-model.lazy="message" />
+<h1>{{message}}</h1>
+<!-- 将输入的纯数字string转为number -->
+<input type="text" v-model.number="number" />
+<button @click="showType">查看类型</button>
+<h1>{{number}}</h1>
+<!-- 去除多余空格-->
+<input type="text" v-model.trim="trim" />
+```
