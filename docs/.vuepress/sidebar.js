@@ -44,7 +44,13 @@ module.exports = {
       title: 'Webpack',
       collapsable: false,
       sidebarDepth: 2,
-      children: ['', 'css相关loader', 'img相关loader', 'browserslist']
+      children: [
+        '',
+        'css相关loader',
+        'postcss',
+        'img相关loader',
+        'browserslist'
+      ]
     }
   ],
   '/前端框架/Vue/': [
