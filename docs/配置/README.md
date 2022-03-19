@@ -93,6 +93,7 @@ title: VSCode
 
   // updated 2022-03-14 00:43
   // https://github.com/antfu/vscode-file-nesting-config
+  // 配置文件归类
   "explorer.experimental.fileNesting.enabled": true,
   "explorer.experimental.fileNesting.expand": false,
   "explorer.experimental.fileNesting.patterns": {
