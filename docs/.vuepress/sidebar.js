@@ -49,6 +49,12 @@ module.exports = {
         'css相关loader',
         'postcss',
         'img相关loader',
+        'webpack5资源模块类型',
+        'clean-webpack-plugin',
+        'html-webpack-plugin',
+        'define-plugin',
+        'copy-webpack-plugin',
+        'mode和devtool',
         'browserslist'
       ]
     }

@@ -2,6 +2,8 @@
 title: 笔记
 ---
 
+> 基于 webpack4
+
 ## webpack 是什么
 
 静态的模块化构建工具

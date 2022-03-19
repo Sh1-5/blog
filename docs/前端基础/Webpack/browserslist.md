@@ -31,7 +31,7 @@ not dead
 
 ## caniuse-lite
 
-browserslist 使用 caniuse-lite 来查询浏览器的占有率
+browserslist 使用 caniuse-lite 来查询浏览器的市场占有率
 
 ```sh
 npm install browserslist -D
