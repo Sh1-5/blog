@@ -55,6 +55,8 @@ module.exports = {
         'define-plugin',
         'copy-webpack-plugin',
         'mode和devtool',
+        'babel',
+        '打包vue代码',
         'browserslist'
       ]
     }

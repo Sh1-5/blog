@@ -51,7 +51,7 @@ npx postcss --use autoprefixer -o test-demo.css test.css
 npm install postcss-loader
 ```
 
-在 webpack.config.js 中配置
+再对 webpack 进行配置
 
 ```javascript
 module: {

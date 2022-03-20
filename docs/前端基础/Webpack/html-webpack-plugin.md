@@ -21,4 +21,4 @@ module.exports = {
 
 在创建实例的时候可以传入一个配置对象
 
-具体见[](html-webpack-plugin)[https://github.com/jantimon/html-webpack-plugin#options]
+具体见[html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin#options)
