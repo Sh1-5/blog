@@ -57,6 +57,8 @@ module.exports = {
         'mode和devtool',
         'babel',
         '打包vue代码',
+        'watch',
+        'webpack-dev-server',
         'browserslist'
       ]
     }

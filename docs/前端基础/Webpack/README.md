@@ -2,8 +2,6 @@
 title: 笔记
 ---
 
-> 基于 webpack4
-
 ## webpack 是什么
 
 静态的模块化构建工具
@@ -117,7 +115,7 @@ npx webpack
 npx webpack --entry ./src/index.js --output-path ./build
 ```
 
-或配置 package.json 后使用 npm run build 打包
+或配置 package.json 后使用 `npm run build` 打包
 
 ```json
 "scripts": {
