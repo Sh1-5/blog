@@ -76,6 +76,7 @@ module.exports = {
         'pinia',
         'vue-router',
         '捕获404路由',
+        'vue-cli原理',
         'vue项目基本配置',
         'vite项目注意事项',
         'axios封装'
