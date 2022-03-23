@@ -70,7 +70,9 @@ module.exports = {
       sidebarDepth: 2,
       children: [
         '',
-        '组件通信',
+        '组件通信-父子',
+        '组件通信-非父子',
+        '插槽',
         '需要注意的点',
         '源码',
         'vuex',
