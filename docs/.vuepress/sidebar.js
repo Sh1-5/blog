@@ -81,6 +81,7 @@ module.exports = {
         '引用元素和组件',
         '生命周期',
         '组件的v-model',
+        'mixin和extends',
         '需要注意的点',
         '源码',
         'vuex',
