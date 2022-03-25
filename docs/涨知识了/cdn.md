@@ -1,5 +1,5 @@
 ---
-title: cdn
+title: CDN
 ---
 
 ## CDN 是什么？

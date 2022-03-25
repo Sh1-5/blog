@@ -1,23 +1,57 @@
-const nav = require('./nav')
-const sidebar = require('./sidebar')
-
 module.exports = {
-  title: 'Sh1-5',
+  title: "Sh1-5's Blog",
+  theme: 'reco',
   themeConfig: {
-    logo: '/assets/img/star.png',
-    nav,
-    sidebar,
-    smoothScroll: true,
-    search: true,
+    type: 'blog',
+    authorAvatar: '/assets/img/star.png',
+    friendLink: [
+      {
+        title: 'GitHub',
+        link: 'https://github.com/Sh1-5'
+      },
+      {
+        title: '掘金',
+        link: 'https://juejin.cn/user/3993065308823294'
+      }
+    ],
     searchMaxSuggestions: 10,
-    lastUpdated: '上次更新',
-    nextLinks: true,
-    prevLinks: true
+    subSidebar: 'auto',
+    // 博客配置
+    blogConfig: {
+      category: {
+        location: 1,
+        text: '分类'
+      },
+      tag: {
+        location: 2,
+        text: '标签'
+      }
+    },
+    nav: [
+      { text: 'Github', link: 'https://github.com/Sh1-5', icon: 'reco-github' },
+      {
+        text: '掘金',
+        link: 'https://juejin.cn/user/3993065308823294',
+        icon: 'reco-juejin'
+      }
+    ],
+    author: '拾伍',
+    startYear: 2022,
+    record: '赣ICP备 2022001184号',
+    recordLink: 'https://beian.miit.gov.cn'
   },
+  // 移动端优化
+  head: [
+    [
+      'meta',
+      {
+        name: 'viewport',
+        content: 'width=device-width,initial-scale=1,user-scalable=no'
+      }
+    ]
+  ],
   plugins: [
-    'vuepress-plugin-nprogress',
     'vuepress-plugin-baidu-autopush',
-    'reading-progress',
     [
       'vuepress-plugin-code-copy',
       {
