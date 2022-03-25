@@ -4,7 +4,7 @@ title: mixin和extends
 
 ## mixin 基本使用
 
-将 options API 里相同的逻辑抽取出来，通过`mixins`混入
+将 Options API 里相同的逻辑抽取出来，通过`mixins`混入
 
 ```html
 <!-- App组件 -->
