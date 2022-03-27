@@ -1,3 +1,6 @@
+const nav = require('./nav')
+const sidebar = require('./sidebar')
+
 module.exports = {
   title: "Sh1-5's Blog",
   theme: 'reco',
@@ -17,24 +20,18 @@ module.exports = {
     searchMaxSuggestions: 10,
     subSidebar: 'auto',
     // 博客配置
-    blogConfig: {
-      category: {
-        location: 1,
-        text: '分类'
-      },
-      tag: {
-        location: 2,
-        text: '标签'
-      }
-    },
-    nav: [
-      { text: 'Github', link: 'https://github.com/Sh1-5', icon: 'reco-github' },
-      {
-        text: '掘金',
-        link: 'https://juejin.cn/user/3993065308823294',
-        icon: 'reco-juejin'
-      }
-    ],
+    // blogConfig: {
+    //   category: {
+    //     location: 1,
+    //     text: '分类'
+    //   },
+    //   tag: {
+    //     location: 2,
+    //     text: '标签'
+    //   }
+    // },
+    nav,
+    sidebar,
     author: '拾伍',
     startYear: 2022,
     record: '赣ICP备 2022001184号',
@@ -58,6 +55,7 @@ module.exports = {
         color: '#ffffff',
         successText: '复制成功！'
       }
-    ]
+    ],
+    'vuepress-plugin-awesome-musicplayer'
   ]
 }
