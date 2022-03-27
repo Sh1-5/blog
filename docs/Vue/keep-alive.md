@@ -6,13 +6,11 @@ tags:
   - Vue
 ---
 
-## keep-alive 的作用
+### keep-alive 是什么
 
-保持组件的状态
+`<keep-alive></keep-alive>`是一个内置组件，用于保持组件的状态
 
-`<keep-alive></keep-alive>`是一个内置组件
-
-## 属性
+### 基本使用
 
 - include
 
@@ -26,9 +24,9 @@ tags:
 
   Number | String，最多可以缓存多少组件，一旦达到这个数字，最近访问次数最少的实例会被销毁
 
-包含/排除
+包含
 
-```html
+```vue
 <!-- 以英文逗号分隔的字符串 -->
 <KeepAlive include="a,b">
   <component :is="view"></component>
@@ -47,7 +45,7 @@ tags:
 
 最大缓存实例
 
-```html
+```vue
 <KeepAlive :max="10">
   <component :is="activeComponent" />
 </KeepAlive>

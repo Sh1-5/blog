@@ -13,10 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "vuepress": "^1.9.7",
-    "vuepress-plugin-awesome-musicplayer": "^1.2.1",
     "vuepress-plugin-baidu-autopush": "^1.0.1",
     "vuepress-plugin-code-copy": "^1.0.6",
-    "vuepress-plugin-demo-code": "^0.6.0",
     "vuepress-theme-reco": "^1.6.11"
   }
 }

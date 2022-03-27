@@ -6,30 +6,30 @@ tags:
   - Vue
 ---
 
-## v-model 在 input 元素的使用
+### v-model 在 input 元素的使用
 
 是一种语法糖
 
-```html
+```vue
 <template>
   <input v-model="message" />
   <input :value="message" @input="message = $event.target.value" />
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        message: ''
-      }
+export default {
+  data() {
+    return {
+      message: ''
     }
   }
+}
 </script>
 ```
 
-## 在组件中的使用
+### 在组件中的使用
 
-```html
+```vue
 <!-- App组件 -->
 <template>
   <div class="app">
@@ -39,17 +39,17 @@ tags:
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        info: {
-          name: 'kobe',
-          age: 18,
-          height: 1.8
-        }
+export default {
+  data() {
+    return {
+      info: {
+        name: 'kobe',
+        age: 18,
+        height: 1.8
       }
     }
   }
+}
 </script>
 
 <!-- Home组件 -->
@@ -64,14 +64,14 @@ tags:
 </template>
 
 <script>
-  export default {
-    props: {
-      modelValue: {
-        type: Object,
-        required: true
-      }
+export default {
+  props: {
+    modelValue: {
+      type: Object,
+      required: true
     }
   }
+}
 </script>
 ```
 
