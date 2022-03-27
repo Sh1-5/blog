@@ -1,5 +1,5 @@
 ---
-title: JavaScript教程
+title: 教程
 categories:
   - 前端
 tags:

@@ -1,6 +1,7 @@
 module.exports = [
   {
-    text: '前端基础', items: [
+    text: '前端基础',
+    items: [
       {
         text: 'HTML',
         link: '/HTML/'
@@ -16,7 +17,8 @@ module.exports = [
     ]
   },
   {
-    text: '前端进阶', items: [
+    text: '前端进阶',
+    items: [
       {
         text: 'Webpack',
         link: '/Webpack/'
@@ -28,11 +30,12 @@ module.exports = [
       {
         text: 'Node',
         link: '/Node/'
-      },
+      }
     ]
   },
   {
-    text: '前端框架', items: [
+    text: '前端框架',
+    items: [
       {
         text: 'Vue',
         link: '/Vue/'
@@ -44,7 +47,8 @@ module.exports = [
     ]
   },
   {
-    text: '后端框架', items: [
+    text: '后端框架',
+    items: [
       {
         text: 'Express',
         link: '/Express/'
@@ -56,10 +60,15 @@ module.exports = [
     ]
   },
   {
-    text: '其他', items: [
+    text: '其他',
+    items: [
       {
         text: '涨知识了',
         link: '/涨知识了/'
+      },
+      {
+        text: '看书',
+        link: '/看书/'
       },
       {
         text: '浏览器',

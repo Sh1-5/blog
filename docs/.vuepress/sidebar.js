@@ -1,4 +1,32 @@
 module.exports = {
+  '/HTML/': [
+    {
+      title: 'HTML',
+      collapsable: false,
+      children: ['']
+    }
+  ],
+  '/CSS/': [
+    {
+      title: 'CSS',
+      collapsable: false,
+      children: ['']
+    }
+  ],
+  '/JavaScript/': [
+    {
+      title: 'JavaScript',
+      collapsable: false,
+      children: [
+        '',
+        '数组方法',
+        '类的定义',
+        '浅拷贝与深拷贝',
+        'storage',
+        'Promise'
+      ]
+    }
+  ],
   '/Vue/': [
     {
       title: 'Vue',
