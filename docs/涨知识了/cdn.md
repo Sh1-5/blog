@@ -1,5 +1,9 @@
 ---
 title: CDN
+categories:
+  - 其它
+tags:
+  - CDN
 ---
 
 ## CDN 是什么？

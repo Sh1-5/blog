@@ -6,9 +6,9 @@ tags:
   - Vue
 ---
 
-### ref
+## ref
 
-通过 ref 函数，可以得到一个`proxy`
+通过 ref 函数，可以得到一个 proxy
 
 ### 基本使用
 
@@ -22,6 +22,7 @@ tags:
 
 <script>
 import { ref } from 'vue'
+
 export default {
   setup() {
     const counter = ref(0)
@@ -37,11 +38,11 @@ export default {
 </script>
 ```
 
-若要修改`ref`生成的`proxy`，必须修改`proxy`下的`value`
+若要修改 ref 生成的 proxy，必须修改 proxy 下的 value
 
-`template`上会自动解包，所以不需要写`.value`（是一个浅层解包，如果外层包裹了非响应式对象，那么不会自动解包）
+template 上会自动解包，所以不需要写.value（是一个浅层解包，如果外层包裹了非响应式对象，那么不会自动解包）
 
-### 获取元素/组件
+## 获取元素/组件
 
 ```vue
 <template>

@@ -18,6 +18,7 @@ npm install clean-webpack-plugin -D
 
 ```javascript
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
 module.exports = {
   plugins: [new CleanWebpackPlugin()]
 }

@@ -1,7 +1,7 @@
 ---
 title: ts-node运行失败
 categories:
-  - 前端
+  - 其它
 tags:
   - Npm
 ---

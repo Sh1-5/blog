@@ -1,7 +1,7 @@
 ---
-title: Koa基础
+title: 基础
 categories:
   - 后端
 tags:
-  - Koa
+  - Node
 ---

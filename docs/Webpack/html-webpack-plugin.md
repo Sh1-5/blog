@@ -13,11 +13,12 @@ tags:
 安装后，导入 CleanWebpackPlugin 类，创建一个实例
 
 ```bash
-npm install html-webpack-plugin
+npm install html-webpack-plugin -D
 ```
 
 ```javascript
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
   plugins: [new HtmlWebpackPlugin()]
 }

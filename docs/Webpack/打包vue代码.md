@@ -14,6 +14,7 @@ npm install vue
 
 ```javascript
 import { createApp } from 'vue'
+
 createApp({
   template: `<h1>Hello Vue</h1>`
 }).mount('#app')
@@ -25,12 +26,13 @@ createApp({
 
 ```javascript
 import { createApp } from 'vue/dist/vue.esm-bundler'
+
 createApp({
   template: `<h1>Hello Vue</h1>`
 }).mount('#app')
 ```
 
-服务端渲染使用 `vue/dist/vue.cjs`
+服务端渲染使用 vue/dist/vue.cjs
 
 ## vue 打包后的不同版本
 
@@ -72,6 +74,7 @@ npm install vue-loader -D
 // import { createApp } from 'vue/dist/vue.esm-bundler'
 import { createApp } from 'vue' // vue-loader帮助解析template
 import App from './App.vue'
+
 createApp(App).mount('#app)
 ```
 
@@ -80,6 +83,7 @@ createApp(App).mount('#app)
 ```javascript
 const { VueLoaderPlugin } = require('vue-loader')
 const { DefinePlugin } = require('webpack')
+
 module.exports = {
   module: {
     rules: [

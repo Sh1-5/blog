@@ -67,10 +67,6 @@ module.exports = [
         link: '/涨知识了/'
       },
       {
-        text: '看书',
-        link: '/看书/'
-      },
-      {
         text: '浏览器',
         link: '/浏览器/'
       },

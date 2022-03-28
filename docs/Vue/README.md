@@ -1,14 +1,14 @@
 ---
-title: 冷门知识
+title: 基础
 categories:
   - 前端
 tags:
   - Vue
 ---
 
-### v-on 的修饰符
+## v-on 的修饰符
 
-```html
+```vue
 <!-- 阻止单击事件继续传播 -->
 <a v-on:click.stop="doThis"></a>
 
@@ -38,11 +38,11 @@ tags:
 <div v-on:scroll.passive="onScroll">...</div>
 ```
 
-使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用`v-on:click.prevent.self`会阻止所有的点击，而`v-on:click.self.prevent`只会阻止对元素自身的点击
+使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击
 
-### v-model 修饰符
+## v-model 修饰符
 
-```html
+```vue
 <!-- 失去焦点后再更新 -->
 <input type="text" v-model.lazy="message" />
 <h1>{{message}}</h1>

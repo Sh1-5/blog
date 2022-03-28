@@ -1,5 +1,5 @@
 ---
-title: Webpack基础
+title: 基础
 categories:
   - 前端
 tags:
@@ -91,7 +91,7 @@ webpack
 
 ### 使用局部 webpack
 
-生成 package.json，安装 webpack、webpack-cli
+npm init -y 生成 package.json，安装 webpack、webpack-cli
 
 ```sh
 npm init -y
@@ -119,7 +119,7 @@ npx webpack
 npx webpack --entry ./src/index.js --output-path ./build
 ```
 
-或配置 package.json 后使用 `npm run build` 打包
+或配置 package.json 后使用 npm run build 打包
 
 ```json
 "scripts": {

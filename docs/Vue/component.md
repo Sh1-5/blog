@@ -6,11 +6,11 @@ tags:
   - Vue
 ---
 
-### component 是什么
+## component 是什么
 
-`<component></component>`是一个内置组件，用于动态显示不同组件的组件
+一个内置组件，用于动态显示不同组件的组件
 
-### 基本使用
+## 基本使用
 
 属性
 

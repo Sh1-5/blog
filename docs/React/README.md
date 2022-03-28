@@ -1,5 +1,5 @@
 ---
-title: React基础
+title: 基础
 categories:
   - 前端
 tags:

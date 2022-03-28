@@ -102,7 +102,7 @@ module: {
 
 ## postcss-preset-env 插件
 
-内置 autoprefixer 插件，可以使用 css 新特性，比如`color: #12345678;`，8 位颜色
+内置 autoprefixer 插件，可以使用 css 新特性，比如 color: #12345678;，8 位颜色
 
 ```bash
 npm install postcss-preset-env -D

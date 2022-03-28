@@ -1,7 +1,7 @@
 ---
-title: Git基础
+title: 基础
 categories:
-  - 工具
+  - 其它
 tags:
   - Git
 ---

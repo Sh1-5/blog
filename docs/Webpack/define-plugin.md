@@ -11,11 +11,14 @@ tags:
 在编译时创建配置的全局常量，是 webpack 内置的一个插件，直接导入即可
 
 ```javascript
-const { DefinePlugin } = require('webpack)
+const { DefinePlugin } = require('webpack')
+
 module.exports = {
-  plugins: [new DefinePlugin({
-    BASE_URL: '"./"'
-  })]
+  plugins: [
+    new DefinePlugin({
+      BASE_URL: '"./"'
+    })
+  ]
 }
 ```
 

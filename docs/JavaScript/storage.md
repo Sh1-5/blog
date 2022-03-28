@@ -6,21 +6,22 @@ tags:
   - JavaScript
 ---
 
-### localStorage & sessionStorage
+## localStorage & sessionStorage
 
 相似之处：
 
 1. 都存在浏览器会话中
-2. 特定于页面的协议（也就是说二者在 http://example.com 与 https://example.com 的数据是相互隔离的）
+2. 特定于页面的协议（也就是说二者在http://example.com与https://example.com的数据是相互隔离的）
 
 不同之处：
 
-1. localStorage 存在硬盘中，sessionStorage 存在内存中
-2. localStorage 页面关闭时不会被清除，sessionStorage 页面关闭时会被清除
+1.localStorage 存在硬盘中，sessionStorage 存在内存中
 
-打开多个相同的 URL 的 Tabs 页面，会创建各自的 sessionStorage，关闭对应浏览器窗口（Window）/ tab，会清除对应的 sessionStorage。
+2.localStorage 页面关闭时不会被清除，sessionStorage 页面关闭时会被清除
 
-### 例子
+打开多个相同的 URL 的 Tabs 页面，会创建各自的 sessionStorage，关闭对应浏览器窗口（Window）/ tab，会清除对应的 sessionStorage
+
+## 例子
 
 键值对总是以字符串的形式存储
 
@@ -44,7 +45,7 @@ const height = JSON.parse(window.localStorage.getItem('height'))
 console.log(typeof height, height) // number 180
 ```
 
-### 作为开发中经常使用的工具类
+## 作为开发中经常使用的工具类
 
 ```javascript
 class LocalCache {

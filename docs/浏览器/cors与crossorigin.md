@@ -1,7 +1,7 @@
 ---
 title: cors与crossorigin
 categories:
-  - 前端
+  - 其它
 tags:
-  - 浏览器
+  - cors与crossorigin
 ---

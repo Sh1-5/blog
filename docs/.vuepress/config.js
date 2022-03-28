@@ -55,7 +55,6 @@ module.exports = {
         color: '#ffffff',
         successText: '复制成功！'
       }
-    ],
-    'vuepress-plugin-awesome-musicplayer'
+    ]
   ]
 }

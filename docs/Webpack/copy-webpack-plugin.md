@@ -16,6 +16,7 @@ npm install copy-webpack-plugin -D
 
 ```javascript
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 module.exports = {
   plugins: [
     new CopyWebpackPlugin({

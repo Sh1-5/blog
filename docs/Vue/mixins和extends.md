@@ -6,13 +6,13 @@ tags:
   - Vue
 ---
 
-### mixins
+## mixins
 
-#### mixins 是什么
+### mixins 是什么
 
 Options API 的一个选项，用于抽取相同逻辑
 
-#### 基本使用
+### 基本使用
 
 ```vue
 <!-- App组件 -->
@@ -50,19 +50,19 @@ export default {
 
 也可以全局混入，app.mixin()
 
-#### mixins 合并规则
+### mixins 合并规则
 
 1.生命周期都调用
 
 2.其他选项合并时 key 相同保留自身数据
 
-### extends
+## extends
 
-#### extends 是什么
+### extends 是什么
 
 类似继承
 
-#### 基本使用
+### 基本使用
 
 ```vue
 <!-- Home组件 -->

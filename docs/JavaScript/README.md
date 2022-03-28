@@ -1,5 +1,5 @@
 ---
-title: 教程
+title: 基础
 categories:
   - 前端
 tags:

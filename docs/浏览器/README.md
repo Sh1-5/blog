@@ -1,16 +1,14 @@
 ---
-title: 工作原理
+title: 浏览器
 categories:
-  - 前端
-tags:
-  - 浏览器
+  - 其它
 ---
 
 ## 浏览器是什么
 
 运行在操作系统上的应用程序
 
-## 进程&线程
+## 进程 & 线程
 
 进程是操作系统进行资源分配和调度的基本单元，可以申请和拥有计算机资源，进程是程序的基本执行实体
 
@@ -29,17 +27,17 @@ tags:
 
 1. 浏览器进程中的网络线程请求获取到 html 数据后，通过 IPC（Inter-Process Communication，进程间通信） 将数据传递给渲染器的主线程
 
-2. 渲染器的主线程将 html 解析，构造 dom tree ，然后与计算好的样式生成 layout tree，通过遍历 layout tree 生成`绘制顺序表`，遍历 layout tree 生成 layer tree， 主线程将 layer tree 和绘制顺序表一起传给合成器线程
+2. 渲染器的主线程将 html 解析，构造 dom tree ，然后与计算好的样式生成 layout tree，通过遍历 layout tree 生成绘制顺序表，遍历 layout tree 生成 layer tree， 主线程将 layer tree 和绘制顺序表一起传给合成器线程
 
-3. 合成器线程按规则进行图层分层，并把图层分为更小的图块（tiles）传给删格线程进行`删格化`
+3. 合成器线程按规则进行图层分层，并把图层分为更小的图块（tiles）传给删格线程进行删格化
 
-4. 删格完成后，传回`图块信息`（draw quads）给合成器，合成器通过这些信息合成了一个`合成器帧`
+4. 删格完成后，传回图块信息（draw quads）给合成器，合成器通过这些信息合成了一个合成器帧
 
 5. 合成器帧通过 IPC 传回给浏览器进程
 
 6. 浏览器进程再传到 GPU 进行渲染展示
 
-若改变元素尺寸，重新回到第二步进行`样式计算`（computed）、`布局`（layout）、`绘制`（paint）以及后面的所有流程，这种行为称为 <span style="color: red">重排</span>
+若改变元素尺寸，重新回到第二步进行样式计算（computed）、布局（layout）、绘制（paint）以及后面的所有流程，这种行为称为 <span style="color: red">重排</span>
 
 修改颜色不会触发布局，但还是会触发样式计算和绘制，这个就是 <span style="color: red">重绘</span>
 

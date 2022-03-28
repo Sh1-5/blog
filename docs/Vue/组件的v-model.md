@@ -6,7 +6,7 @@ tags:
   - Vue
 ---
 
-### v-model 在 input 元素的使用
+## v-model 在 input 元素的使用
 
 是一种语法糖
 
@@ -27,7 +27,7 @@ export default {
 </script>
 ```
 
-### 在组件中的使用
+## 在组件中的使用
 
 ```vue
 <!-- App组件 -->

@@ -1,9 +1,9 @@
 ---
 title: http
 categories:
-  - 前端
+  - 其它
 tags:
-  - 协议
+  - http
 ---
 
 ## http 是什么

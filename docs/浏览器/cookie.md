@@ -1,9 +1,9 @@
 ---
 title: cookie
 categories:
-  - 前端
+  - 其它
 tags:
-  - 浏览器
+  - cookie
 ---
 
 ## cookie 是什么

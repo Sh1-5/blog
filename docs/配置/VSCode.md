@@ -1,7 +1,7 @@
 ---
 title: VSCode
 categories:
-  - 配置
+  - 其它
 tags:
   - VSCode
 ---

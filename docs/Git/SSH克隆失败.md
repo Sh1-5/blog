@@ -1,7 +1,7 @@
 ---
 title: SSH克隆失败
 categories:
-  - 工具
+  - 其它
 tags:
   - Git
 ---

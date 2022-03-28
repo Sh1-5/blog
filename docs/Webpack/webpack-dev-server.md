@@ -18,11 +18,11 @@ tags:
 npm install webpack-dev-server -D
 ```
 
-在 package.json 中添加脚本`"serve": "webpack serve"`
+在 package.json 中添加脚本"serve": "webpack serve"
 
 基于 express 搭建的本地服务器
 
-特别注意 ⚠️：webpack-dev-server 帮助我们打包后并没有输出，而是使用 memfs 将其输出在内存中
+特别注意：webpack-dev-server 帮助我们打包后并没有输出，而是使用 memfs 将其输出在内存中
 
 ## 特别配置
 

@@ -1,7 +1,7 @@
 ---
-title: Yarn基础
+title: 基础
 categories:
-  - 前端
+  - 其它
 tags:
   - Yarn
 ---

@@ -43,4 +43,4 @@ module.exports = {
 }
 ```
 
-需要注意的是，asset 里面的<span style="color: red">ext</span>是带了.的
+需要注意的是，filename 里面的 ext 是带了.的

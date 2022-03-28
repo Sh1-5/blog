@@ -6,11 +6,11 @@ tags:
   - Vue
 ---
 
-### keep-alive 是什么
+## keep-alive 是什么
 
-`<keep-alive></keep-alive>`是一个内置组件，用于保持组件的状态
+一个内置组件，用于保持组件的状态
 
-### 基本使用
+## 基本使用
 
 - include
 

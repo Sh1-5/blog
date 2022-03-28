@@ -14,6 +14,6 @@ tags:
 
 ## 开启 watch
 
-- 方式一：在配置中添加 `watch: true`
+- 方式一：在配置中添加 watch: true
 
-- 方式二：在启动 webpack 的命令中。添加 `--watch` 标识（会通过 webpack-cli 转为 webpack 配置，本质还是方式一）
+- 方式二：在启动 webpack 的命令中。添加 --watch 标识（会通过 webpack-cli 转为 webpack 配置，本质还是方式一）
