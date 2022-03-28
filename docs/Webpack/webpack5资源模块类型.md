@@ -1,7 +1,7 @@
 ---
 title: webpack5 模块资源类型
 categories:
-  - 前端
+  - 前端进阶
 tags:
   - Webpack
 ---

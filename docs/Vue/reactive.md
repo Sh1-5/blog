@@ -1,7 +1,7 @@
 ---
 title: reactive
 categories:
-  - 前端
+  - 前端框架
 tags:
   - Vue
 ---
@@ -35,4 +35,4 @@ tags:
 
 ## shallowReactive
 
-浅层`reactive`，深层还是原生对象
+浅层 reactive，深层还是原生对象

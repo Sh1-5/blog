@@ -3,7 +3,7 @@ title: cookie
 categories:
   - 其它
 tags:
-  - cookie
+  - HTTP
 ---
 
 ## cookie 是什么

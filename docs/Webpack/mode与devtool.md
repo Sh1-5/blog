@@ -1,7 +1,7 @@
 ---
 title: mode和devtool
 categories:
-  - 前端
+  - 前端进阶
 tags:
   - Webpack
 ---

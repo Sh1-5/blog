@@ -81,8 +81,20 @@ module.exports = {
         'keep-alive',
         '异步组件',
         'Suspense',
+        'setup函数',
         'ref',
-        '引用元素和组件'
+        '引用元素和组件',
+        'reactive',
+        'readonly',
+        'computed',
+        'watch',
+        'utilities',
+        'Vuex',
+        'Pinia',
+        'VueRouter',
+        '捕获404路由',
+        'vue项目基本配置',
+        'vite项目注意事项'
       ]
     }
   ],
@@ -107,53 +119,23 @@ module.exports = {
       children: ['']
     }
   ],
-  '/涨知识了/': [
+  '/其它/': [
     {
-      title: '涨知识了',
+      title: '其它',
       collapsable: false,
-      children: ['']
-    }
-  ],
-  '/浏览器/': [
-    {
-      title: '浏览器',
-      collapsable: false,
-      children: ['', 'cookie', 'cors与crossorigin']
-    }
-  ],
-  '/协议/': [
-    {
-      title: '协议',
-      collapsable: false,
-      children: ['']
-    }
-  ],
-  '/Git/': [
-    {
-      title: 'Git',
-      collapsable: false,
-      children: ['', 'SSH克隆失败']
-    }
-  ],
-  '/Npm/': [
-    {
-      title: 'Npm',
-      collapsable: false,
-      children: ['', '安装依赖失败', 'ts-node运行失败']
-    }
-  ],
-  '/Yarn/': [
-    {
-      title: 'Yarn',
-      collapsable: false,
-      children: ['']
-    }
-  ],
-  '/配置/': [
-    {
-      title: '配置',
-      collapsable: false,
-      children: ['', 'VSCode', 'Nginx']
+      children: [
+        '',
+        'VSCode',
+        'Nginx',
+        'Git',
+        'SSH克隆失败',
+        '安装依赖失败',
+        'ts-node运行失败',
+        'HTTP',
+        'cookie',
+        'CDN',
+        'axios封装'
+      ]
     }
   ]
 }

@@ -1,22 +1,22 @@
 ---
-title: http
+title: HTTP
 categories:
   - 其它
 tags:
-  - http
+  - HTTP
 ---
 
-## http 是什么
+## HTTP 是什么
 
 超文本传输协议（Hyper Text Transfer Protocol）是一个请求-响应协议，运行在 TCP 之上，为应用层协议
 
 是一种 C/S 协议
 
-http 事务处理过程：建立连接->发出请求->接受请求->关闭连接
+HTTP 事务处理过程：建立连接->发出请求->接受请求->关闭连接
 
 默认端口为 80
 
-## http 的特点
+## HTTP 的特点
 
 - 简单快速：容易看懂；只需要请求方法和路径，即可发送请求
 - 可扩展：headers
@@ -24,21 +24,21 @@ http 事务处理过程：建立连接->发出请求->接受请求->关闭连接
 - 无状态：对于事务处理没有记忆能力
 - 无连接：处理完请求就断开
 
-## http 结构
+## HTTP 结构
 
 起始行（请求行、响应行） + 头部 + 空行 + 实体
 
-## http 报文
+## HTTP 报文
 
 ### 起始行
 
-请求报文：方法 + 路径 + http 版本
+请求报文：方法 + 路径 + HTTP 版本
 
 ```
 GET /home HTTP/1.1
 ```
 
-响应报文：http 版本 + 状态码 + 状态信息
+HTTP 版本 + 状态码 + 状态信息
 
 ```
 HTTP/1.1 200 OK
@@ -46,7 +46,7 @@ HTTP/1.1 200 OK
 
 ## 请求方法
 
-http1.1
+HTTP1.1
 
 - GET: 通常用来获取资源
 - HEAD: 获取资源的元信息
@@ -80,7 +80,7 @@ scheme://user:password@host:post/path?query#fragment
 - query：查询参数
 - fragment：锚点
 
-## http 状态码
+## HTTP 状态码
 
 - 1xx：表示目前是协议处理的中间状态，还需要后续操作
 - 2xx：成功状态
@@ -101,14 +101,14 @@ scheme://user:password@host:post/path?query#fragment
 - 409：conflict
 - 503：service unavailable（老子很忙，常见于选课、抢票、查成绩）
 
-## http 缺点
+## HTTP 缺点
 
 1.明文传输
 
 2.队头阻塞问题
 
-当 http 开启长连接时，共用一个 TCP 连接，同一时刻只能处理一个请求，那么当前请求耗时过长的情况下，其它的请求只能处于阻塞状态
+当 HTTP 开启长连接时，共用一个 TCP 连接，同一时刻只能处理一个请求，那么当前请求耗时过长的情况下，其它的请求只能处于阻塞状态
 
-## https
+## HTTPS
 
-hypertext transfer protocol secure，披了一层 SSL 的 http
+hypertext transfer protocol secure，披了一层 SSL 的 HTTP

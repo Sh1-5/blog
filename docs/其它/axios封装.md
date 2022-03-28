@@ -1,12 +1,14 @@
 ---
 title: axios封装
+categories:
+  - 其它
+tags:
+  - axios
 ---
 
 ## axios 封装
 
 为了降低项目与 axios 这个第三方库的耦合度，一般选择对其封装后使用
-
-### javascript
 
 ```javascript
 const axios = require('axios')
@@ -40,5 +42,3 @@ export default service
 ```
 
 简单小巧，但有一定的局限性，比如：这种方式的封装只适合 baseURL 只有一个的情况下
-
-### typescript

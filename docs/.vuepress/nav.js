@@ -60,37 +60,8 @@ module.exports = [
     ]
   },
   {
-    text: '其他',
-    items: [
-      {
-        text: '涨知识了',
-        link: '/涨知识了/'
-      },
-      {
-        text: '浏览器',
-        link: '/浏览器/'
-      },
-      {
-        text: '协议',
-        link: '/协议/'
-      },
-      {
-        text: 'Git',
-        link: '/Git/'
-      },
-      {
-        text: 'Npm',
-        link: '/Npm/'
-      },
-      {
-        text: 'Yarn',
-        link: '/Yarn/'
-      },
-      {
-        text: '配置',
-        link: '/配置/'
-      }
-    ]
+    text: '其它',
+    link: '/其它/'
   },
   { text: 'Github', link: 'https://github.com/Sh1-5', icon: 'reco-github' },
   {

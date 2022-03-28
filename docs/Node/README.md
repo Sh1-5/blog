@@ -1,7 +1,7 @@
 ---
 title: 基础
 categories:
-  - 后端
+  - 前端进阶
 tags:
   - Node
 ---

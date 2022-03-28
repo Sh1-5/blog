@@ -1,14 +1,14 @@
 ---
 title: computed
 categories:
-  - 前端
+  - 前端框架
 tags:
   - Vue
 ---
 
 ## computed
 
-通过 computed 函数，可以得到一个`ref`对象
+通过 computed 函数，可以得到一个 ref
 
 参数
 

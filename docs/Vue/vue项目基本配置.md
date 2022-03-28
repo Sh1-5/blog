@@ -1,5 +1,9 @@
 ---
 title: vue项目基本配置
+categories:
+  - 前端框架
+tags:
+  - Vue
 ---
 
 ## 创建项目时选择

@@ -1,7 +1,7 @@
 ---
 title: Redux
 categories:
-  - 前端
+  - 前端框架
 tags:
   - React
 ---

@@ -1,7 +1,7 @@
 ---
 title: html-webpack-plugin
 categories:
-  - 前端
+  - 前端进阶
 tags:
   - Webpack
 ---

@@ -1,7 +1,7 @@
 ---
 title: vite项目注意事项
 categories:
-  - 前端
+  - 前端框架
 tags:
   - Vite
 ---

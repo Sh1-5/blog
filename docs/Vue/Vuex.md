@@ -1,7 +1,7 @@
 ---
 title: Vuex
 categories:
-  - 前端
+  - 前端框架
 tags:
   - Vuex
 ---

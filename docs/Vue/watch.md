@@ -1,7 +1,7 @@
 ---
 title: watch
 categories:
-  - 前端
+  - 前端框架
 tags:
   - Vuex
 ---
@@ -10,9 +10,9 @@ tags:
 
 通过 watch 函数可以侦听响应式数据的变化
 
-侦听`ref`对象，newValue 和 oldValue 是值
+侦听 ref ，newValue 和 oldValue 是值
 
-侦听`reactive`对象，newValue 和 oldValue 是`proxy`对象，默认是深度侦听
+侦听 reactive，newValue 和 oldValue 是 proxy，默认是深度侦听
 
 ## watchEffect
 
@@ -28,4 +28,4 @@ const stop = watchEffect((onInvalidate) => {
 })
 ```
 
-`watchEffect`的执行时机，可以通过第二个参数来改变
+watchEffect 的执行时机，可以通过第二个参数来改变

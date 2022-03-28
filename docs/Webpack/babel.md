@@ -1,7 +1,7 @@
 ---
 title: babel
 categories:
-  - 前端
+  - 前端进阶
 tags:
   - Webpack
 ---

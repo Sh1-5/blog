@@ -1,7 +1,7 @@
 ---
 title: keep-alive
 categories:
-  - 前端
+  - 前端框架
 tags:
   - Vue
 ---
