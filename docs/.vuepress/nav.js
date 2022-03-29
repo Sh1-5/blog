@@ -4,6 +4,10 @@ module.exports = [
     link: '/今天不学习/'
   },
   {
+    text: '面试题',
+    link: '/面试题/'
+  },
+  {
     text: '前端基础',
     items: [
       {

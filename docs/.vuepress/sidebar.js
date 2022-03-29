@@ -6,6 +6,13 @@ module.exports = {
       children: ['', '2022-03-29']
     }
   ],
+  '/面试题/': [
+    {
+      title: '面试题',
+      collapsable: false,
+      children: ['', 'typeof能判断的类型']
+    }
+  ],
   '/HTML/': [
     {
       title: 'HTML',
