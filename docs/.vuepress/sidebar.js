@@ -1,4 +1,11 @@
 module.exports = {
+  '/今天不学习/': [
+    {
+      title: '今天不学习',
+      collapsable: false,
+      children: ['']
+    }
+  ],
   '/HTML/': [
     {
       title: 'HTML',

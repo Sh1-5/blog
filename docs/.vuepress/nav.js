@@ -1,5 +1,9 @@
 module.exports = [
   {
+    text: '今天不学习',
+    link: '/今天不学习/'
+  },
+  {
     text: '前端基础',
     items: [
       {
