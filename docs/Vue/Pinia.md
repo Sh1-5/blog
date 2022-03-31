@@ -26,7 +26,7 @@ npm install pinia
 ## 创建 store 并使用
 
 ```typescript
-// store/index.ts
+// index.ts
 import { createPinia } from 'pinia'
 
 const store = createPinia()
@@ -54,7 +54,7 @@ createApp(App).use(store).mount('#app')
 注意：getters 和 actions 里面都有绑定 this（当前 store）
 
 ```typescript
-// store/counter.ts
+// counter.ts
 import { defineStore } from 'pinia'
 
 export default defineStore({
