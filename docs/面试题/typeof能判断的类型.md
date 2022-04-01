@@ -5,3 +5,7 @@ categories:
 ---
 
 考点：JavaScript 类型
+
+typeof 返回的值
+
+<img :src="$withBase('/assets/img/typeof.png')" alt="typeof">
