@@ -3,7 +3,7 @@ module.exports = {
     {
       title: '今天不学习',
       collapsable: false,
-      children: ['', '2022-03-29']
+      children: ['', '2022-03-29', '2022-03-30', '2022-03-31']
     }
   ],
   '/面试题/': [
@@ -74,7 +74,14 @@ module.exports = {
     {
       title: 'Node',
       collapsable: false,
-      children: ['', 'console', '特殊的全局对象', '常见的全局对象', '模块化']
+      children: [
+        '',
+        'console',
+        '特殊的全局对象',
+        '常见的全局对象',
+        '模块化',
+        '常见的内置模块'
+      ]
     }
   ],
   '/Vue/': [
