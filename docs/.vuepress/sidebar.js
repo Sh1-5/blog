@@ -157,7 +157,6 @@ module.exports = {
       collapsable: false,
       children: [
         '',
-        'VSCode',
         'Nginx',
         'Git',
         'SSH克隆失败',
@@ -166,7 +165,8 @@ module.exports = {
         'HTTP',
         'cookie',
         'CDN',
-        'axios封装'
+        'axios封装',
+        'npm-command-not-found'
       ]
     }
   ]

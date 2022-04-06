@@ -6,7 +6,7 @@ tags:
   - Npm
 ---
 
-出现如下错误
+## 出现如下错误
 
 ```bash
 (node:31783) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
@@ -25,7 +25,7 @@ tags:
 TypeError [ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".ts" for /Applications/Front-End/program/vue-vite-cms/src/network/axios-demo.ts
 ```
 
-解决
+## 解决
 
 ```bash
 node --loader ts-node/esm axios-demo.ts
