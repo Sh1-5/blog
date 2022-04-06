@@ -29,7 +29,6 @@ module.exports = {
         '定位',
         '图文样式',
         '响应式',
-        'CSS3',
         'typeof能判断的类型',
         'instanceof'
       ]
