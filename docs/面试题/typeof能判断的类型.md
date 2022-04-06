@@ -6,6 +6,6 @@ categories:
 
 考点：JavaScript 类型
 
-typeof 返回的值
+typeof 操作符返回一个字符串，表示未经计算的操作数的类型
 
 <img :src="$withBase('/assets/img/typeof.png')" alt="typeof">
