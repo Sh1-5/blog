@@ -152,7 +152,7 @@ module.exports = {
     {
       title: 'React',
       collapsable: false,
-      children: ['', '插件使用', 'createElement', 'redux', 'react项目基本配置']
+      children: ['', '插件使用', 'createElement', 'redux']
     }
   ],
   '/Express/': [
