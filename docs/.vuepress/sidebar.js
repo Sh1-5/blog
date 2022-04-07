@@ -143,8 +143,8 @@ module.exports = {
         'Pinia',
         'VueRouter',
         '捕获404路由',
-        'vue项目基本配置',
-        'vite项目注意事项'
+        'Vue项目基本配置',
+        'Vite项目注意事项'
       ]
     }
   ],
@@ -152,7 +152,7 @@ module.exports = {
     {
       title: 'React',
       collapsable: false,
-      children: ['', '插件使用', 'createElement', 'redux']
+      children: ['', '插件使用', 'createElement', 'redux', 'React项目基本配置']
     }
   ],
   '/Express/': [

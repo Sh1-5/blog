@@ -1,20 +1,10 @@
 ---
-title: Vue项目基本配置
+title: React项目基本配置
 categories:
   - 前端框架
 tags:
-  - Vue
+  - React
 ---
-
-## 创建项目时选择
-
-Babel
-
-TypeScript
-
-CSS Pre-processors: Sass/Scss (with dart-sass)
-
-Linter / Formatter: ESLint + Prettier
 
 ## editorconfig
 
@@ -37,7 +27,27 @@ max_line_length = off
 trim_trailing_whitespace = false
 ```
 
+## eslint
+
+安装依赖
+
+```bash
+npm install eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks -D
+```
+
+生成配置文件
+
+```bash
+npx eslint --init
+```
+
 ## prettier
+
+安装
+
+```bash
+npm install prettier eslint-config-prettier eslint-plugin-prettier -D
+```
 
 新建.prettierrc
 
@@ -54,23 +64,31 @@ trim_trailing_whitespace = false
 新建.prettierignore
 
 ```
-public
 node_modules
+public
 dist
+```
+
+配置 package.json
+
+```json
+"scripts": {
+  "prettier": "prettier --write ."
+}
 ```
 
 修改.eslintrc.js
 
 ```javascript
-module.exports = {
-  extends: [
-    'plugin:vue/vue3-essential',
-    'eslint:recommended',
-    '@vue/typescript/recommended',
-    '@vue/prettier',
-    '@vue/prettier/@typescript-eslint',
-    'plugin:prettier/recommended'
-  ]
+"extends": [
+  "airbnb",
+  "plugin:prettier/recommended"
+],
+rules: {
+  semi: 0,
+  'comma-dangle': 0,
+  'arrow-body-style': 0,
+  'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }]
 }
 ```
 
@@ -109,7 +127,7 @@ npx husky add .husky/pre-commit "npm run lint"
   "lint": "lint-staged"
 },
 "lint-staged": {
-  "src/*.{js,mjs,ts,tsx,vue}": [
+  "src/*.{js,jsx,mjs,ts,tsx}": [
     "node_modules/.bin/prettier --write",
     "node_modules/.bin/eslint --fix"
   ],
@@ -152,29 +170,4 @@ module.exports = {
 
 ```bash
 npx husky add .husky/commit-msg 'npx --no-install commitlint --edit $1'
-```
-
-## vue.config.js
-
-```javascript
-const path = require('path')
-
-module.exports = {
-  publicPath: './',
-  lintOnSave: true,
-  chainWebpack: (config) => {
-    config.resolve.alias.set('@', path.resolve(__dirname, 'src'))
-  },
-  devServer: {
-    proxy: {
-      '/api': {
-        target: '',
-        pathRewrite: {
-          '^/api': ''
-        },
-        changeOrigin: true
-      }
-    }
-  }
-}
 ```
