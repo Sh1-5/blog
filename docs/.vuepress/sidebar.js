@@ -34,7 +34,9 @@ module.exports = {
         'typeof能判断的类型',
         'instanceof',
         '手写深拷贝',
-        '变量计算'
+        '变量计算',
+        '原型和原型链',
+        '手写jquery'
       ]
     }
   ],
