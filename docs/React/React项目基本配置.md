@@ -69,14 +69,6 @@ public
 dist
 ```
 
-配置 package.json
-
-```json
-"scripts": {
-  "prettier": "prettier --write ."
-}
-```
-
 修改.eslintrc.js
 
 ```javascript

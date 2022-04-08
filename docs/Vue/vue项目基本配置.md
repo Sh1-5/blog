@@ -6,16 +6,6 @@ tags:
   - Vue
 ---
 
-## 创建项目时选择
-
-Babel
-
-TypeScript
-
-CSS Pre-processors: Sass/Scss (with dart-sass)
-
-Linter / Formatter: ESLint + Prettier
-
 ## editorconfig
 
 ```
@@ -59,27 +49,12 @@ node_modules
 dist
 ```
 
-修改.eslintrc.js
-
-```javascript
-module.exports = {
-  extends: [
-    'plugin:vue/vue3-essential',
-    'eslint:recommended',
-    '@vue/typescript/recommended',
-    '@vue/prettier',
-    '@vue/prettier/@typescript-eslint',
-    'plugin:prettier/recommended'
-  ]
-}
-```
-
-## husky & lint-staged
+## husky
 
 安装
 
 ```bash
-npm install husky lint-staged -D
+npm install husky -D
 ```
 
 配置 package.json
@@ -100,23 +75,6 @@ npm run prepare
 
 ```bash
 npx husky add .husky/pre-commit "npm run lint"
-```
-
-配置 package.json
-
-```json
-"scripts": {
-  "lint": "lint-staged"
-},
-"lint-staged": {
-  "src/*.{js,mjs,ts,tsx,vue}": [
-    "node_modules/.bin/prettier --write",
-    "node_modules/.bin/eslint --fix"
-  ],
-  "src/*.{css,scss,less,json,html,md,markdown}": [
-    "node_modules/.bin/prettier --write"
-  ]
-}
 ```
 
 ## commitizen
