@@ -142,8 +142,7 @@ module.exports = {
         'Vuex',
         'Pinia',
         'VueRouter',
-        '捕获404路由',
-        'Vite项目注意事项'
+        '捕获404路由'
       ]
     }
   ],
