@@ -143,7 +143,6 @@ module.exports = {
         'Pinia',
         'VueRouter',
         '捕获404路由',
-        'Vue项目基本配置',
         'Vite项目注意事项'
       ]
     }
