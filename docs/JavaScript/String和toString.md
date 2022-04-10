@@ -25,5 +25,5 @@ toString 是 Object 原型的方法
 ```javascript
 // 将十进制转化为二进制
 var num = 2
-num.toString(num, 2) // 10
+num.toString(num, 2) // '10'
 ```

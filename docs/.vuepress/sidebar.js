@@ -154,7 +154,14 @@ module.exports = {
     {
       title: 'React',
       collapsable: false,
-      children: ['', '插件使用', 'createElement', 'redux', 'React项目基本配置']
+      children: [
+        '',
+        'jsx事件绑定',
+        '插件使用',
+        'createElement',
+        'redux',
+        'React项目基本配置'
+      ]
     }
   ],
   '/Express/': [
