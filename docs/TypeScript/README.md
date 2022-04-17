@@ -150,9 +150,10 @@ const height = 1.8 // 类型推导
 - number
 - string
 - array
-- object
-- null/undefined
 - symbol
+- bigint
+- null/undefined
+- object
 
 ## TypeScript 类型
 
@@ -161,3 +162,5 @@ const height = 1.8 // 类型推导
 - void：一个函数没返回值的时候
 - never
 - tuple：元组，多种元素的组合
+- array
+- enum
