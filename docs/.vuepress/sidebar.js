@@ -67,7 +67,7 @@ module.exports = {
     {
       title: 'HTML',
       collapsable: false,
-      children: ['']
+      children: ['', '基本结构', '元素', '属性']
     }
   ],
   '/CSS/': [
