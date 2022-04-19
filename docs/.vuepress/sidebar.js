@@ -179,8 +179,9 @@ module.exports = {
       children: [
         '',
         'jsx事件绑定',
-        '插件使用',
         'createElement',
+        '组件化开发',
+        '插件使用',
         'redux',
         'React项目基本配置'
       ]
