@@ -62,7 +62,8 @@ module.exports = {
         '手写bind',
         '单线程和异步',
         'DOM',
-        'BOM'
+        'BOM',
+        '事件'
       ]
     }
   ],
@@ -206,7 +207,7 @@ module.exports = {
     {
       title: 'SVG',
       collapsable: false,
-      children: ['']
+      children: ['', '基本形状', '路径', '填充']
     }
   ],
   '/其它/': [
