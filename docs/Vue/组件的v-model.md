@@ -1,7 +1,7 @@
 ---
 title: 组件的v-model
 categories:
-  - 前端框架
+  - 框架
 tags:
   - Vue
 ---

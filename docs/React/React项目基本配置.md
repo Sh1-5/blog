@@ -1,7 +1,7 @@
 ---
 title: React项目基本配置
 categories:
-  - 前端框架
+  - 框架
 tags:
   - React
 ---

@@ -26,7 +26,8 @@ module.exports = {
         '2022-04-16',
         '2022-04-17',
         '2022-04-18',
-        '2022-04-19'
+        '2022-04-19',
+        '2022-04-20'
       ]
     }
   ],
@@ -197,6 +198,13 @@ module.exports = {
   '/Koa/': [
     {
       title: 'Koa',
+      collapsable: false,
+      children: ['']
+    }
+  ],
+  '/SVG/': [
+    {
+      title: 'SVG',
       collapsable: false,
       children: ['']
     }

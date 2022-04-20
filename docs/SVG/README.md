@@ -1,7 +1,7 @@
 ---
 title: 基础
 categories:
-  - 框架
+  - 可视化
 tags:
-  - Koa
+  - SVG
 ---

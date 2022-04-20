@@ -1,7 +1,7 @@
 ---
 title: setup函数
 categories:
-  - 前端框架
+  - 框架
 tags:
   - Vue
 ---

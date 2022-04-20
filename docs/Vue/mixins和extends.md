@@ -1,7 +1,7 @@
 ---
 title: mixins和extends
 categories:
-  - 前端框架
+  - 框架
 tags:
   - Vue
 ---

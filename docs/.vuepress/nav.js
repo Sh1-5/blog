@@ -46,7 +46,7 @@ module.exports = [
     ]
   },
   {
-    text: '前端框架',
+    text: '框架',
     items: [
       {
         text: 'Vue',
@@ -55,12 +55,7 @@ module.exports = [
       {
         text: 'React',
         link: '/React/'
-      }
-    ]
-  },
-  {
-    text: '后端框架',
-    items: [
+      },
       {
         text: 'Express',
         link: '/Express/'
@@ -68,6 +63,15 @@ module.exports = [
       {
         text: 'Koa',
         link: '/Koa/'
+      }
+    ]
+  },
+  {
+    text: '可视化',
+    items: [
+      {
+        text: 'SVG',
+        link: '/SVG/'
       }
     ]
   },
