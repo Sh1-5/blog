@@ -71,7 +71,7 @@ module.exports = {
     {
       title: 'HTML',
       collapsable: false,
-      children: ['', '基本结构', '元素', '属性', '字符实体']
+      children: ['', '基本结构', '元素', '属性', '字符实体', '元素的语意化']
     }
   ],
   '/CSS/': [
@@ -226,7 +226,9 @@ module.exports = {
         'CDN',
         'axios封装',
         'npm-command-not-found',
-        'URL与URI'
+        'URL与URI',
+        'SEO',
+        '浏览器的渲染流程'
       ]
     }
   ]
