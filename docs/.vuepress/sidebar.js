@@ -85,7 +85,7 @@ module.exports = {
     {
       title: 'CSS',
       collapsable: false,
-      children: ['']
+      children: ['', '文本', '字体', '选择器']
     }
   ],
   '/JavaScript/': [
@@ -130,7 +130,7 @@ module.exports = {
     {
       title: 'TypeScript',
       collapsable: false,
-      children: ['']
+      children: ['', '变量的声明', '基础类型']
     }
   ],
   '/Node/': [
@@ -214,7 +214,7 @@ module.exports = {
     {
       title: 'SVG',
       collapsable: false,
-      children: ['', '基本形状', '路径', '填充']
+      children: ['', '基本形状', '路径', '填充和边框', '渐变', '文本']
     }
   ],
   '/其它/': [
