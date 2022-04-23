@@ -68,10 +68,13 @@ callback({ name: 'kobe' })
 
 服务器设置 HTTP Header
 
-```
+```javascript
 response.setHeader('Access-Control-Allow-Origin', '*')
 response.setHeader('Access-Control-Allow-Headers', 'X-Request-width')
-response.setHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
+response.setHeader(
+  'Access-Control-Allow-Methods',
+  'PUT, POST, GET, DELETE, OPTIONS'
+)
 
 response.setHeader('Access-Control-Allow-Credentials', 'true')
 ```

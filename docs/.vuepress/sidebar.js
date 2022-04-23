@@ -74,7 +74,9 @@ module.exports = {
         'DOM',
         'BOM',
         '事件',
-        'ajax'
+        'ajax',
+        '存储',
+        'HTTP'
       ]
     }
   ],
@@ -245,7 +247,6 @@ module.exports = {
       collapsable: false,
       children: [
         '',
-        'Nginx',
         'Git',
         'SSH克隆失败',
         '安装依赖失败',
@@ -253,7 +254,6 @@ module.exports = {
         'HTTP',
         'cookie',
         'CDN',
-        'axios封装',
         'npm-command-not-found',
         'URL与URI',
         'SEO',
