@@ -80,14 +80,32 @@ module.exports = {
     {
       title: 'HTML',
       collapsable: false,
-      children: ['', '基本结构', '元素', '属性', '字符实体', '元素的语意化']
+      children: [
+        '',
+        '基本结构',
+        '元素',
+        '属性',
+        '字符实体',
+        '元素的语意化',
+        '元素的类型'
+      ]
     }
   ],
   '/CSS/': [
     {
       title: 'CSS',
       collapsable: false,
-      children: ['', '文本', '字体', '选择器', '属性的特性']
+      children: [
+        '',
+        '文本',
+        '字体',
+        '选择器',
+        '属性的特性',
+        'display',
+        '元素隐藏方法',
+        '样式不生效的原因',
+        '盒子模型'
+      ]
     }
   ],
   '/JavaScript/': [
