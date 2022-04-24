@@ -108,7 +108,8 @@ module.exports = {
         'display',
         '元素隐藏方法',
         '样式不生效的原因',
-        '盒子模型'
+        '盒子模型',
+        'background'
       ]
     }
   ],
