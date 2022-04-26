@@ -8,10 +8,6 @@ tags:
 
 ## background-image
 
-```css
-background-image: url();
-```
-
 设置背景图片，在 background-color 上面
 
 可以设置多张，第一张在最上面，其它图片按顺序层叠在下面
@@ -20,20 +16,12 @@ background-image: url();
 
 ## background-repeat
 
-```css
-background-repeat: no-repeat;
-```
-
 - repeat：平铺
 - no-repeat：不要平铺
 - repeat-x：水平平铺
 - repeat-y：垂直平铺
 
 ## background-size
-
-```css
-background-size: cover;
-```
 
 设置背景尺寸
 
@@ -44,10 +32,6 @@ background-size: cover;
 
 ## background-position
 
-```css
-background-position: 100px 100px;
-```
-
 设置背景位置
 
 - 水平值：left、center、right、具体的值
@@ -56,10 +40,6 @@ background-position: 100px 100px;
 如果只设置了一个方向，另一个方向默认是 center
 
 ## background-attachment
-
-```css
-background-attachment: scroll;
-```
 
 设置背景附加
 
