@@ -1,39 +1,13 @@
+const studyChildren = require('./studyChildren')
+const interviewChildren = require('./interviewChildren')
+const vueChildren = require('./vueChildren')
+
 module.exports = {
   '/今天不学习/': [
     {
       title: '今天不学习',
       collapsable: false,
-      children: [
-        '',
-        '2022-03-29',
-        '2022-03-30',
-        '2022-03-31',
-        '2022-04-01',
-        '2022-04-02',
-        '2022-04-03',
-        '2022-04-04',
-        '2022-04-05',
-        '2022-04-06',
-        '2022-04-07',
-        '2022-04-08',
-        '2022-04-09',
-        '2022-04-10',
-        '2022-04-11',
-        '2022-04-12',
-        '2022-04-13',
-        '2022-04-14',
-        '2022-04-15',
-        '2022-04-16',
-        '2022-04-17',
-        '2022-04-18',
-        '2022-04-19',
-        '2022-04-20',
-        '2022-04-21',
-        '2022-04-22',
-        '2022-04-23',
-        '2022-04-24',
-        '2022-04-25'
-      ]
+      children: studyChildren
     }
   ],
   '/算法/': [
@@ -54,32 +28,7 @@ module.exports = {
     {
       title: '面试题',
       collapsable: false,
-      children: [
-        '',
-        '如何理解语意化',
-        '块级元素与内联元素',
-        '布局',
-        '定位',
-        '图文样式',
-        '响应式',
-        '值类型和引用类型',
-        'typeof能判断的类型',
-        'instanceof',
-        '手写深拷贝',
-        '变量计算',
-        '原型和原型链',
-        '手写jquery',
-        '作用域和闭包',
-        'this',
-        '手写bind',
-        '单线程和异步',
-        'DOM',
-        'BOM',
-        '事件',
-        'ajax',
-        '存储',
-        'HTTP'
-      ]
+      children: interviewChildren
     }
   ],
   '/HTML/': [
@@ -128,7 +77,8 @@ module.exports = {
         '类的定义',
         '浅拷贝与深拷贝',
         'storage',
-        'Set'
+        'Set',
+        'Fullscreen'
       ]
     }
   ],
@@ -180,33 +130,7 @@ module.exports = {
     {
       title: 'Vue',
       collapsable: false,
-      children: [
-        '',
-        '需要注意的点',
-        '源码',
-        '生命周期',
-        '组件通信-父子',
-        '组件通信-非父子',
-        '组件的v-model',
-        'mixins和extends',
-        '插槽',
-        'component',
-        'keep-alive',
-        '异步组件',
-        'Suspense',
-        'setup函数',
-        'ref',
-        '引用元素和组件',
-        'reactive',
-        'readonly',
-        'computed',
-        'watch',
-        'utilities',
-        'Vuex',
-        'Pinia',
-        'VueRouter',
-        '捕获404路由'
-      ]
+      children: vueChildren
     }
   ],
   '/React/': [
