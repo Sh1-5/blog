@@ -1,6 +1,7 @@
 const studyChildren = require('./studyChildren')
 const interviewChildren = require('./interviewChildren')
 const vueChildren = require('./vueChildren')
+const algoChildren = require('./algoChildren')
 
 module.exports = {
   '/今天不学习/': [
@@ -14,14 +15,7 @@ module.exports = {
     {
       title: '算法',
       collapsable: false,
-      children: [
-        '',
-        '1-两数之和',
-        '141-环形链表',
-        '203-移除链表元素',
-        '396-旋转函数',
-        '824-山羊拉丁文'
-      ]
+      children: algoChildren
     }
   ],
   '/面试题/': [
