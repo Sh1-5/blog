@@ -2,6 +2,7 @@ const studyChildren = require('./studyChildren')
 const interviewChildren = require('./interviewChildren')
 const vueChildren = require('./vueChildren')
 const algoChildren = require('./algoChildren')
+const otherChildren = require('./otherChildren')
 
 module.exports = {
   '/今天不学习/': [
@@ -116,7 +117,8 @@ module.exports = {
         '常见的全局对象',
         '模块化',
         '常见的内置模块',
-        'npm'
+        'npm',
+        'http模块'
       ]
     }
   ],
@@ -167,20 +169,7 @@ module.exports = {
     {
       title: '其它',
       collapsable: false,
-      children: [
-        '',
-        'Git',
-        'SSH克隆失败',
-        '安装依赖失败',
-        'ts-node运行失败',
-        'HTTP',
-        'cookie',
-        'CDN',
-        'npm-command-not-found',
-        'URL与URI',
-        'SEO',
-        '浏览器的渲染流程'
-      ]
+      children: otherChildren
     }
   ]
 }
