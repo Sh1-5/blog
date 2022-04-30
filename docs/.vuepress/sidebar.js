@@ -1,4 +1,3 @@
-const studyChildren = require('./studyChildren')
 const interviewChildren = require('./interviewChildren')
 const vueChildren = require('./vueChildren')
 const algoChildren = require('./algoChildren')
@@ -6,13 +5,6 @@ const otherChildren = require('./otherChildren')
 const nodeChildren = require('./nodeChildren')
 
 module.exports = {
-  '/今天不学习/': [
-    {
-      title: '今天不学习',
-      collapsable: false,
-      children: studyChildren
-    }
-  ],
   '/算法/': [
     {
       title: '算法',

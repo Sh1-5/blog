@@ -1,9 +1,5 @@
 module.exports = [
   {
-    text: '今天不学习',
-    link: '/今天不学习/'
-  },
-  {
     text: '算法',
     link: '/算法/'
   },
