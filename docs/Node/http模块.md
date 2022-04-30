@@ -199,3 +199,89 @@ server.listen(8888, () => {
   console.log('服务器在8888端口启动成功')
 })
 ```
+
+## 发送网络请求
+
+```javascript
+const http = require('http')
+
+// 发送get请求
+http.get('http://localhost:8888', (res) => {
+  res.setEncoding('utf-8')
+  res.on('data', (data) => {
+    console.log(data)
+  })
+  res.on('end', () => {
+    console.log('获取到了所有结果')
+  })
+})
+
+// 发送post请求
+const req = http.request(
+  {
+    method: 'post',
+    hostname: 'localhost',
+    port: 8888
+  },
+  (res) => {
+    res.setEncoding('utf-8')
+    res.on('data', (data) => {
+      console.log(data)
+    })
+    res.on('end', () => {
+      console.log('获取到了所有结果')
+    })
+  }
+)
+req.end()
+```
+
+## 上传文件（手动解析）
+
+注意，不能直接将 data 数据写入到文件中，需要先进行处理
+
+```javascript
+const http = require('http')
+const qs = require('querystring')
+const fs = require('fs')
+
+const server = http.createServer((req, res) => {
+  if (req.url === '/upload') {
+    if (req.method === 'POST') {
+      req.setEncoding('binary')
+      let body = ''
+      req.on('data', (data) => {
+        body += data
+      })
+      req.on('end', () => {
+        // 处理body
+        // 1.获取content-type
+        const payload = qs.parse(body, '\r\n', ': ')
+        const info = qs.parse(payload['Content-Disposition'], '; ', '=')
+        const key = info.name.substring(1, info.name.length - 1) // key
+        console.log(key)
+        const filename = info.filename.substring(1, info.filename.length - 1) // 文件名
+        console.log(filename)
+        const type = payload['Content-Type']
+        // 2.在content-type位置进行截取
+        const typeIndex = body.indexOf(type)
+        const typeLength = type.length
+        let fileData = body.substring(typeIndex + typeLength)
+        // 3.去除数据中开头的两个\r\n
+        fileData = fileData.replace('\r\n\r\n', '')
+        // 4.去除最后的boundary和前后的分隔符
+        const boundary = req.headers['content-type']
+          .split(';')[1]
+          .replace(' boundary=', '')
+        fileData = fileData.replace(`--${boundary}--`, '')
+        fs.writeFileSync(`./${filename}`, fileData, 'binary')
+        res.end('文件上传成功')
+      })
+    }
+  }
+})
+
+server.listen(8888, () => {
+  console.log('服务器在8888端口启动成功')
+})
+```
