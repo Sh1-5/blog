@@ -23,5 +23,6 @@ module.exports = [
   '事件',
   'ajax',
   '存储',
-  'HTTP'
+  'HTTP',
+  'Vue'
 ]
