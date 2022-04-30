@@ -3,6 +3,7 @@ const interviewChildren = require('./interviewChildren')
 const vueChildren = require('./vueChildren')
 const algoChildren = require('./algoChildren')
 const otherChildren = require('./otherChildren')
+const nodeChildren = require('./nodeChildren')
 
 module.exports = {
   '/今天不学习/': [
@@ -110,16 +111,7 @@ module.exports = {
     {
       title: 'Node',
       collapsable: false,
-      children: [
-        '',
-        'console',
-        '特殊的全局对象',
-        '常见的全局对象',
-        '模块化',
-        '常见的内置模块',
-        'npm',
-        'http模块'
-      ]
+      children: nodeChildren
     }
   ],
   '/Vue/': [
@@ -142,20 +134,6 @@ module.exports = {
         'redux',
         'React项目基本配置'
       ]
-    }
-  ],
-  '/Express/': [
-    {
-      title: 'Express',
-      collapsable: false,
-      children: ['']
-    }
-  ],
-  '/Koa/': [
-    {
-      title: 'Koa',
-      collapsable: false,
-      children: ['']
     }
   ],
   '/SVG/': [

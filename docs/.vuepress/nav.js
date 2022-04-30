@@ -55,14 +55,6 @@ module.exports = [
       {
         text: 'React',
         link: '/React/'
-      },
-      {
-        text: 'Express',
-        link: '/Express/'
-      },
-      {
-        text: 'Koa',
-        link: '/Koa/'
       }
     ]
   },
