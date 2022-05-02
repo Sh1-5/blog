@@ -344,3 +344,106 @@ app.listen(8888, () => {
 ```
 
 ## 路由
+
+```javascript
+const express = require('express')
+const usersRouter = require('./routers/users')
+
+const app = express()
+
+app.use('/users', usersRouter)
+
+app.listen(8888, () => {
+  console.log('服务器在8888端口启动成功')
+})
+```
+
+```javascript
+const express = require('express')
+
+const router = express.Router()
+
+router.get('/', (req, res, next) => {
+  res.json(['kobe', 'james', 'john'])
+})
+
+router.post('/', (req, res, next) => {
+  res.json('创建用户成功')
+})
+router.post('/:id', (req, res, next) => {
+  res.json(`${req.params.id}用户的信息`)
+})
+
+module.exports = router
+```
+
+## 静态资源服务器
+
+```javascript
+const express = require('express')
+
+const app = express()
+
+app.use(express.static('./dist'))
+
+app.listen(8888, () => {
+  console.log('服务器在8888端口启动成功')
+})
+```
+
+## 错误处理
+
+```javascript
+const express = require('express')
+
+const app = express()
+
+const USER_DOES_NOT_EXISTS = '用户不存在'
+const USER_ALREADY_EXISTS = '用户已存在'
+
+app.post('/login', (req, res, next) => {
+  const isLogin = false
+  if (isLogin) {
+    res.json('登录成功')
+  } else {
+    // res.status(400)
+    // res.json('用户不存在')
+    next(new Error(USER_DOES_NOT_EXISTS))
+  }
+})
+
+app.post('/register', (req, res, next) => {
+  const isExist = true
+  if (!isExist) {
+    res.json('注册成功')
+  } else {
+    // res.status(400)
+    // res.json('用户已存在')
+    next(new Error(USER_ALREADY_EXISTS))
+  }
+})
+
+app.use((err, req, res, next) => {
+  let status = 400
+  let message
+  switch (err.message) {
+    case USER_DOES_NOT_EXISTS:
+      message = '用户不存在'
+      break
+    case USER_ALREADY_EXISTS:
+      message = '用户已存在'
+      break
+    default:
+      message = 'not found'
+  }
+  res.status(400)
+  res.json({
+    errCode: status,
+    errMessage: message
+  })
+})
+
+app.listen(8888, () => {
+  console.log('服务器在8888端口启动成功')
+})
+```
