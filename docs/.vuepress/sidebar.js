@@ -1,4 +1,5 @@
 const interviewChildren = require('./interviewChildren')
+const jsChildren = require('./jsChildren')
 const vueChildren = require('./vueChildren')
 const algoChildren = require('./algoChildren')
 const otherChildren = require('./otherChildren')
@@ -57,17 +58,7 @@ module.exports = {
     {
       title: 'JavaScript',
       collapsable: false,
-      children: [
-        '',
-        'String和toString',
-        '字符串方法',
-        '数组方法',
-        '类的定义',
-        '浅拷贝与深拷贝',
-        'storage',
-        'Set',
-        'Fullscreen'
-      ]
+      children: jsChildren
     }
   ],
   '/Webpack/': [
