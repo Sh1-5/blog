@@ -7,5 +7,7 @@ module.exports = [
   '常见的内置模块',
   'npm',
   'http模块',
-  'express'
+  'express',
+  'koa',
+  'mysql'
 ]

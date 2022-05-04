@@ -347,11 +347,11 @@ app.listen(8888, () => {
 
 ```javascript
 const express = require('express')
-const usersRouter = require('./routers/users')
+const userRouter = require('./router/user')
 
 const app = express()
 
-app.use('/users', usersRouter)
+app.use('/user', userRouter)
 
 app.listen(8888, () => {
   console.log('服务器在8888端口启动成功')
