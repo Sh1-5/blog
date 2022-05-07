@@ -1,5 +1,5 @@
 ---
-title: Redux
+title: redux
 categories:
   - 框架
 tags:
