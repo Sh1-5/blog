@@ -17,7 +17,3 @@ createElement 方法传入三个参数，type、config、children，分别是标
 children 是如何处理的？
 
 <img :src="$withBase('/assets/img/createElement-children.png')" alt="createElement-children">
-
-## ReactElement
-
-通过 createElement 创建一个 ReactElement 对象

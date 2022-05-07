@@ -91,9 +91,15 @@ tags:
     <div id="app"></div>
 
     <!-- 添加React依赖 -->
-    <script src="../js/react.js"></script>
-    <script src="../js/react-dom.js"></script>
-    <script src="../js/babel.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     <script type="text/babel">
       let message = 'Hello World'
@@ -104,13 +110,12 @@ tags:
       }
 
       function render() {
-        ReactDOM.render(
+        ReactDOM.createRoot(document.getElementById('app')).render(
           // 只能有一个根元素
           <div>
             <h1>{message}</h1>
             <button onClick={changeMessage}>改变文本</button>
-          </div>,
-          document.getElementById('app')
+          </div>
         )
       }
 
@@ -134,9 +139,15 @@ tags:
   <body>
     <div id="app"></div>
 
-    <script src="../js/react.js"></script>
-    <script src="../js/react-dom.js"></script>
-    <script src="../js/babel.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     <script type="text/babel">
       // 封装App组件
@@ -166,7 +177,7 @@ tags:
       }
 
       // 渲染组件
-      ReactDOM.render(<App />, document.getElementById('app'))
+      ReactDOM.createRoot(document.getElementById('app')).render(<App />)
     </script>
   </body>
 </html>
@@ -188,9 +199,15 @@ tags:
   <body>
     <div id="app"></div>
 
-    <script src="../js/react.js"></script>
-    <script src="../js/react-dom.js"></script>
-    <script src="../js/babel.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     <script type="text/babel">
       class App extends React.Component {
@@ -214,7 +231,7 @@ tags:
         }
       }
 
-      ReactDOM.render(<App />, document.getElementById('app'))
+      ReactDOM.createRoot(document.getElementById('app')).render(<App />)
     </script>
   </body>
 </html>
@@ -234,9 +251,15 @@ tags:
   <body>
     <div id="app"></div>
 
-    <script src="../js/react.js"></script>
-    <script src="../js/react-dom.js"></script>
-    <script src="../js/babel.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     <script type="text/babel">
       class App extends React.Component {
@@ -267,7 +290,7 @@ tags:
         }
       }
 
-      ReactDOM.render(<App />, document.getElementById('app'))
+      ReactDOM.createRoot(document.getElementById('app')).render(<App />)
     </script>
   </body>
 </html>
@@ -313,16 +336,22 @@ React 认为渲染逻辑本质上与其他 UI 逻辑存在内在耦合
 是 React.createElement(type, config, children)的语法糖，目的是创建 ReactElement 对象
 
 ```html
-<script src="../js/react.js"></script>
-<script src="../js/react-dom.js"></script>
-<!-- <script src="../js/babel.js"></script> -->
+<script
+  crossorigin
+  src="https://unpkg.com/react@18/umd/react.development.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+></script>
+<!-- <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
 
 <!-- <script type="text/babel"> -->
 <script>
   // const message1 = <h1>Hello React</h1>
   const message2 = React.createElement('h1', null, 'Hello React')
 
-  ReactDOM.render(message2, document.getElementById('app'))
+  ReactDOM.createRoot(document.getElementById('app')).render(message2)
 </script>
 ```
 

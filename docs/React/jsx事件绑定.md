@@ -18,9 +18,15 @@ tags:
   <body>
     <div id="app"></div>
 
-    <script src="../js/react.js"></script>
-    <script src="../js/react-dom.js"></script>
-    <script src="../js/babel.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     <script type="text/babel">
       class App extends React.Component {
@@ -33,8 +39,11 @@ tags:
         render() {
           return (
             <h1>
+              {/* 通过bind绑定this */}
               <button onClick={this.handleClickOne.bind(this)}>按钮1</button>
+              {/* 定义方法时使用箭头函数 */
               <button onClick={this.handleClickTwo}>按钮2</button>
+              {/* 定义箭头函数返回方法的执行 */
               <button
                 onClick={() => {
                   this.handleClickThree()
@@ -56,7 +65,7 @@ tags:
         }
       }
 
-      ReactDOM.render(<App />, document.getElementById('app'))
+      ReactDOM.createRoot(document.getElementById('app')).render(<App />)
     </script>
   </body>
 </html>
