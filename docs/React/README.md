@@ -40,9 +40,9 @@ tags:
 
 - react：包含 react 所必须的核心代码
 - react-dom：react 扩展库
-- babel：将 jsx 转为 js
+- babel：将 JSX 转为 JavaScript
 
-使用 jsx，必须设置 script 的 type 属性为 text/babel
+使用 JSX，必须设置 script 元素的 type 属性为 text/babel
 
 ## Hello React
 
@@ -355,7 +355,7 @@ React 认为渲染逻辑本质上与其他 UI 逻辑存在内在耦合
 </script>
 ```
 
-> jsx -> createElement 函数 -> ReactElement 对象树 -> ReactDON.render 函数 -> 真实 DOM
+> JSX -> createElement 函数 -> ReactElement 对象树 -> ReactDON.render 函数 -> 真实 DOM
 
 ## 为什么使用虚拟 DOM
 

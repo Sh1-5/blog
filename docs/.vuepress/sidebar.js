@@ -1,6 +1,7 @@
 const interviewChildren = require('./interviewChildren')
 const jsChildren = require('./jsChildren')
 const vueChildren = require('./vueChildren')
+const reactChildren = require('./reactChildren')
 const algoChildren = require('./algoChildren')
 const otherChildren = require('./otherChildren')
 const nodeChildren = require('./nodeChildren')
@@ -108,15 +109,7 @@ module.exports = {
     {
       title: 'React',
       collapsable: false,
-      children: [
-        '',
-        'jsx事件绑定',
-        'createElement',
-        '组件化开发',
-        '插件使用',
-        'redux',
-        'React项目基本配置'
-      ]
+      children: reactChildren
     }
   ],
   '/SVG/': [
