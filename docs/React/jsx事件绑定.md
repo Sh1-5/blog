@@ -1,5 +1,5 @@
 ---
-title: jsx事件绑定
+title: JSX事件绑定
 categories:
   - 框架
 tags:

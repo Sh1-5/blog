@@ -1,9 +1,9 @@
 module.exports = [
   '',
-  'jsx事件绑定',
+  'JSX事件绑定',
   'createElement',
   '组件化开发',
   'VSCode插件使用',
-  'redux',
+  'Redux',
   'React项目基本配置'
 ]
