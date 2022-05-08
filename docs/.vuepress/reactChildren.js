@@ -1,6 +1,6 @@
 module.exports = [
   '',
-  'JSX事件绑定',
+  '事件绑定',
   'createElement',
   '组件化开发',
   'VSCode插件使用',
