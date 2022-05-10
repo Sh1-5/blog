@@ -6,8 +6,6 @@ tags:
   - React
 ---
 
-> React 的官方文档真的是垃圾中的垃圾
-
 ## 为什么需要 React？
 
 1.原生 JavaScript 操作 DOM 繁琐、效率低（DOM-API 操作 UI）
