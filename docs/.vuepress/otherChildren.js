@@ -1,5 +1,6 @@
 module.exports = [
   '',
+  'axios',
   '浏览器内核',
   '浏览器的渲染流程',
   'Git',
