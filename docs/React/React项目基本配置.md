@@ -32,7 +32,7 @@ trim_trailing_whitespace = false
 安装依赖
 
 ```bash
-npm install eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks -D
+npm install eslint -D
 ```
 
 生成配置文件
@@ -46,7 +46,7 @@ npx eslint --init
 安装
 
 ```bash
-npm install prettier eslint-config-prettier eslint-plugin-prettier -D
+npm install prettier -D
 ```
 
 新建.prettierrc
@@ -64,24 +64,9 @@ npm install prettier eslint-config-prettier eslint-plugin-prettier -D
 新建.prettierignore
 
 ```
+build
 node_modules
 public
-dist
-```
-
-修改.eslintrc.js
-
-```javascript
-"extends": [
-  "airbnb",
-  "plugin:prettier/recommended"
-],
-rules: {
-  semi: 0,
-  'comma-dangle': 0,
-  'arrow-body-style': 0,
-  'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }]
-}
 ```
 
 ## husky & lint-staged
@@ -119,7 +104,7 @@ npx husky add .husky/pre-commit "npm run lint"
   "lint": "lint-staged"
 },
 "lint-staged": {
-  "src/*.{js,jsx,mjs,ts,tsx}": [
+  "src/*.{js,jsx,mjs}": [
     "node_modules/.bin/prettier --write",
     "node_modules/.bin/eslint --fix"
   ],
