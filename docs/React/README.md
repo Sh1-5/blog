@@ -6,14 +6,6 @@ tags:
   - React
 ---
 
-## 为什么需要 React？
-
-1.原生 JavaScript 操作 DOM 繁琐、效率低（DOM-API 操作 UI）
-
-2.使用 JavaScript 直接操作 DOM，浏览器会进行大量的重绘重排
-
-3.原生 JavaScript 没有组件化编码方案，代码复用率低
-
 ## React 是什么？
 
 用于构建用户界面的 JavaScript 库
@@ -56,18 +48,18 @@ tags:
     <title>Document</title>
   </head>
   <body>
-    <h1></h1>
+    <h2></h2>
     <button>改变文本</button>
     <script>
       let message = 'Hello World'
 
-      const h1El = document.getElementsByTagName('h1')[0]
-      h1El.innerHTML = message
+      const h2El = document.getElementsByTagName('h2')[0]
+      h2El.innerHTML = message
 
       const buttonEl = document.getElementsByTagName('button')[0]
       buttonEl.addEventListener('click', () => {
         message = 'Hello React'
-        h1El.innerHTML = message
+        h2El.innerHTML = message
       })
     </script>
   </body>
@@ -111,7 +103,7 @@ tags:
         ReactDOM.createRoot(document.getElementById('app')).render(
           // 只能有一个根元素
           <div>
-            <h1>{message}</h1>
+            <h2>{message}</h2>
             <button onClick={changeMessage}>改变文本</button>
           </div>
         )
@@ -160,8 +152,8 @@ tags:
         render() {
           return (
             <div>
-              {/*<h1>{this.message}</h1>*/}
-              <h1>{this.state.message}</h1>
+              {/*<h2>{this.message}</h2>*/}
+              <h2>{this.state.message}</h2>
               <button onClick={this.changeMessage}>改变文本</button>
             </div>
           )
@@ -218,7 +210,7 @@ tags:
         render() {
           return (
             <div>
-              <h1>电影列表</h1>
+              <h2>电影列表</h2>
               <ul>
                 {this.state.movies.map((item) => {
                   return <li>{item}</li>
@@ -270,7 +262,7 @@ tags:
         render() {
           return (
             <div>
-              <h1>{this.state.counter}</h1>
+              <h2>{this.state.counter}</h2>
               <button onClick={this.increment}>+</button>
               <button onClick={this.decrement}>-</button>
             </div>
@@ -346,8 +338,8 @@ React 认为渲染逻辑本质上与其他 UI 逻辑存在内在耦合
 
 <!-- <script type="text/babel"> -->
 <script>
-  // const message1 = <h1>Hello React</h1>
-  const message2 = React.createElement('h1', null, 'Hello React')
+  // const message1 = <h2>Hello React</h2>
+  const message2 = React.createElement('h2', null, 'Hello React')
 
   ReactDOM.createRoot(document.getElementById('app')).render(message2)
 </script>
