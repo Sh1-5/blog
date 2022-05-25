@@ -4,6 +4,7 @@ module.exports = [
   'createElement',
   '组件化开发-1',
   '组件化开发-2',
+  '组件化开发-3',
   'VSCode插件使用',
   'ReactRedux',
   'ReactHooks',
