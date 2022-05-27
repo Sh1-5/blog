@@ -8,6 +8,7 @@ module.exports = [
   '组件化开发-3',
   '配置代理',
   'craco',
+  'CSS选型',
   'ReactRedux',
   'ReactHooks',
   'React项目基本配置'
