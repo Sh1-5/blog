@@ -14,13 +14,13 @@ module.exports = {
       children: algoChildren
     }
   ],
-  '/面试题/': [
-    {
-      title: '面试题',
-      collapsable: false,
-      children: interviewChildren
-    }
-  ],
+  // '/面试题/': [
+  //   {
+  //     title: '面试题',
+  //     collapsable: false,
+  //     children: interviewChildren
+  //   }
+  // ],
   '/HTML/': [
     {
       title: 'HTML',
