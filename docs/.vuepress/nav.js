@@ -3,10 +3,10 @@ module.exports = [
     text: '算法',
     link: '/算法/'
   },
-  {
-    text: '面试题',
-    link: '/面试题/'
-  },
+  // {
+  //   text: '面试题',
+  //   link: '/面试题/'
+  // },
   {
     text: '前端基础',
     items: [
