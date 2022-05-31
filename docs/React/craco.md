@@ -27,7 +27,7 @@ npm install @craco/craco
 }
 ```
 
-## craco.config.js
+## craco.config.cjs
 
 配置别名
 
