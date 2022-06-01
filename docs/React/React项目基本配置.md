@@ -135,7 +135,7 @@ npx commitizen init cz-conventional-changelog --save-dev --save-exact
 npm install @commitlint/config-conventional @commitlint/cli -D
 ```
 
-新建 commitlint.config.cjs
+新建 commitlint.config.js
 
 ```javascript
 module.exports = {
