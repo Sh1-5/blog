@@ -1,5 +1,6 @@
 const interviewChildren = require('./interviewChildren')
 const jsChildren = require('./jsChildren')
+const tsChildren = require('./tsChildren')
 const vueChildren = require('./vueChildren')
 const reactChildren = require('./reactChildren')
 const algoChildren = require('./algoChildren')
@@ -88,7 +89,7 @@ module.exports = {
     {
       title: 'TypeScript',
       collapsable: false,
-      children: ['', '变量的声明', '基础类型']
+      children: tsChildren
     }
   ],
   '/Node/': [
