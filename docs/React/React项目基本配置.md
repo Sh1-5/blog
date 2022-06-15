@@ -104,7 +104,7 @@ npx husky add .husky/pre-commit "npm run lint"
   "lint": "lint-staged"
 },
 "lint-staged": {
-  "src/*.{js,jsx,mjs}": [
+  "src/*.{js,jsx}": [
     "node_modules/.bin/prettier --write",
     "node_modules/.bin/eslint --fix"
   ],
