@@ -118,59 +118,48 @@ tags:
 ### 组件化实现
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="app"></div>
+<div id="app"></div>
 
-    <script
-      crossorigin
-      src="https://unpkg.com/react@18/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    ></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react@18/umd/react.development.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-    <script type="text/babel">
-      // 封装App组件
-      class App extends React.Component {
-        constructor(props) {
-          super(props)
-          // this.message = 'Hello World'
-          this.state = {
-            message: 'Hello World'
-          }
-        }
-        render() {
-          return (
-            <div>
-              {/*<h2>{this.message}</h2>*/}
-              <h2>{this.state.message}</h2>
-              <button onClick={this.changeMessage}>改变文本</button>
-            </div>
-          )
-        }
-        changeMessage = () => {
-          // this.message = 'Hello React'
-          this.setState({
-            message: 'Hello React'
-          })
-        }
+<script type="text/babel">
+  // 封装App组件
+  class App extends React.Component {
+    constructor(props) {
+      super(props)
+      // this.message = 'Hello World'
+      this.state = {
+        message: 'Hello World'
       }
+    }
+    render() {
+      return (
+        <div>
+          {/*<h2>{this.message}</h2>*/}
+          <h2>{this.state.message}</h2>
+          <button onClick={this.changeMessage}>改变文本</button>
+        </div>
+      )
+    }
+    changeMessage = () => {
+      // this.message = 'Hello React'
+      this.setState({
+        message: 'Hello React'
+      })
+    }
+  }
 
-      // 渲染组件
-      ReactDOM.createRoot(document.getElementById('app')).render(<App />)
-    </script>
-  </body>
-</html>
+  // 渲染组件
+  ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+</script>
 ```
 
 ## 案例练习
@@ -178,112 +167,90 @@ tags:
 ### 列表渲染
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="app"></div>
+<div id="app"></div>
 
-    <script
-      crossorigin
-      src="https://unpkg.com/react@18/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    ></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react@18/umd/react.development.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-    <script type="text/babel">
-      class App extends React.Component {
-        constructor(props) {
-          super(props)
-          this.state = {
-            movies: ['星际穿越', '火星救援', '流浪地球']
-          }
-        }
-        render() {
-          return (
-            <div>
-              <h2>电影列表</h2>
-              <ul>
-                {this.state.movies.map((item) => {
-                  return <li>{item}</li>
-                })}
-              </ul>
-            </div>
-          )
-        }
+<script type="text/babel">
+  class App extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        movies: ['星际穿越', '火星救援', '流浪地球']
       }
+    }
+    render() {
+      return (
+        <div>
+          <h2>电影列表</h2>
+          <ul>
+            {this.state.movies.map((item) => {
+              return <li>{item}</li>
+            })}
+          </ul>
+        </div>
+      )
+    }
+  }
 
-      ReactDOM.createRoot(document.getElementById('app')).render(<App />)
-    </script>
-  </body>
-</html>
+  ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+</script>
 ```
 
 ### 计数器
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="app"></div>
+<div id="app"></div>
 
-    <script
-      crossorigin
-      src="https://unpkg.com/react@18/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    ></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react@18/umd/react.development.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-    <script type="text/babel">
-      class App extends React.Component {
-        constructor(props) {
-          super(props)
-          this.state = {
-            counter: 0
-          }
-        }
-        render() {
-          return (
-            <div>
-              <h2>{this.state.counter}</h2>
-              <button onClick={this.increment}>+</button>
-              <button onClick={this.decrement}>-</button>
-            </div>
-          )
-        }
-        increment = () => {
-          this.setState({
-            counter: this.state.counter + 1
-          })
-        }
-        decrement = () => {
-          this.setState({
-            counter: this.state.counter - 1
-          })
-        }
+<script type="text/babel">
+  class App extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        counter: 0
       }
+    }
+    render() {
+      return (
+        <div>
+          <h2>{this.state.counter}</h2>
+          <button onClick={this.increment}>+</button>
+          <button onClick={this.decrement}>-</button>
+        </div>
+      )
+    }
+    increment = () => {
+      this.setState({
+        counter: this.state.counter + 1
+      })
+    }
+    decrement = () => {
+      this.setState({
+        counter: this.state.counter - 1
+      })
+    }
+  }
 
-      ReactDOM.createRoot(document.getElementById('app')).render(<App />)
-    </script>
-  </body>
-</html>
+  ReactDOM.createRoot(document.getElementById('app')).render(<App />)
+</script>
 ```
 
 ## JSX 语法
