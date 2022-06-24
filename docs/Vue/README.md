@@ -600,6 +600,116 @@ tags:
 </script>
 ```
 
+## 列表渲染
+
+### v-for 基本使用
+
+同时使用 v-for 和 v-if 是不推荐的
+
+当 v-if 和 v-for 位于同一个节点上时，v-if 比 v-for 优先级高，这意味着 v-if 的条件将无法访问到 v-for 作用域内定义的变量别名
+
+```html
+<div id="app"></div>
+<template id="my-app">
+  <h2>电影列表</h2>
+  <ul>
+    <li v-for="(item, index) in movies">{{index}}-{{item}}</li>
+  </ul>
+  <h2>个人信息</h2>
+  <ul>
+    <li v-for="(value, key, index) in info">{{index}}-{{key}}-{{value}}</li>
+  </ul>
+  <h2>遍历数字</h2>
+  <ul>
+    <li v-for="(num, index) in 10">{{index}}-{{num}}</li>
+  </ul>
+</template>
+
+<script src="https://unpkg.com/vue@3"></script>
+<script>
+  Vue.createApp({
+    template: '#my-app',
+    data() {
+      return {
+        movies: ['流浪地球', '星际穿越', '火星救援'],
+        info: {
+          name: 'Sh1-5',
+          age: 18
+        }
+      }
+    }
+  }).mount('#app')
+</script>
+```
+
+### v-for 和 template
+
+```html
+<div id="app"></div>
+<template id="my-app">
+  <ul>
+    <template v-for="(value, key) in info">
+      <li>{{key}}</li>
+      <li>{{value}}</li>
+      <hr />
+    </template>
+  </ul>
+</template>
+<script src="https://unpkg.com/vue@3"></script>
+<script>
+  Vue.createApp({
+    template: '#my-app',
+    data() {
+      return {
+        info: {
+          name: 'Sh1-5',
+          age: 18
+        }
+      }
+    }
+  }).mount('#app')
+</script>
+```
+
+### 数组修改方法
+
+Vue 包装了一批侦听数组的变更方法，以至于这些方法可以触发视图更新
+
+- push()
+- pop()
+- shift()
+- unshift()
+- splice()
+- sort()
+- reverse()
+
+```html
+<div id="app"></div>
+<template id="my-app">
+  <ul>
+    <li v-for="(item, index) in movies">{{index}}-{{item}}</li>
+  </ul>
+  <button @click="addMovie">按钮</button>
+</template>
+
+<script src="https://unpkg.com/vue@3"></script>
+<script>
+  Vue.createApp({
+    template: '#my-app',
+    data() {
+      return {
+        movies: ['流浪地球', '星际穿越', '火星救援']
+      }
+    },
+    methods: {
+      addMovie() {
+        this.movies.push('长津湖')
+      }
+    }
+  }).mount('#app')
+</script>
+```
+
 ## v-model 修饰符
 
 ```vue
