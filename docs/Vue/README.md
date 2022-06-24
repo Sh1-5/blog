@@ -501,6 +501,105 @@ tags:
 
 使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击
 
+## 条件渲染
+
+### 条件渲染基本使用
+
+```html
+<div id="app"></div>
+<template id="my-app">
+  <h2 v-if="isShow">{{message}}</h2>
+</template>
+
+<script src="https://unpkg.com/vue@3"></script>
+<script>
+  Vue.createApp({
+    template: '#my-app',
+    data() {
+      return {
+        message: 'Hello Vue',
+        isShow: false
+      }
+    }
+  }).mount('#app')
+</script>
+```
+
+### 多个条件渲染
+
+```html
+<template id="my-app">
+  <h2 v-if="score >= 90">优秀</h2>
+  <h2 v-else-if="score >= 80">良好</h2>
+  <h2 v-else-if="score >= 60">及格</h2>
+  <h2 v-else>不及格</h2>
+</template>
+
+<script src="https://unpkg.com/vue@3"></script>
+<script>
+  Vue.createApp({
+    template: '#my-app',
+    data() {
+      return {
+        score: 80
+      }
+    }
+  }).mount('#app')
+</script>
+```
+
+### template 和 v-if 结合使用
+
+```html
+<div id="app"></div>
+<template id="my-app">
+  <div>
+    <h2>哈哈哈</h2>
+    <h2>哈哈哈</h2>
+    <h2>哈哈哈</h2>
+  </div>
+  <template v-if="isShow">
+    <h2>哈哈哈</h2>
+    <h2>哈哈哈</h2>
+    <h2>哈哈哈</h2>
+  </template>
+</template>
+
+<script src="https://unpkg.com/vue@3"></script>
+<script>
+  Vue.createApp({
+    template: '#my-app',
+    data() {
+      return {
+        isShow: true
+      }
+    }
+  }).mount('#app')
+</script>
+```
+
+### v-show
+
+```html
+<div id="app"></div>
+<template id="my-app">
+  <h2 v-show="isShow">{{message}}</h2>
+</template>
+
+<script src="https://unpkg.com/vue@3"></script>
+<script>
+  Vue.createApp({
+    template: '#my-app',
+    data() {
+      return {
+        message: 'Hello Vue',
+        isShow: false
+      }
+    }
+  }).mount('#app')
+</script>
+```
+
 ## v-model 修饰符
 
 ```vue
