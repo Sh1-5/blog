@@ -2,7 +2,6 @@ module.exports = [
   '',
   'this和diff算法',
   '单文件组件开发',
-  '生命周期',
   '组件的v-model',
   'mixins和extends',
   '插槽',
