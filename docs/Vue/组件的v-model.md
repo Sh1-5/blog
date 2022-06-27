@@ -10,68 +10,86 @@ tags:
 
 是一种语法糖
 
-```vue
+```html
 <template>
   <input v-model="message" />
   <input :value="message" @input="message = $event.target.value" />
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      message: ''
+  export default {
+    data() {
+      return {
+        message: ''
+      }
     }
   }
-}
 </script>
 ```
 
 ## 在组件中的使用
 
-```vue
+```html
 <!-- App组件 -->
 <template>
   <div class="app">
-    <Home v-model="info" />
-    <!-- <Home :modelValue="info" @update:model-value="" /> -->
+    <MyInput v-model="value" />
+    <MyInput :modelValue="value" @update:modelValue="updateValue" />
+    <button @click="handleClick">查看value</button>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      info: {
-        name: 'kobe',
-        age: 18,
-        height: 1.8
+  import MyInput from './components/MyInput.vue'
+
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    },
+    components: {
+      MyInput
+    },
+    methods: {
+      handleClick() {
+        console.log(this.value)
+      },
+      updateValue(value) {
+        this.value = value
       }
     }
   }
-}
 </script>
 
 <!-- Home组件 -->
 <template>
-  <div class="home">
-    <ul>
-      <li>{{ modelValue.name }}</li>
-      <li>{{ modelValue.age }}</li>
-      <li>{{ modelValue.height }}</li>
-    </ul>
+  <div class="my-input">
+    <input type="text" :value="modelValue" @input="inputChange" />
+    <input type="text" v-model="value" />
   </div>
 </template>
 
 <script>
-export default {
-  props: {
-    modelValue: {
-      type: Object,
-      required: true
+  export default {
+    props: ['modelValue'],
+    emits: ['update:modelValue'],
+    methods: {
+      inputChange(e) {
+        this.$emit('update:modelValue', e.target.value)
+      }
+    },
+    computed: {
+      value: {
+        get() {
+          return this.modelValue
+        },
+        set(value) {
+          this.$emit('update:modelValue', value)
+        }
+      }
     }
   }
-}
 </script>
 ```
 

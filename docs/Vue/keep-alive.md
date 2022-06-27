@@ -26,7 +26,7 @@ tags:
 
 包含
 
-```vue
+```html
 <!-- 以英文逗号分隔的字符串 -->
 <KeepAlive include="a,b">
   <component :is="view"></component>
@@ -45,7 +45,7 @@ tags:
 
 最大缓存实例
 
-```vue
+```html
 <KeepAlive :max="10">
   <component :is="activeComponent" />
 </KeepAlive>
