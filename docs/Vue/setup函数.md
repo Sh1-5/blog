@@ -21,7 +21,7 @@ export default {
 - props
 - context
 
-context 里面包含三个属性，attrs（所有非 prop 的 attribute），slots（父组件传递过来的插槽），emit（发出事件用到的 emit）
+context 里面包含三个属性，attrs（透传 attribute），slots（父组件传递过来的插槽），emit（发出事件用到的 emit）
 
 2.返回值
 
