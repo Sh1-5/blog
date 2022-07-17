@@ -7,5 +7,7 @@ module.exports = [
   '浅拷贝与深拷贝',
   'storage',
   'Set',
-  'Fullscreen'
+  'Fullscreen',
+  'JSON',
+  'IndexedDB'
 ]

@@ -8,6 +8,18 @@ tags:
 
 ## localStorage & sessionStorage
 
+属性
+
+- length
+
+方法
+
+- key(index)
+- setItem(key, value)
+- getItem(key)
+- removeItem(key)
+- clear()
+
 相似之处：
 
 1. 都存在浏览器会话中

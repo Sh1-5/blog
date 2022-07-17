@@ -14,7 +14,7 @@ tags:
 
 ## URL 的 hash
 
-url 的 hash 也就是锚点，本质上是通过改变 window.location 的 href 属性，我们可以通过直接赋值 location.hash 来改变 hash，但是页面不发生刷新
+URL 的 hash 也就是锚点，本质上是通过改变 window.location 的 href 属性，我们可以通过直接赋值 location.hash 来改变 hash，但是页面不发生刷新
 
 ```html
 <div id="app">

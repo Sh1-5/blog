@@ -15,8 +15,8 @@ module.exports = [
   '响应式工具',
   '响应式进阶',
   '自定义指令',
+  'VueRouter',
   'Vuex',
   'Pinia',
-  'VueRouter',
   '捕获404路由'
 ]

@@ -39,80 +39,59 @@ tags:
 ### 原生实现
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h2></h2>
-    <button>改变文本</button>
-    <script>
-      let message = 'Hello World'
+<h2></h2>
+<button>改变文本</button>
 
-      const h2El = document.getElementsByTagName('h2')[0]
-      h2El.innerHTML = message
+<script>
+  let message = 'Hello World'
 
-      const buttonEl = document.getElementsByTagName('button')[0]
-      buttonEl.addEventListener('click', () => {
-        message = 'Hello React'
-        h2El.innerHTML = message
-      })
-    </script>
-  </body>
-</html>
+  const h2El = document.querySelector('h2')
+  h2El.innerHTML = message
+
+  const buttonEl = document.querySelector('button')
+  buttonEl.addEventListener('click', () => {
+    message = 'Hello React'
+    h2El.innerHTML = message
+  })
+</script>
 ```
 
 ### react 实现
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="app"></div>
+<div id="app"></div>
 
-    <!-- 添加React依赖 -->
-    <script
-      crossorigin
-      src="https://unpkg.com/react@18/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    ></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<!-- 添加React依赖 -->
+<script
+  crossorigin
+  src="https://unpkg.com/react@18/umd/react.development.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-    <script type="text/babel">
-      let message = 'Hello World'
+<script type="text/babel">
+  let message = 'Hello World'
 
-      function changeMessage() {
-        message = 'Hello React'
-        render()
-      }
+  function changeMessage() {
+    message = 'Hello React'
+    render()
+  }
 
-      function render() {
-        ReactDOM.createRoot(document.getElementById('app')).render(
-          // 只能有一个根元素
-          <div>
-            <h2>{message}</h2>
-            <button onClick={changeMessage}>改变文本</button>
-          </div>
-        )
-      }
+  function render() {
+    ReactDOM.createRoot(document.getElementById('app')).render(
+      // 只能有一个根元素
+      <div>
+        <h2>{message}</h2>
+        <button onClick={changeMessage}>改变文本</button>
+      </div>
+    )
+  }
 
-      render()
-    </script>
-  </body>
-</html>
+  render()
+</script>
 ```
 
 ### 组件化实现
@@ -145,11 +124,11 @@ tags:
         <div>
           {/*<h2>{this.message}</h2>*/}
           <h2>{this.state.message}</h2>
-          <button onClick={this.changeMessage}>改变文本</button>
+          <button onClick={() => this.changeMessage()}>改变文本</button>
         </div>
       )
     }
-    changeMessage = () => {
+    changeMessage() {
       // this.message = 'Hello React'
       this.setState({
         message: 'Hello React'
@@ -232,17 +211,17 @@ tags:
       return (
         <div>
           <h2>{this.state.counter}</h2>
-          <button onClick={this.increment}>+</button>
-          <button onClick={this.decrement}>-</button>
+          <button onClick={() => this.increment()}>+</button>
+          <button onClick={() => this.decrement()}>-</button>
         </div>
       )
     }
-    increment = () => {
+    increment() {
       this.setState({
         counter: this.state.counter + 1
       })
     }
-    decrement = () => {
+    decrement() {
       this.setState({
         counter: this.state.counter - 1
       })
@@ -255,7 +234,7 @@ tags:
 
 ## JSX 语法
 
-- JavaScript XML，js 扩展语法，本质是语法糖（React.createElement(component, props, ...children)）
+- JavaScript XML，JavaScript 扩展语法，本质是语法糖（React.createElement(component, props, children)）
 - 既不是字符串也不是 HTML
 - 最终产生的是一个普通对象
 
@@ -273,13 +252,13 @@ React 认为渲染逻辑本质上与其他 UI 逻辑存在内在耦合
 
 4.内联样式需要使用两个大括号
 
-5.JSX 顶层只能有一个根元素 💥
+5.JSX 顶层只能有一个根元素
 
-6.JSX 里面的单标签必须闭合 💥
+6.JSX 里面的单标签必须闭合
 
-7.标签首字母：小写开头，转为 html 中对应的标签，若无该标签，则报错；大写开头，React 当作组件渲染，若未定义，则报错
+7.标签首字母：小写开头，转为 HTML 中对应的标签，若无该标签，则报错；大写开头，React 当作组件渲染，若未定义，则报错
 
-8.注释书写：{/\* 我是注释 \*/} 💥
+8.注释书写：{/\* 我是注释 \*/}
 
 ### JSX 嵌入变量
 
@@ -312,7 +291,7 @@ React 认为渲染逻辑本质上与其他 UI 逻辑存在内在耦合
 </script>
 ```
 
-> JSX -> createElement 函数 -> ReactElement 对象树 -> ReactDON.render 函数 -> 真实 DOM
+> JSX -> createElement 函数 -> ReactElement 对象树 -> ReactDOM.render 函数 -> 真实 DOM
 
 ## 为什么使用虚拟 DOM
 
