@@ -234,7 +234,7 @@ tags:
 
 ## JSX 语法
 
-- JavaScript XML，JavaScript 扩展语法，本质是语法糖（React.createElement(component, props, children)）
+- JavaScript XML，JavaScript 扩展语法，本质是语法糖（React.createElement(component, props, ...children)）
 - 既不是字符串也不是 HTML
 - 最终产生的是一个普通对象
 
@@ -269,7 +269,7 @@ React 认为渲染逻辑本质上与其他 UI 逻辑存在内在耦合
 
 ### JSX 本质
 
-是 React.createElement(type, config, children)的语法糖，目的是创建 ReactElement 对象
+是 React.createElement(type, config, ...children)的语法糖，目的是创建 ReactElement 对象
 
 ```html
 <script
