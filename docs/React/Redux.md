@@ -6,11 +6,25 @@ tags:
   - React
 ---
 
+> Redux 是 JavaScript 状态管理容器，提供了可预测的状态管理
+
 ## 纯函数
 
 1.相同的输入产生相同的输出
 
 2.无副作用
+
+## Redux
+
+安装 redux
+
+```bash
+npm install redux
+```
+
+## 核心理念
+
+通过派发 action 修改 state 里面的数据
 
 ## Redux 三大原则
 
@@ -23,7 +37,7 @@ tags:
 ## 基本使用
 
 ```javascript
-const redux = require('redux')
+import { legacy_createStore as createStore } from 'redux'
 
 const initialState = {
   counter: 0
@@ -46,8 +60,8 @@ function reducer(state = initialState, action) {
   }
 }
 
-// store
-const store = redux.createStore(reducer)
+// store（创建的时候需要传入一个reducer）
+const store = createStore(reducer)
 
 // actions
 const action1 = { type: 'INCREMENT' }
