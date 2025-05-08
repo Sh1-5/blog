@@ -33,6 +33,19 @@ export const projects: Array<ProjectItemType> = [
     techStack: ['Next.js', 'TailwindCSS', 'Shadcn/UI'],
     tags: ['AI', 'Tools Directory'],
     logo: '/images/icon/ai-f2e-dev.png'
+  },
+  {
+    name: '奇绘馆 AI视频',
+    description:
+      '将文本转换为高质量AI视频，适用于多种场景，如抖音短视频、小说推文、AI短片、AI电影等创作',
+    link: {
+      href: 'qihuiguan.cn',
+      label: '奇绘馆 AI视频'
+    },
+    category: ['Website'],
+    techStack: ['Vue3', 'Element Plus'],
+    tags: ['AI', 'Video'],
+    logo: '/images/icon/qihuiguan.png'
   }
   // {
   //   name: '轻息',
