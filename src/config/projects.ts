@@ -46,6 +46,18 @@ export const projects: Array<ProjectItemType> = [
     techStack: ['Vue3', 'Element Plus'],
     tags: ['AI', 'Video'],
     logo: '/images/icon/qihuiguan.png'
+  },
+  {
+    name: '爱彼迎',
+    description: '爱彼迎',
+    link: {
+      href: 'airbnb.sh1-5-projects.vercel.app',
+      label: '模仿爱彼迎的练习项目'
+    },
+    category: ['Website'],
+    techStack: ['React', 'Ant Design'],
+    tags: ['Airbnb', 'Website'],
+    logo: '/images/icon/airbnb.png'
   }
   // {
   //   name: '轻息',
