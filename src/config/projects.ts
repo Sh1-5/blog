@@ -58,6 +58,18 @@ export const projects: Array<ProjectItemType> = [
     techStack: ['React', 'Ant Design'],
     tags: ['Airbnb', 'Website'],
     logo: '/images/icon/airbnb.png'
+  },
+  {
+    name: '谷图地球',
+    description: '基于 Cesium 的三维地球应用',
+    link: {
+      href: 'earth.gooearth.cn',
+      label: '谷图地球'
+    },
+    category: ['Website'],
+    techStack: ['Vue3', 'Element Plus', 'Cesium'],
+    tags: ['Earth', 'Cesium'],
+    logo: '/images/icon/gooearth.png'
   }
   // {
   //   name: '轻息',
