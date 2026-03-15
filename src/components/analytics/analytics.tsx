@@ -1,6 +1,17 @@
-import GoogleAnalytics from './google-analytics'
-import OpenPanelAnalytics from './open-panel-analytics'
-import { PlausibleAnalytics } from './plausible-analytics'
+import dynamic from 'next/dynamic'
+
+const OpenPanelAnalytics = dynamic(
+  () => import('./open-panel-analytics'),
+  { ssr: false }
+)
+const GoogleAnalytics = dynamic(
+  () => import('./google-analytics'),
+  { ssr: false }
+)
+const PlausibleAnalytics = dynamic(
+  () => import('./plausible-analytics').then((mod) => ({ default: mod.PlausibleAnalytics })),
+  { ssr: false }
+)
 
 export function Analytics() {
   if (process.env.NODE_ENV !== 'production') {
@@ -9,13 +20,8 @@ export function Analytics() {
 
   return (
     <>
-      {/* openpanel analytics */}
       <OpenPanelAnalytics />
-
-      {/* google analytics */}
       <GoogleAnalytics />
-
-      {/* plausible analytics */}
       <PlausibleAnalytics />
     </>
   )

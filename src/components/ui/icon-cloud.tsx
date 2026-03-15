@@ -63,12 +63,21 @@ export type DynamicCloudProps = {
 
 type IconData = Awaited<ReturnType<typeof fetchSimpleIcons>>
 
+let cachedIconData: IconData | null = null
+
 export default function IconCloud({ iconSlugs }: DynamicCloudProps) {
-  const [data, setData] = useState<IconData | null>(null)
+  const [data, setData] = useState<IconData | null>(cachedIconData)
   const { theme } = useTheme()
 
   useEffect(() => {
-    fetchSimpleIcons({ slugs: iconSlugs }).then(setData)
+    if (cachedIconData) {
+      setData(cachedIconData)
+      return
+    }
+    fetchSimpleIcons({ slugs: iconSlugs }).then((icons) => {
+      cachedIconData = icons
+      setData(icons)
+    })
   }, [iconSlugs])
 
   const renderedIcons = useMemo(() => {

@@ -4,8 +4,17 @@ const OPENPANEL_API_URL = 'https://api.openpanel.dev'
 const OPENPANEL_CLIENT_ID = process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID
 const OPENPANEL_SECRET_ID = process.env.OPENPANEL_API_SECRET_ID
 const OPENPANEL_PROJECT_ID = process.env.OPENPANEL_PROJECT_ID
+
+let cachedStats: { totalUV: string; dailyUV: string } | null = null
+let statsCacheTime = 0
+const STATS_CACHE_TTL = 1000 * 60 * 5 // 5 minutes
+
 export async function GET() {
   try {
+    const now = Date.now()
+    if (cachedStats && now - statsCacheTime < STATS_CACHE_TTL) {
+      return NextResponse.json(cachedStats)
+    }
     // 获取总访问数据
     const response = await fetch(
       `${OPENPANEL_API_URL}/export/events?projectId=${OPENPANEL_PROJECT_ID}&event=screen_view`,
@@ -54,10 +63,10 @@ export async function GET() {
     // console.log('todayData: ', todayData)
     const dailyUV = todayData?.meta?.totalCount
 
-    return NextResponse.json({
-      totalUV,
-      dailyUV
-    })
+    cachedStats = { totalUV, dailyUV }
+    statsCacheTime = Date.now()
+
+    return NextResponse.json(cachedStats)
   } catch (error) {
     // console.error('Error fetching visit stats:', error);
     return NextResponse.json(

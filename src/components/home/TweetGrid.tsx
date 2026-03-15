@@ -1,33 +1,7 @@
 'use client'
 
-import { TweetProps, useTweet } from 'react-tweet'
 import { tweetIds } from '@/config/infoConfig'
-
-import {
-  MagicTweet,
-  TweetNotFound,
-  TweetSkeleton
-} from '@/components/home/TweetCard'
-
-export const ClientTweetCard = ({
-  id,
-  apiUrl,
-  fallback = <TweetSkeleton />,
-  components,
-  fetchOptions,
-  onError,
-  ...props
-}: TweetProps & { className?: string }) => {
-  const { data, error, isLoading } = useTweet(id, apiUrl, fetchOptions)
-
-  if (isLoading) return fallback
-  if (error || !data) {
-    const NotFound = components?.TweetNotFound || TweetNotFound
-    return <NotFound error={onError ? onError(error) : error} />
-  }
-
-  return <MagicTweet tweet={data} components={components} {...props} />
-}
+import { ClientTweetCard } from '@/components/home/ClientTweetCard'
 
 export const TweetGrid = () => {
   return (

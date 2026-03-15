@@ -9,7 +9,6 @@ import { getAllBlogs } from '@/lib/blogs'
  * https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  console.log('sitemap start')
   let blogs = await getAllBlogs()
 
   const sitemapList: MetadataRoute.Sitemap = [] // final result
@@ -60,6 +59,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   }
 
-  console.log('sitemap end, size:', sitemapList.length)
   return sitemapList
 }

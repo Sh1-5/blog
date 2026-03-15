@@ -1,11 +1,6 @@
-import assert from 'assert'
-import * as cheerio from 'cheerio'
 import { Feed } from 'feed'
 import { name, email } from '@/config/infoConfig'
-import { getBlogBySlug } from '@/lib/blogs'
-import { promises as fs } from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
+import { getAllBlogs } from '@/lib/blogs'
 
 export async function GET(req: Request) {
   let siteUrl = process.env.NEXT_PUBLIC_SITE_URL
@@ -33,26 +28,16 @@ export async function GET(req: Request) {
     }
   })
 
-  // 直接读取博客文件
-  const blogFiles = await fs.readdir(
-    path.join(process.cwd(), 'src/content/blog')
-  )
-  const mdxFiles = blogFiles.filter((file) => file.endsWith('.mdx'))
+  const blogs = await getAllBlogs()
 
-  for (let file of mdxFiles) {
-    const slug = file.replace(/\.mdx$/, '')
-    const filePath = path.join(process.cwd(), 'src/content/blog', file)
-    const source = await fs.readFile(filePath, 'utf-8')
-    const { data, content } = matter(source)
-
+  for (let blog of blogs) {
     feed.addItem({
-      title: data.title,
-      id: `${siteUrl}/blogs/${slug}`,
-      link: `${siteUrl}/blogs/${slug}`,
-      description: data.description,
-      content: content,
+      title: blog.title,
+      id: `${siteUrl}/blogs/${blog.slug}`,
+      link: `${siteUrl}/blogs/${blog.slug}`,
+      description: blog.description,
       author: [author],
-      date: new Date(data.date)
+      date: new Date(blog.date)
     })
   }
 

@@ -1,18 +1,26 @@
-'use client'
+import Image from 'next/image'
 
 export default function GitHubSnake() {
   return (
     <div className="w-full overflow-hidden">
       <div className="dark:hidden">
-        <img
+        <Image
           src="/github-contribution-snake/github-contribution-grid-snake.svg"
-          alt="github-contribution"
+          alt="GitHub Contribution Snake"
+          width={800}
+          height={200}
+          className="w-full"
+          priority={false}
         />
       </div>
       <div className="hidden dark:block">
-        <img
+        <Image
           src="/github-contribution-snake/github-contribution-grid-snake-dark.svg"
-          alt="github-contribution"
+          alt="GitHub Contribution Snake"
+          width={800}
+          height={200}
+          className="w-full"
+          priority={false}
         />
       </div>
     </div>

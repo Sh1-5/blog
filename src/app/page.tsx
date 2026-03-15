@@ -1,5 +1,5 @@
+import dynamic from 'next/dynamic'
 import { Container } from '@/components/layout/Container'
-import Newsletter from '@/components/home/Newsletter'
 import Feed from '@/components/home/Feed'
 import Career from '@/components/home/Career'
 import Education from '@/components/home/Education'
@@ -8,30 +8,40 @@ import { headline, introduction } from '@/config/infoConfig'
 import { BlogCard } from '@/components/home/BlogCard'
 import { getAllBlogs, type BlogType } from '@/lib/blogs'
 import { ProjectCard } from '@/components/project/ProjectCard'
-import { GithubProjectCard } from '@/components/project/GithubProjectCard'
 import {
   projectHeadLine,
   projectIntro,
   projects,
-  githubProjects,
   blogHeadLine,
   blogIntro,
   techIcons,
   activityHeadLine,
   activityIntro
 } from '@/config/infoConfig'
-import GithubContributions from '@/components/home/GithubCalendar'
 import GitHubSnake from '@/components/home/GitHubSnake'
-import { CustomIcon } from '@/components/shared/CustomIcon'
-import IconCloud from '@/components/ui/icon-cloud'
-import { TweetGrid } from '@/components/home/TweetGrid'
-import { MarqueeVertical } from '@/components/home/MarqueeVertical'
 import Link from 'next/link'
 import { ChevronRightIcon } from 'lucide-react'
 
+const IconCloud = dynamic(
+  () => import('@/components/ui/icon-cloud'),
+  { ssr: false }
+)
+
+const TweetGrid = dynamic(
+  () => import('@/components/home/TweetGrid').then((mod) => ({ default: mod.TweetGrid })),
+  { ssr: false }
+)
+
+const MarqueeVertical = dynamic(
+  () => import('@/components/home/MarqueeVertical').then((mod) => ({ default: mod.MarqueeVertical })),
+  {
+    ssr: false,
+    loading: () => <div className="h-[1000px]" />
+  }
+)
+
 export default async function Home() {
   let blogList = (await getAllBlogs()).slice(0, 4)
-  // console.log('blogList: ', blogList)
 
   return (
     <>
@@ -52,7 +62,6 @@ export default async function Home() {
           </div>
         </div>
         <div className="mt-6 border-t border-zinc-100 py-8 dark:border-zinc-700/40">
-          {/* <GithubContributions /> */}
           <GitHubSnake />
         </div>
         {/* projects */}
@@ -72,24 +81,6 @@ export default async function Home() {
             ))}
           </ul>
         </div>
-        {/* <div className="mx-auto my-4 flex max-w-xl flex-col gap-6 border-t border-muted py-8 lg:max-w-none">
-          <h2 className="mb-4 flex flex-row items-center justify-start gap-2 text-xl font-semibold tracking-tight opacity-80 md:text-3xl">
-            <CustomIcon name="github" size={28} />
-            Open Source
-          </h2>
-          <ul
-            role="list"
-            className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 md:grid-cols-3"
-          >
-            {githubProjects.map((project) => (
-              <GithubProjectCard
-                key={project.name}
-                project={project}
-                titleAs="h3"
-              />
-            ))}
-          </ul>
-        </div> */}
         <div className="mx-auto my-8 flex max-w-xl flex-col gap-6 border-t border-muted py-8 lg:max-w-none">
           <h2 className="text-3xl font-semibold tracking-tight opacity-80 md:text-5xl">
             {blogHeadLine}
