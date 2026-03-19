@@ -1,0 +1,319 @@
+---
+title: 'React 基础（二）JSX 基本语法'
+description: 'JSX 深度教程：语法规则、属性绑定、事件绑定、条件渲染、列表渲染、JSX 本质与虚拟 DOM'
+author: 'Qi Hong'
+date: '2023-03-03'
+---
+
+## JSX 语法
+
+- 本质是语法糖（`React.createElement(component, props, ...children)`）
+- 既不是字符串也不是 HTML
+- 最终产生的是一个普通对象
+
+### React 为什么选择 JSX
+
+React 认为渲染逻辑本质上与其他 UI 逻辑存在内在耦合
+
+### JSX 语法规则
+
+1. 定义虚拟 DOM 时，不要写引号，它不是一段字符串
+2. 标签中混入 JS 表达式时使用 `{}`
+3. 样式的类名指定使用 `className`
+4. 内联样式需要使用两个大括号
+5. JSX 顶层只能有一个根元素
+6. JSX 里面的单标签必须闭合
+7. 标签首字母：小写开头转为 HTML 对应标签；大写开头当作组件渲染
+8. 注释书写：`{/* 我是注释 */}`
+
+### JSX 插入内容
+
+- String、Number、Array 类型直接显示
+- null、undefined、Boolean 类型不显示（如果希望显示，转成字符串）
+- 对象类型报错
+- 支持表达式和三元运算符
+
+## JSX 绑定属性
+
+```jsx
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      message: 'Hello World',
+      title: 'this is title',
+      imgURL: 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+      href: 'https://www.baidu.com',
+      isActive: true,
+      className: ['active', 'item'],
+      style: { color: 'green' }
+    }
+  }
+  render() {
+    return (
+      <div>
+        {/* 1.基本绑定 */}
+        <h2 title={this.state.title}>{this.state.message}</h2>
+        <img src={this.state.imgURL} alt="" />
+        <a href={this.state.href}>百度</a>
+
+        {/* 2.绑定class属性，使用className */}
+        <h2 className={this.state.isActive ? 'active' : ''}>Hello React</h2>
+        <h2 className={this.state.className.join(' ')}>Hello React</h2>
+
+        {/* 3.绑定style属性 */}
+        <h2 style={{ color: 'red' }}>Hello React</h2>
+        <h2 style={this.state.style}>Hello React</h2>
+      </div>
+    )
+  }
+}
+```
+
+## 事件绑定
+
+### 三种方式
+
+```jsx
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      message: 'Hello React'
+    }
+  }
+
+  onClick1() {
+    console.log(this.state.message)
+  }
+  onClick2 = () => {
+    console.log(this.state.message)
+  }
+  onClick3() {
+    console.log(this.state.message)
+  }
+
+  render() {
+    return (
+      <div>
+        {/* 通过bind绑定this */}
+        <button onClick={this.onClick1.bind(this)}>按钮1</button>
+        {/* ES6 class fields */}
+        <button onClick={this.onClick2}>按钮2</button>
+        {/* 定义箭头函数返回方法的执行 */}
+        <button onClick={() => { this.onClick3() }}>按钮3</button>
+      </div>
+    )
+  }
+}
+```
+
+### 事件参数
+
+```jsx
+class App extends React.Component {
+  onClick(e) {
+    // e 是 React 合成事件对象
+    console.log(e)
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={(e) => this.onClick(e)}>按钮</button>
+      </div>
+    )
+  }
+}
+```
+
+### 案例：列表高亮
+
+```jsx
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      movies: ['星际穿越', '火星救援', '流浪地球'],
+      currentIndex: 0
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.state.movies.map((movie, index) => {
+            return (
+              <li
+                className={this.state.currentIndex === index ? 'active' : ''}
+                key={movie}
+                onClick={() => { this.setState({ currentIndex: index }) }}
+              >
+                {movie}
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    )
+  }
+}
+```
+
+## 条件渲染
+
+```jsx
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isReady: false
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.isReady && <h2>准备好了</h2>}
+        <button onClick={() => { this.setState({ isReady: true }) }}>
+          点击准备
+        </button>
+      </div>
+    )
+  }
+}
+```
+
+## 列表渲染
+
+```jsx
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      students: [
+        { id: 1, name: '张三', age: 18 },
+        { id: 2, name: '李四', age: 19 },
+        { id: 3, name: '王五', age: 20 }
+      ]
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.state.students.map((student) => {
+            return (
+              <li key={student.id}>
+                {student.name} - {student.age}
+              </li>
+            )
+          })}
+        </ul>
+        <hr />
+        <ul>
+          {this.state.students
+            .filter((student) => student.age > 18)
+            .map((student) => {
+              return (
+                <li key={student.id}>
+                  {student.name} - {student.age}
+                </li>
+              )
+            })}
+        </ul>
+      </div>
+    )
+  }
+}
+```
+
+## JSX 本质
+
+JSX 是 `React.createElement(type, config, ...children)` 的语法糖，目的是创建 ReactElement 对象。
+
+```jsx
+const message = React.createElement('h2', null, 'Hello React')
+ReactDOM.createRoot(document.querySelector('#root')).render(message)
+```
+
+> JSX -> createElement 函数 -> ReactElement 对象树 -> ReactDOM.render 函数 -> 真实 DOM
+
+## 为什么使用虚拟 DOM
+
+- 很难跟踪状态发生的改变
+- 操作真实 DOM 性能低（引起浏览器的回流和重绘）
+
+## 购物车案例
+
+```jsx
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      books: [
+        { id: 1, name: 'JavaScript 高级程序设计', price: 88, date: '2021-10-01', count: 1 },
+        { id: 2, name: 'ES6 标准入门', price: 68, date: '2021-10-02', count: 1 },
+        { id: 3, name: 'TypeScript 入门', price: 58, date: '2021-10-03', count: 1 }
+      ]
+    }
+  }
+
+  decrement(id) {
+    const books = this.state.books.map((book) => {
+      if (book.id === id) book.count--
+      return book
+    })
+    this.setState({ books })
+  }
+  increment(id) {
+    const books = this.state.books.map((book) => {
+      if (book.id === id) book.count++
+      return book
+    })
+    this.setState({ books })
+  }
+  remove(id) {
+    const books = this.state.books.filter((book) => book.id !== id)
+    this.setState({ books })
+  }
+  getTotalPrice() {
+    return '￥' + this.state.books.reduce((pre, book) => pre + book.price * book.count, 0)
+  }
+
+  render() {
+    return (
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>编号</th><th>名称</th><th>价格</th><th>日期</th><th>数量</th><th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.books.map((book) => (
+              <tr key={book.id}>
+                <td>{book.id}</td>
+                <td>{book.name}</td>
+                <td>{book.price}</td>
+                <td>{book.date}</td>
+                <td>
+                  <button disabled={book.count === 1} onClick={() => this.decrement(book.id)}>-</button>
+                  {book.count}
+                  <button onClick={() => this.increment(book.id)}>+</button>
+                </td>
+                <td>
+                  <button onClick={() => this.remove(book.id)}>移除</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <h2>总价格：{this.getTotalPrice()}</h2>
+      </div>
+    )
+  }
+}
+```

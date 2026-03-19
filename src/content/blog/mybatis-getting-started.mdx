@@ -1,0 +1,354 @@
+---
+title: 'MyBatis 入门教程'
+description: '从零开始学习 MyBatis 持久层框架，包括环境搭建、CRUD 操作和配置解析'
+author: 'Qi Hong'
+date: '2022-10-01'
+---
+
+## 什么是 MyBatis
+
+- 持久层框架
+- 支持自定义 SQL、存储过程以及高级映射
+- 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作
+
+```xml
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.5.16</version>
+</dependency>
+```
+
+## 持久层、持久化
+
+## 为什么需要 MyBatis
+
+便于将数据存入到数据库中
+
+## MyBatis 特点
+
+- 简单易用：避免了几乎所有的 JDBC 代码和参数的手工设置以及结果集的检索
+- 灵活：MyBatis 不像完全的 ORM 框架那样强迫你使用一种编程方式，它允许使用原始的 SQL 语句，提供了更大的灵活性和控制权
+- 动态 SQL：MyBatis 支持动态 SQL 语句，能够根据不同条件构建不同的 SQL 语句，极大地提升了 SQL 的复用性和灵活性
+- 映射器和 XML 文件：MyBatis 允许将 SQL 语句写在 XML 文件中，通过映射器接口与之对应，实现了 SQL 语句和 Java 代码的分离
+- 集成支持：MyBatis 可以很容易地与 Spring、Spring Boot 等流行的 Java 框架集成，提供了事务管理、连接池、懒加载等支持
+- 优秀的性能：MyBatis 提供了一些高级功能，如缓存支持，能够提升应用的性能
+- 类型安全的 Mapper 接口：MyBatis 允许开发者定义 Mapper 接口，通过 Java 泛型提供了更高的类型安全，并减少了错误的可能性
+- 部分 ORM 特性：虽然 MyBatis 不是一个完整的 ORM 框架，但它提供了对象图导航的部分支持，如延迟加载和级联映射等
+- 社区支持：活跃的社区
+- 跨数据库支持：MyBatis 能够很好地支持不同的数据库产品，只需要改变配置文件中的数据库连接信息即可轻松切换数据库
+
+## 第一个 MyBatis 程序
+
+### 搭建数据库
+
+```sql
+CREATE DATABASE `mybatis`;
+
+USE `mybatis`;
+
+CREATE TABLE `user`
+(
+    `id`       INT(20) NOT NULL,
+    `name`     VARCHAR(30) DEFAULT NULL,
+    `password` VARCHAR(30) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARSET = utf8;
+
+INSERT INTO `user`(`id`, `name`, `password`)
+VALUES (1, '张三', '123456'),
+       (2, '李四', '123456'),
+       (3, '王五', '123456');
+```
+
+### 新建项目
+
+- 创建一个普通的 Maven 项目
+- 删除 src 目录
+- 导入依赖
+
+```xml
+<dependencies>
+    <!-- mysql驱动 -->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.33</version>
+    </dependency>
+    <!-- mybatis -->
+    <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>3.5.16</version>
+    </dependency>
+    <!-- junit -->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+    </dependency>
+</dependencies>
+```
+
+### 创建一个模块
+
+编写 MyBatis 的核心配置文件
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/huangqihong/dao/UserMapper.xml"/>
+    </mappers>
+</configuration>
+```
+
+编写 MyBatis 工具类
+
+```java
+package com.huangqihong.utils;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+public class MyBatisUtil {
+    private static SqlSessionFactory sqlSessionFactory;
+
+    static {
+        try {
+            // get sqlSessionFactory object
+            String resource = "mybatis-config.xml";
+            InputStream inputStream = Resources.getResourceAsStream(resource);
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static SqlSession getSqlSession() {
+        return sqlSessionFactory.openSession();
+    }
+}
+```
+
+### 编写代码
+
+实体类
+
+```java
+package com.huangqihong.pojo;
+
+public class User {
+    private int id;
+    private String name;
+    private String password;
+
+    public User(int id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", name='" + name + '\'' + ", password='" + password + '\'' + '}';
+    }
+}
+```
+
+Dao 接口
+
+```java
+package com.huangqihong.dao;
+
+import com.huangqihong.pojo.User;
+
+import java.util.List;
+
+public interface UserMapper {
+    List<User> getUserList();
+}
+```
+
+接口实现类由原来的 UserDaoImpl 转变为 Mapper 配置
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huangqihong.dao.UserMapper">
+    <select id="getUserList" resultType="com.huangqihong.pojo.User">
+        select * from user
+    </select>
+</mapper>
+```
+
+测试
+
+先在配置文件注册
+
+```java
+package com.huangqihong.dao;
+
+import com.huangqihong.pojo.User;
+import com.huangqihong.utils.MyBatisUtil;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
+
+import java.util.List;
+
+public class UserMapperTest {
+    @Test
+    public void getUserList() {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            // getMapper
+            // recommended
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            List<User> userList = userMapper.getUserList();
+
+            for (User user : userList) {
+                System.out.println(user);
+            }
+        }
+    }
+}
+```
+
+注意：
+
+- 配置文件注册
+- 绑定接口错误
+- 方法名不对
+- 返回类型不对
+- Maven 导出资源问题
+- 记得关闭 sqlSession
+
+## CRUD
+
+### namespace
+
+namespace 中的包名要和 Dao/mapper 接口的包名一致
+
+### select
+
+- id：对应的 namespace 中的方法名
+- resultType：SQL 语句执行的返回值
+- parameterType：参数类型
+
+### insert
+
+### update
+
+### delete
+
+注意：增删改需要提交事务
+
+### 万能的 Map
+
+字段过多时，可以考虑使用 Map
+
+### 模糊查询
+
+## 配置解析
+
+核心配置文件
+
+- configuration（配置）
+  - properties（属性）
+  - settings（设置）
+  - typeAliases（类型别名）
+  - typeHandlers（类型处理器）
+  - objectFactory（对象工厂）
+  - plugins（插件）
+  - environments（环境配置）
+  - environment（环境变量）
+  - transactionManager（事务管理器）
+  - dataSource（数据源）
+  - databaseIdProvider（数据库厂商标识）
+  - mappers（映射器）
+
+### 属性（properties）
+
+动态替换某些配置（db.properties）
+
+```text
+driver = com.mysql.jdbc.Driver
+url = jdbc:mysql://localhost:3306/mybatis?useSSL=true&useUnicode=true&characterEncoding=UTF-8
+username = root
+password = 123456
+```
+
+### 设置（settings）
+
+### 类型别名（typeAliases）
+
+```xml
+<typeAliases>
+    <!-- 1. type attribute: the full class name of the type to be aliased -->
+    <typeAlias type="com.huangqihong.pojo.User" alias="user"/>
+    <!-- 2. package attribute: the package name to be scanned -->
+    <!-- <package name="com.huangqihong.pojo"/> -->
+</typeAliases>
+```
+
+### 类型处理器
+
+### 对象工厂
+
+### 插件
+
+### 环境配置
+
+可以配置多个环境，但每个 SqlSessionFactory 实例只能选择一种选择，即每个数据库对应一个 SqlSessionFactory 实例
+
+默认的事务管理器是 JDBC，连接池：POOLED
+
+### 数据库厂商标识
+
+### 映射器

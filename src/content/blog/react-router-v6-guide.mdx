@@ -1,0 +1,254 @@
+---
+title: 'React 进阶（七）React Router'
+description: 'React Router v6 完整教程：Routes/Route、Link/NavLink、Navigate、嵌套路由、参数传递、配置式路由、懒加载'
+author: 'Qi Hong'
+date: '2023-03-22'
+---
+
+## 安装
+
+```bash
+npm install react-router-dom
+```
+
+## Router 组件
+
+从 react-router-dom 引入 HashRouter 或 BrowserRouter 包裹根组件：
+
+```jsx
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom/client'
+import { HashRouter } from 'react-router-dom'
+import App from './App'
+
+const root = ReactDOM.createRoot(document.querySelector('#root'))
+root.render(
+  <StrictMode>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </StrictMode>
+)
+```
+
+## Routes、Route 组件
+
+Route 必须被 Routes 包裹：
+
+```jsx
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/home" element={<Home />} />
+  <Route path="/about" element={<About />} />
+  <Route path="*" element={<NotFound />} />
+</Routes>
+```
+
+## Link、NavLink 组件
+
+Link 最终被渲染成 a 元素。NavLink 多了活跃状态，活跃的元素上会加上 active 类。
+
+```jsx
+<Link to="/home">首页</Link>
+<Link to="/about">关于</Link>
+
+<NavLink
+  to="/home"
+  style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}
+  className={({ isActive }) => (isActive ? 'custom-active' : '')}
+>
+  首页
+</NavLink>
+```
+
+## Navigate 组件
+
+用于路由的重定向：
+
+```jsx
+import { Navigate } from 'react-router-dom'
+
+class Login extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = { isLogin: false }
+  }
+
+  render() {
+    const { isLogin } = this.state
+    return (
+      <div>
+        <h2>Login Page</h2>
+        {!isLogin ? (
+          <button onClick={() => this.setState({ isLogin: true })}>登录</button>
+        ) : (
+          <Navigate to="/home" />
+        )}
+      </div>
+    )
+  }
+}
+```
+
+也可以用在 Route 上做默认重定向：
+
+```jsx
+<Routes>
+  <Route path="/" element={<Navigate to="/home" />} />
+  <Route path="/home" element={<Home />} />
+  <Route path="/about" element={<About />} />
+  <Route path="*" element={<NotFound />} />
+</Routes>
+```
+
+## 路由的嵌套
+
+```jsx
+<Route path="/home" element={<Home />}>
+  <Route path="/home" element={<Navigate to="/home/recommend" />} />
+  <Route path="/home/recommend" element={<HomeRecommend />} />
+  <Route path="/home/ranking" element={<HomeRanking />} />
+</Route>
+```
+
+使用 Outlet 组件占位：
+
+```jsx
+import { Link, Outlet } from 'react-router-dom'
+
+class Home extends PureComponent {
+  render() {
+    return (
+      <div>
+        <h2>Home Page</h2>
+        <div className="home-nav">
+          <Link to="/home/recommend">推荐</Link>
+          <Link to="/home/ranking">排行榜</Link>
+        </div>
+        <Outlet />
+      </div>
+    )
+  }
+}
+```
+
+## 手动跳转
+
+只在函数组件有效，类组件必须使用高阶组件实现：
+
+```javascript
+import { useNavigate } from 'react-router-dom'
+
+function withRouter(WrapperComponent) {
+  return function (props) {
+    const navigate = useNavigate()
+    const router = { navigate }
+    return <WrapperComponent {...props} router={router} />
+  }
+}
+```
+
+## 参数传递
+
+1. 动态路由 + `useParams`：`/detail/1`
+2. 查询字符串 + `useLocation`：`/detail?id=1`
+3. 查询字符串 + `useSearchParams`
+
+```javascript
+import { useNavigate, useParams, useLocation, useSearchParams } from 'react-router-dom'
+
+function withRouter(WrapperComponent) {
+  return function (props) {
+    const navigate = useNavigate()
+    const params = useParams()
+    const location = useLocation()
+    const [searchParams] = useSearchParams()
+    const query = Object.fromEntries(searchParams)
+    const router = { navigate, params, location, query }
+    return <WrapperComponent {...props} router={router} />
+  }
+}
+
+export default withRouter
+```
+
+## 配置式路由
+
+使用 `useRoutes` hook：
+
+```javascript
+import { Navigate } from 'react-router-dom'
+import Home from '../pages/Home'
+import HomeRecommend from '../pages/HomeRecommend'
+import HomeRanking from '../pages/HomeRanking'
+import About from '../pages/About'
+import Login from '../pages/Login'
+import NotFound from '../pages/NotFound'
+
+const routes = [
+  { path: '/', element: <Navigate to="/home" /> },
+  {
+    path: '/home',
+    element: <Home />,
+    children: [
+      { path: '/home', element: <Navigate to="/home/recommend" /> },
+      { path: '/home/recommend', element: <HomeRecommend /> },
+      { path: '/home/ranking', element: <HomeRanking /> }
+    ]
+  },
+  { path: '/about', element: <About /> },
+  { path: '/login', element: <Login /> },
+  { path: '*', element: <NotFound /> }
+]
+
+export default routes
+```
+
+```jsx
+import { Link, useRoutes } from 'react-router-dom'
+import routes from './router'
+
+function App() {
+  return (
+    <div>
+      <div className="header">
+        <Link to="/home">首页</Link>
+        <Link to="/about">关于</Link>
+        <Link to="/login">登录</Link>
+      </div>
+      <div className="content">{useRoutes(routes)}</div>
+      <div className="footer">Footer</div>
+    </div>
+  )
+}
+
+export default App
+```
+
+## 路由的懒加载
+
+```javascript
+import React from 'react'
+
+const Home = React.lazy(() => import('../pages/Home'))
+```
+
+采用路由懒加载的组件会分包（webpack），必须使用 Suspense 包裹：
+
+```jsx
+import { StrictMode, Suspense } from 'react'
+import ReactDOM from 'react-dom/client'
+import { HashRouter } from 'react-router-dom'
+import App from './App'
+
+const root = ReactDOM.createRoot(document.querySelector('#root'))
+root.render(
+  <StrictMode>
+    <Suspense fallback={<h2>Loading</h2>}>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </Suspense>
+  </StrictMode>
+)
+```

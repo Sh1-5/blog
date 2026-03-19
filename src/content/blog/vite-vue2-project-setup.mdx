@@ -1,0 +1,78 @@
+---
+title: '使用 Vite 搭建 Vue2 项目'
+description: '从零使用 Vite 搭建 Vue2 开发环境的完整步骤'
+author: 'Qi Hong'
+date: '2023-01-10'
+---
+
+## 初始化项目
+
+```bash
+npm init vite@latest
+```
+
+Select a framework: vanilla
+
+## 安装插件
+
+```bash
+npm install @vitejs/plugin-vue2 -D
+```
+
+新建 `vite.config.js`
+
+```javascript
+import vue from '@vitejs/plugin-vue2'
+
+export default {
+  plugins: [vue()]
+}
+```
+
+## 安装 Vue2
+
+```bash
+npm install vue@2
+npm install vue-template-compiler@2 -D
+```
+
+## 修改文件夹
+
+1. 删除 `counter.js`、`style.css`、`javascript.svg` 文件
+
+2. 新建 `src` 文件夹
+
+3. `src` 文件夹下新建 `main.js`、`App.vue`
+
+```javascript
+import Vue from 'vue'
+import App from './App.vue'
+
+new Vue({
+  render: (h) => h(App)
+}).$mount('#app')
+```
+
+```vue
+<template>
+  <div>Vite Vue2</div>
+</template>
+
+<script>
+export default {}
+</script>
+
+<style scoped></style>
+```
+
+4. 修改 `index.html`
+
+```html
+<script type="module" src="./src/main.js"></script>
+```
+
+## 运行项目
+
+```bash
+npm run dev
+```

@@ -1,0 +1,81 @@
+---
+title: '前端加密方案指南'
+description: '前端常用加密方式与加密库介绍，包括 CryptoJS、Forge、AsmCrypto.js 和 Web Crypto API'
+author: 'Qi Hong'
+date: '2023-05-10'
+---
+
+## 应用场景
+
+- 用户认证
+- 敏感信息保护
+- 数据完整性验证
+
+## 加密方式
+
+- 对称加密：使用同一个密钥进行数据的加密和解密（如 AES，即高级加密标准）
+- 非对称加密：使用一对密钥，一个用于加密（公钥），一个用于解密（私钥）（如 RSA）
+- 哈希函数：用于验证数据完整性，不可逆（推荐 SHA-256、MD5 不再推荐使用）
+
+## 常用的前端加密库
+
+### CryptoJS
+
+支持多种加密算法，如 AES、SHA256 等
+
+```javascript
+const encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase")
+const decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase")
+```
+
+### Forge
+
+提供了包括 AES 和 RSA 在内的多种加密算法
+
+```javascript
+const key = forge.random.getBytesSync(16)
+const cipher = forge.cipher.createCipher('AES-CBC', key)
+cipher.start({iv: forge.random.getBytesSync(16)})
+cipher.update(forge.util.createBuffer('Message'))
+cipher.finish()
+const encrypted = cipher.output
+```
+
+### AsmCrypto.js
+
+高性能的 WebAssembly 加密库，支持 AES、SHA 等算法
+
+```javascript
+const key = asmCrypto.hex_to_bytes('000102030405060708090a0b0c0d0e0f')
+const plaintext = asmCrypto.string_to_bytes('Message')
+const encrypted = asmCrypto.AES_ECB.encrypt(plaintext, key)
+```
+
+### Web Crypto API
+
+浏览器提供的原生加密API，支持多种加密算法
+
+```javascript
+window.crypto.subtle.encrypt(
+  {
+    name: "AES-GCM",
+    iv: window.crypto.getRandomValues(new Uint8Array(12))
+  },
+  key,
+  data
+).then(function(encrypted){
+  console.log(new Uint8Array(encrypted));
+})
+```
+
+> **AES**（高级加密标准，Advanced Encryption Standard）
+>
+> **RSA**（Rivest-Shamir-Adleman）
+>
+> **SHA**（安全散列算法，Secure Hash Algorithm）
+
+> **AES** 是日常数据加密的首选，用于加密大量数据
+>
+> **RSA** 主要用于加密小块数据和数字签名
+>
+> **SHA** 和 **SHA-256** 主要用于验证数据的完整性，如数字签名和文件校验

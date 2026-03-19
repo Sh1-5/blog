@@ -1,0 +1,263 @@
+---
+title: 'React 进阶（五）Redux'
+description: 'Redux 完整教程：纯函数、三大原则、store/action/reducer、React-Redux、Redux-Thunk 异步处理'
+author: 'Qi Hong'
+date: '2023-03-18'
+---
+
+## 纯函数
+
+- 确定的输入一定会产生确定的输出
+- 函数在执行过程中，不能产生副作用（不改变外部状态，不会进行输入输出操作）
+
+## Redux
+
+三大原则：**单一数据源**、**state 是只读的**、**使用纯函数来执行修改**
+
+核心概念：store（保持应用状态的对象）、state（应用的当前状态）、action（描述状态变化的对象）、reducer（纯函数，描述 state 如何因 action 而变化）
+
+核心是 `reducer(state, action)`
+
+> 记住它是一个纯函数，所以不能直接修改 state，而是返回一个新的 state
+
+```bash
+npm install redux
+```
+
+### 获得 store 中的数据
+
+`store.getState()`
+
+```javascript
+const { createStore } = require('redux')
+
+const initialState = { name: '张三', age: 18 }
+
+function reducer(state = initialState, action) {
+  if (action.type === 'changeName') {
+    return { ...state, name: action.name }
+  }
+  if (action.type === 'addAge') {
+    return { ...state, age: state.age + action.num }
+  }
+  return state
+}
+
+const store = createStore(reducer)
+module.exports = store
+```
+
+### 修改 store 中的数据
+
+`store.dispatch(action)`
+
+```javascript
+const store = require('./index')
+
+store.dispatch({ type: 'changeName', name: '李四' })
+console.log(store.getState())
+
+store.dispatch({ type: 'addAge', num: 1 })
+console.log(store.getState())
+```
+
+### 订阅 store 中的数据
+
+```javascript
+const unsubscribe = store.subscribe(() => {
+  console.log(store.getState())
+})
+
+store.dispatch({ type: 'changeName', name: '李四' })
+store.dispatch({ type: 'addAge', num: 1 })
+
+unsubscribe()
+```
+
+### 动态生成 action（actionCreators）
+
+```javascript
+const changeNameAction = (name) => ({
+  type: 'changeName',
+  name
+})
+
+const addAgeAction = (num) => ({
+  type: 'addAge',
+  num
+})
+```
+
+### 最佳实践
+
+将 constants、reducer、actionCreators 分离到不同文件：
+
+**constants.js**
+```javascript
+export const DECREMENT = 'decrement'
+export const INCREMENT = 'increment'
+```
+
+**reducer.js**
+```javascript
+import { DECREMENT, INCREMENT } from './constants'
+
+const initialState = { counter: 0 }
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case DECREMENT:
+      return { ...state, counter: state.counter - 1 }
+    case INCREMENT:
+      return { ...state, counter: state.counter + 1 }
+    default:
+      return state
+  }
+}
+
+export default reducer
+```
+
+**actionCreators.js**
+```javascript
+import { DECREMENT, INCREMENT } from './constants'
+
+export const decrementAction = () => ({ type: DECREMENT })
+export const incrementAction = () => ({ type: INCREMENT })
+```
+
+**store/index.js**
+```javascript
+import { createStore } from 'redux'
+import reducer from './reducer'
+
+const store = createStore(reducer)
+export default store
+```
+
+### 在 React 中使用
+
+```jsx
+import { PureComponent } from 'react'
+import store from './store'
+import { decrementAction, incrementAction } from './store/actionCreators'
+
+class Home extends PureComponent {
+  constructor() {
+    super()
+    this.state = { counter: store.getState().counter }
+  }
+
+  componentDidMount() {
+    store.subscribe(() => {
+      this.setState({ counter: store.getState().counter })
+    })
+  }
+
+  render() {
+    const { counter } = this.state
+    return (
+      <div>
+        <h2>{counter}</h2>
+        <button onClick={() => store.dispatch(decrementAction())}>-</button>
+        <button onClick={() => store.dispatch(incrementAction())}>+</button>
+      </div>
+    )
+  }
+}
+
+export default Home
+```
+
+> 可以通过 `combineReducers` 来组合多个 reducer
+
+## React-Redux
+
+```bash
+npm install react-redux
+```
+
+提供一个 Provider 组件，使用 `connect(mapStateToProps, mapDispatchToProps)` 返回的高阶组件包裹原组件。
+
+```jsx
+import { Provider } from 'react-redux'
+import store from './store'
+import Home from './Home'
+
+function App() {
+  return (
+    <Provider store={store}>
+      <Home />
+    </Provider>
+  )
+}
+
+export default App
+```
+
+```jsx
+import { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { decrementAction, incrementAction, asyncIncrementAction } from './store/actionCreators'
+
+class Home extends PureComponent {
+  render() {
+    const { counter } = this.props
+    return (
+      <div>
+        <h2>{counter}</h2>
+        <button onClick={() => this.props.decrement()}>-</button>
+        <button onClick={() => this.props.increment()}>+</button>
+        <button onClick={() => this.props.asyncIncrement()}>async +</button>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = (state) => ({ counter: state.counter })
+const mapDispatchToProps = (dispatch) => ({
+  decrement() { dispatch(decrementAction()) },
+  increment() { dispatch(incrementAction()) },
+  asyncIncrement() { dispatch(asyncIncrementAction()) }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
+```
+
+## Redux-Thunk
+
+默认情况下只能 dispatch 一个对象，使用 redux-thunk 后可以 dispatch 一个函数。
+
+```bash
+npm install redux-thunk
+```
+
+```javascript
+import { createStore, applyMiddleware } from 'redux'
+import { thunk } from 'redux-thunk'
+import reducer from './reducer'
+
+const store = createStore(reducer, applyMiddleware(thunk))
+export default store
+```
+
+异步 action：
+
+```javascript
+export const asyncIncrementAction = () => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch({ type: INCREMENT })
+    }, 1000)
+  }
+}
+```
+
+## Redux DevTools Extension
+
+```javascript
+const composeEnhancers =
+  (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
+```

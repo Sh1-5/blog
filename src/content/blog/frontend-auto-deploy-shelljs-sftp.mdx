@@ -1,0 +1,89 @@
+---
+title: '使用 shelljs 和 ssh2-sftp-client 实现前端自动化部署'
+description: '通过 shelljs 和 ssh2-sftp-client 实现前端项目的自动化打包和 SFTP 部署'
+author: 'Qi Hong'
+date: '2023-05-20'
+---
+
+## 安装 shelljs 和 ssh2-sftp-client
+
+```bash
+npm install shelljs ssh2-sftp-client -D
+```
+
+## 在项目目录下创建 deploy 目录
+
+### 1. 创建 config.js
+
+```javascript
+module.exports = {
+  ip: '',
+  username: '',
+  port: '',
+  password: '',
+  path: ''
+}
+```
+
+### 2. 创建 index.js
+
+```javascript
+const shell = require('shelljs')
+let Client = require('ssh2-sftp-client')
+const path = require('path')
+const config = require('./config.js')
+
+const compileDist = async () => {
+  if (shell.exec(`npm run build`).code === 0) {
+    console.log('打包成功')
+  }
+}
+
+async function connectSSh() {
+  const sftp = new Client()
+  sftp
+    .connect({
+      host: config.ip,
+      port: config.port,
+      username: config.username,
+      password: config.password
+    })
+    .then(() => {
+      console.log(`删除${config.path}里的内容`)
+      return sftp.rmdir(config.path, true)
+    })
+    .then(() => {
+      console.log('开始上传')
+      return sftp.uploadDir(path.resolve(__dirname, '../dist'), config.path)
+    })
+    .then(() => {
+      console.log('上传成功')
+      sftp.end()
+    })
+    .catch((err) => {
+      console.log(err, '上传失败')
+      sftp.end()
+    })
+}
+
+async function runTask() {
+  await compileDist()
+  await connectSSh()
+}
+
+runTask()
+```
+
+## 部署
+
+### 1. 在 package.json 中添加脚本
+
+```json
+"deploy": "node deploy/index.js"
+```
+
+### 2. 执行部署
+
+```bash
+npm run deploy
+```

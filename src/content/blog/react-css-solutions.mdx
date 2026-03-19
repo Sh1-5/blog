@@ -1,0 +1,170 @@
+---
+title: 'React 进阶（四）CSS 方案'
+description: 'React CSS 方案全面对比：内联样式、CSS Modules、Less(craco)、styled-components、classnames'
+author: 'Qi Hong'
+date: '2023-03-16'
+---
+
+## 内联样式
+
+伪类和伪元素不支持。
+
+```jsx
+import { PureComponent } from 'react'
+
+class InLine extends PureComponent {
+  render() {
+    return <div style={{ color: 'red' }}>Hello World</div>
+  }
+}
+
+export default InLine
+```
+
+## CSS 文件
+
+容易造成样式冲突，需要特别注意。
+
+## CSS Modules
+
+不能使用连接符（可以使用驼峰），不方便动态修改。
+
+```jsx
+import { PureComponent } from 'react'
+import style from './CSSModules.module.css'
+
+class CSSModules extends PureComponent {
+  render() {
+    return <div className={style.title}>CSSModules</div>
+  }
+}
+
+export default CSSModules
+```
+
+```css
+.title {
+  color: red;
+}
+```
+
+## Less
+
+不建议修改 webpack 配置（需要 eject 后配置），建议使用 craco（Ant Design 使用的也是这个）。
+
+```bash
+npm install @craco/craco craco-less
+```
+
+修改启动和打包脚本：
+
+```json
+"scripts": {
+  "start": "craco start",
+  "build": "craco build",
+  "test": "craco test",
+  "eject": "react-scripts eject"
+}
+```
+
+创建配置文件 `craco.config.js`：
+
+```javascript
+const CracoLessPlugin = require('craco-less')
+
+module.exports = {
+  plugins: [
+    {
+      plugin: CracoLessPlugin,
+      options: {
+        lessLoaderOptions: {
+          lessOptions: {
+            modifyVars: { '@success-color': '#1DA57A' },
+            javascriptEnabled: true
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+```less
+@primary-color: red;
+
+.title {
+  color: @primary-color;
+}
+```
+
+## CSS in JS（styled-components）
+
+流行的库：styled-components、emotion、glamorous
+
+```bash
+npm install styled-components
+```
+
+```jsx
+import { PureComponent } from 'react'
+import { DivWrapper } from './StyledComponents'
+
+class StyledComponents extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = { backgroundColor: 'green' }
+  }
+
+  render() {
+    const { backgroundColor } = this.state
+    return (
+      <DivWrapper backgroundColor={backgroundColor}>
+        <p className="title">Hello World</p>
+      </DivWrapper>
+    )
+  }
+}
+
+export default StyledComponents
+```
+
+```javascript
+import styled from 'styled-components'
+
+const dangerColor = 'red'
+
+export const DivWrapper = styled.div.attrs({
+  bColor: (props) => props.borderColor || 'blue'
+})`
+  color: ${dangerColor};
+  background-color: ${(props) => props.backgroundColor};
+  border: 1px solid ${(props) => props.bColor};
+
+  .title {
+    font-size: 20px;
+  }
+`
+```
+
+## 动态添加 className
+
+使用 [classnames](https://github.com/JedWatson/classnames) 库：
+
+```jsx
+import { PureComponent } from 'react'
+import classNames from 'classnames'
+
+class ClassNames extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = { isB: true }
+  }
+
+  render() {
+    const { isB } = this.state
+    return <div className={classNames('a', { b: isB })}>Hello World</div>
+  }
+}
+
+export default ClassNames
+```

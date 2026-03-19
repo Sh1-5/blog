@@ -1,0 +1,340 @@
+---
+title: 'Docker 实战指南'
+description: 'Docker 核心概念、安装配置、常用命令、存储、网络以及 Docker Compose 和 Dockerfile 的实战指南'
+author: 'Qi Hong'
+date: '2023-06-01'
+---
+
+## 什么是 Docker？
+
+Docker 是一个开源的平台，用于自动化部署应用程序
+
+## Docker 的一些核心概念
+
+### 容器（Container）
+
+容器是 Docker 的核心组件，它是一个轻量级、独立的可运行环境，包含了应用程序以及它所需的所有库、配置文件和依赖关系
+
+通过容器，可以确保应用程序在不同的环境中一致运行
+
+### 镜像（Image）
+
+镜像是一个只读的模板，包含了运行应用程序的所有依赖和配置。镜像可以被用来创建容器
+
+可以从 Docker Hub（一个公共的镜像仓库）下载现成的镜像，也可以基于自己的需求构建自定义镜像
+
+### 守护进程（Docker Daemon）
+
+守护进程在后台运行，负责管理 Docker 容器的生命周期，包括创建、启动、停止和删除容器
+
+### Docker Compose
+
+Docker Compose 是一个工具，允许你定义和运行多容器的 Docker 应用程序
+
+通过一个 YAML 文件（`docker-compose.yml`），你可以描述应用程序的服务、网络和卷，并通过一个命令来启动或停止整个应用程序栈
+
+### Dockerfile
+
+Dockerfile 是定义如何构建 Docker 镜像的文件，它包含一系列指令来告诉 Docker 如何安装应用程序及其依赖项
+
+## 安装 Docker Engine
+
+### 移除旧版本
+
+```bash
+yum remove docker \
+           docker-client \
+           docker-client-latest \
+           docker-common \
+           docker-latest \
+           docker-latest-logrotate \
+           docker-logrotate \
+           docker-engine
+```
+
+### 安装 yum-utils
+
+```bash
+yum install -y yum-utils
+yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+```
+
+### 安装 Docker Engine、containerd 和 Docker Compose
+
+```bash
+yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+### 启动 Docker
+
+```bash
+systemctl start docker
+systemctl enable docker
+docker run hello-world
+```
+
+### 配置加速
+
+```bash
+mkdir -p /etc/docker
+tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://mirror.ccs.tencentyun.com"]
+}
+EOF
+systemctl daemon-reload
+systemctl restart docker
+```
+
+## 常用命令
+
+### 镜像
+
+```bash
+# 查找镜像
+docker search nginx
+# 下载镜像
+docker pull nginx
+# 镜像列表
+# docker images
+# 移除镜像
+# docker rmi <image id>/<repository:tag>
+# 移除失败的话先移除container
+# docker rm <container id>/<name>
+```
+
+### 容器
+
+```bash
+dcoker run <image id>/<repository:tag> # 运行
+docker ps # 查看
+docker ps -a # 查看，包括停止的容器
+docker ps -aq # 查看所有容器的id，包括停止的容器
+docker stop <container id>/<name> # 停止
+docker start <container id>/<name> # 启动
+docker restart <container id>/<name> # 重启
+docker stats <container id>/<name> # 状态
+docker logs <container id>/<name> # 日志
+docker rm <container id>/<name> # 删除，必须先停止
+docker rm -f <container id>/<name> # 强制删除
+docker rm -f $(docker ps -aq) # 强制全部删除
+```
+
+```bash
+# 后台启动一个nginx容器，配置端口映射（主机端口:容器端口），并命名这个容器为nginx
+docker run -d -p 80:80 --name nginx nginx
+# 在容器中启动一个新进程，进行交互式的终端会话
+docker exec -it <container id>/<name> /bin/bash
+```
+
+### 修改页面
+
+```bash
+# 容器有自己的文件系统
+cd /usr/share/nginx/html
+vi index.html # 没有vi
+echo '<h2>Hello Docker!</h2>' > index.html
+```
+
+### 保存镜像
+
+```bash
+# 生成镜像
+docker commit -m 'update index.html' nginx hqh15/nginx:v1.0
+docker images
+# 打包镜像
+docker save -o nginx.tar hqh15/nginx:v1.0
+```
+
+物理传输后加载
+
+```bash
+docker load -i nginx.tar
+docker run -d -p 80:80 --name nginx nginx
+```
+
+### 分享镜像
+
+```bash
+docker login -u hqh15
+docker tag hqh15/nginx:v1.0 hqh15/nginx:latest
+docker push hqh15/nginx:v1.0
+docker push hqh15/nginx:latest
+```
+
+## 存储
+
+> 容器管理过于麻烦
+>
+> 删除容器数据没了
+>
+> 所以有了目录挂载和卷映射（容器删除后数据依旧保存在主机的目录或卷中）
+
+### 目录挂载（内外皆空，保持一致）
+
+```bash
+# 后台运行一个容器，将主机上的/app/html目录挂载到容器内的/usr/share/nginx/html目录
+docker run -d -p 80:80 -v /app/html:/usr/share/nginx/html --name nginx nginx
+echo '<h2>Hello Docker!</h2>' > index.html
+```
+
+### 卷映射（以内为基，保持一致）
+
+```bash
+# 后台运行一个容器，将主机上的/app/html目录挂载到容器内的/usr/share/nginx/html目录，将一个名为ngconf的卷挂载到容器内的/etc/nginx目录
+docker run -d -p 81:80 -v /app/html:/usr/share/nginx/html -v ngconf:/etc/nginx --name nginx nginx
+docker volume ls
+docker volume inspect ngconf
+cd /var/lib/docker/volumes/ngconf
+ls
+cd _data
+```
+
+## 网络
+
+每一个容器启动后，都会加入一个默认的网络 docker0（172.17.0.1），分配到一个唯一的 ip
+
+```bash
+# 比如有两个容器，容器1的网络为172.17.0.2，容器2的网络为 172.17.0.3
+# 进入容器2访问容器1，通过外部网络访问
+curl http://101.43.52.162[:80]
+docker container inspect <container id>/<name>
+# 通过内部网络访问
+curl http://172.17.0.3:80 # 这个80是容器内部端口
+```
+
+ip 由于各种原因可能会变化，而且 docker0 默认不支持主机域名
+
+创建自定义网络，容器名就是稳定域名
+
+```bash
+docker network --help
+docker network ls
+docker network create customnet
+docker run -d -p 80:80 --name app1 --network customnet nginx
+docker run -d -p 81:80 --name app2 --network customnet nginx
+docker exec -it app1 bash
+curl http://app2:80
+```
+
+## Redis 主从同步集群
+
+读写分离
+
+参考：[https://hub.docker.com/r/bitnami/redis](https://hub.docker.com/r/bitnami/redis)
+
+## 最佳实践（以 Mysql 为例）
+
+端口映射，目录挂载/卷映射，环境变量
+
+```bash
+docker run -d -p 3306:3306 \
+-v /app/myconf:/etc/mysql/conf.d \
+-v /app/mydata:/var/lib/mysql \
+-e MYSQL_ROOT_PASSWORD=123456 \
+mysql:lts
+```
+
+## Docker Compose
+
+> 参考：[https://docs.docker.com/reference/compose-file/](https://docs.docker.com/reference/compose-file/)
+
+```bash
+docker network create blog
+
+docker run -d -p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-e MYSQL_DATABASE=wordpress \
+-v mysql-data:/var/lib/mysql \
+-v /app/myconf:/etc/mysql/conf.d \
+--restart always --name mysql \
+--network blog \
+mysql:lts
+
+docker run -d -p 8080:80 \
+-e WORDPRESS_DB_HOST=mysql \
+-e WORDPRESS_DB_USER=root \
+-e WORDPRESS_DB_PASSWORD=123456 \
+-e WORDPRESS_DB_NAME=wordpress \
+-v wordpress:/var/www/html \
+--restart always --name wordpress \
+--network blog \
+wordpress:latest
+```
+
+使用 docker compose 管理
+
+```bash
+docker rm -f $(docker ps -aq)
+docker volume rm mysql-data wordpress
+docker network rm blog
+```
+
+```yaml
+name: blog
+services:
+   mysql:
+     container_name: mysql
+     image: mysql:lts
+     ports:
+       - "3306:3306"
+     environment:
+       - MYSQL_ROOT_PASSWORD=123456
+       - MYSQL_DATABASE=wordpress
+     volumes:
+       - mysql-data:/var/lib/mysql
+       - /app/myconf:/etc/mysql/conf.d
+     restart: always
+     networks:
+       - blog
+   wordpress:
+     container_name: wordpress
+     image: wordpress:latest
+     ports:
+       - "8080:80"
+     environment:
+       - WORDPRESS_DB_HOST=mysql
+       - WORDPRESS_DB_USER=root
+       - WORDPRESS_DB_PASSWORD=123456
+       - WORDPRESS_DB_NAME=wordpress
+     volumes:
+       - wordpress:/var/www/html
+     restart: always
+     networks:
+       - blog
+     depends_on:
+       - mysql
+volumes:
+  mysql-data:
+  wordpress:
+networks:
+  blog:
+```
+
+```bash
+docker compose --help
+docker compose up -d # 启动容器
+docker compose down --help
+docker compose down # 移除容器（不会移除卷）
+docker compose --rmi all -v # 移除容器、镜像、卷
+```
+
+## Dockerfile
+
+> 参考：[https://docs.docker.com/reference/dockerfile/](https://docs.docker.com/reference/dockerfile/)
+
+制作自己的镜像
+
+```dockerfile
+FROM openjdk:17
+LABEL author=hqh15
+COPY app.jar /app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
+
+```bash
+docker build -f Dockerfile -t app:v1.0 .
+```
+
+镜像分层机制节省空间（镜像是只读层，容器是读写层）

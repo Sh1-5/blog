@@ -1,0 +1,106 @@
+---
+title: 'TypeScript 基础（二）声明和类型'
+description: '介绍 TypeScript 中变量的声明方式以及各种基本数据类型'
+author: 'Qi Hong'
+date: '2023-04-03'
+---
+
+## 变量的声明
+
+`var/let/const` 标识符: 数据类型 = 赋值
+
+```typescript
+const name: string = 'kobe'
+const age: number = 18
+const height = 1.8 // 类型推导
+```
+
+## 类型
+
+TypeScript 是 JavaScript 的超集，包括了 JavaScript 8 种内置类型对应的原始类型和 TypeScript 的 7 种类型
+
+JavaScript 原始类型：
+
+- symbol
+- boolean
+- number
+- string
+- null
+- undefined
+- object
+- bigint
+
+TypeScript 类型：
+
+- unknown
+- never
+- object literal
+- void
+- `T[]`
+- `[T, T]`
+- `(t: T) => U`
+
+## symbol
+
+```typescript
+const s1: symbol = Symbol('name')
+const s2: symbol = Symbol('name')
+
+const person = {
+  [s1]: 'kobe',
+  [s2]: 'james'
+}
+```
+
+## boolean
+
+```typescript
+let isShow: boolean = false
+```
+
+## number
+
+```typescript
+let num: number = 15
+
+// 支持二进制、八进制、十六进制
+num = 0b100
+num = 0o100
+num = 0x100
+```
+
+## string
+
+```typescript
+let str: string = 'Hello TypeScript'
+```
+
+## null
+
+```typescript
+let n: null = null
+```
+
+## undefined
+
+```typescript
+let u: undefined = undefined
+```
+
+## object
+
+```typescript
+const obj: object = {
+  name: 'kobe',
+  age: 18,
+  height: 1.88
+}
+
+// 但是我们不能从obj中获取数据，也不能设置数据
+```
+
+## bigint
+
+```typescript
+const b: bigint = 9007199254740991n
+```

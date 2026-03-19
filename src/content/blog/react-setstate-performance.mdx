@@ -1,0 +1,235 @@
+---
+title: 'React 进阶（一）setState 和性能优化'
+description: 'React setState 深度解析：同步/异步行为、更新机制、Diff 算法、SCU/PureComponent/memo 性能优化'
+author: 'Qi Hong'
+date: '2023-03-10'
+---
+
+## setState
+
+```jsx
+import { Component } from 'react'
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      message: 'Hello World'
+    }
+  }
+
+  changeText() {
+    // 1.基本写法
+    this.setState({
+      message: 'Hello React'
+    })
+    // 2.函数写法
+    // this.setState((state, props) => {
+    //   return { message: 'Hello React' }
+    // })
+    // 3.setState是异步的
+    console.log(this.state.message)
+    // 如果想要获取最新的state，可以在回调函数中获取
+    // this.setState({ message: 'Hello React' }, () => {
+    //   console.log(this.state.message)
+    // })
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>{this.state.message}</h2>
+        <button onClick={() => this.changeText()}>修改文本</button>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+### 同步还是异步（涉及到版本问题）
+
+#### ReactDOM.render()（18以前）
+
+- 在组件生命周期或 React 合成事件中，setState 是**异步**的
+- 在 setTimeout 或者原生 DOM 事件中，setState 是**同步**的
+
+#### ReactDOM.createRoot().render()（18及之后）
+
+都是**异步**的
+
+#### 为什么设计成异步？
+
+设计为异步可以显著提升性能：如果设置为同步，state 频繁修改会导致 render 函数被频繁调用，效率很低。
+
+参考：[React Issue #11527](https://github.com/facebook/react/issues/11527)
+
+#### 获取异步结果
+
+1. setState 的回调：`setState(partialState, callback)`
+2. componentDidUpdate
+
+### 实现
+
+`Object.assign({}, prevState, partialState)`
+
+setState 会进行合并，多次 setState 只会生效一次。
+
+如何解决合并的问题？使用函数形式：
+
+```jsx
+this.setState((prevState, props) => {
+  return {
+    counter: prevState.counter + 1
+  }
+})
+```
+
+## React 更新机制
+
+props/state 改变 -> render 函数重新执行 -> 产生新的虚拟 DOM -> 新旧对比 -> 计算差异进行更新 -> 更新到真实 DOM
+
+### Diff 算法
+
+- 同层之间相互比较，不会跨节点比较
+- 不同类型的节点，产生不同的树结构
+- 开发中，可以通过 key 来指定哪些节点在不同的渲染下保持稳定
+
+## 性能优化
+
+### key
+
+- key 应该是唯一的
+- 不要使用 index 作为 key，对性能没有任何优化
+
+### shouldComponentUpdate
+
+返回 true 调用 render 方法，返回 false 不调用 render 方法。
+
+```jsx
+import { Component } from 'react'
+
+class Header extends Component {
+  shouldComponentUpdate() {
+    return false
+  }
+
+  render() {
+    console.log('Header render被调用')
+    return <h2>我是Header组件</h2>
+  }
+}
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      counter: 0,
+      message: 'Hello World'
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextStates) {
+    if (this.state.counter !== nextStates.counter) {
+      return true
+    }
+    return false
+  }
+
+  increment() {
+    this.setState({ counter: this.state.counter + 1 })
+  }
+
+  render() {
+    console.log('App render被调用')
+    return (
+      <div>
+        <h2>当前计数：{this.state.counter}</h2>
+        <button onClick={() => this.increment()}>+</button>
+        <Header />
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+不建议在 shouldComponentUpdate 方法里面进行深层比较，比较消耗性能。
+
+### PureComponent
+
+创建类组件时继承自 PureComponent，它会浅层比较前后 props 和 state（shallowEqual），如果没有改变则不重新渲染。
+
+```jsx
+import { PureComponent } from 'react'
+
+class Header extends PureComponent {
+  render() {
+    console.log('Header render被调用')
+    return <h2>我是Header组件</h2>
+  }
+}
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = { counter: 0 }
+  }
+
+  increment() {
+    this.setState({ counter: this.state.counter + 1 })
+  }
+
+  render() {
+    console.log('App render被调用')
+    return (
+      <div>
+        <h2>当前计数：{this.state.counter}</h2>
+        <button onClick={() => this.increment()}>+</button>
+        <Header />
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+### memo
+
+memo 是一个高阶组件，将函数组件传入返回一个新的组件。如果没有传入 compare 函数，则浅层比较前后 props。
+
+```jsx
+import { PureComponent, memo } from 'react'
+
+const Header = memo(() => {
+  console.log('Header render被调用')
+  return <h2>我是Header组件</h2>
+})
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = { counter: 0 }
+  }
+
+  increment() {
+    this.setState({ counter: this.state.counter + 1 })
+  }
+
+  render() {
+    console.log('App render被调用')
+    return (
+      <div>
+        <h2>当前计数：{this.state.counter}</h2>
+        <button onClick={() => this.increment()}>+</button>
+        <Header />
+      </div>
+    )
+  }
+}
+
+export default App
+```

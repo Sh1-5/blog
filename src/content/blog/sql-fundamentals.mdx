@@ -1,0 +1,154 @@
+---
+title: 'SQL 基础语句指南'
+description: '介绍 SQL 基础知识，包括数据库操作、数据类型、表操作、字段属性以及存储引擎对比'
+author: 'Qi Hong'
+date: '2022-08-15'
+---
+
+## 基本操作概览
+
+```sql
+CREATE DATABASE IF NOT EXISTS `school`; -- 创建数据库
+DROP DATABASE IF EXISTS `school`; -- 删除数据库
+USE `school`; -- 使用数据库
+SHOW DATABASES; -- 查看所有数据库
+```
+
+创建表的示例：
+
+```sql
+CREATE TABLE IF NOT EXISTS `student` (
+    `id` INT(4) NOT NULL AUTO_INCREMENT COMMENT '学号',
+    `name` VARCHAR(30) NOT NULL DEFAULT '匿名' COMMENT '姓名',
+    `pws` VARCHAR(20) NOT NULL DEFAULT '123456' COMMENT '密码',
+    `sex` VARCHAR(2) NOT NULL DEFAULT '男' COMMENT '性别',
+    `birthday` DATETIME DEFAULT NULL COMMENT '出生日期',
+    `address` VARCHAR(100) DEFAULT NULL COMMENT '家庭住址',
+    `email` VARCHAR(50) DEFAULT NULL COMMENT '邮箱',
+    PRIMARY KEY(`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+```
+
+查看数据库和表的信息：
+
+```sql
+SHOW CREATE DATABASE `school`;
+SHOW CREATE TABLE `student`;
+DESC `student`;
+```
+
+## 例子
+
+### 查看数据库
+
+```sql
+SHOW DATABASES;
+```
+
+### 创建数据库
+
+```sql
+CREATE DATABASE `school` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
+```
+
+### 使用数据库
+
+```sql
+USE `school`;
+```
+
+### 查看表
+
+```sql
+SHOW TABLES;
+```
+
+## 数据类型
+
+### 数值类型
+
+- TINYINT
+- SMALLINT
+- MEDIUMINT
+- INT
+- BIGINT
+- FLOAT
+- DOUBLE
+- DECIMAL（字符串形式的浮点数，金融计算）
+
+### 字符串类型
+
+- CHAR
+- VARCHAR（可变字符串）
+- TINYBLOB
+- TINYTEXT（微型文本）
+- BLOB
+- TEXT（文本串）
+- MEDIUMBLOB
+- MEDIUMTEXT
+- LONGBLOB
+- LONGTEXT
+
+### 日期和时间类型
+
+- DATE
+- TIME
+- YEAR
+- DATETIME
+- TIMESTAMP
+
+### NULL
+
+不要在计算中使用
+
+## 字段属性
+
+### UNSIGNED
+
+无符号的整数，不能为负数
+
+### ZEROFILL
+
+不足的位数使用 0 填充
+
+### AUTO_INCREMENT
+
+### NULL 和 NOT NULL
+
+### DEFAULT
+
+### COMMENT
+
+## 数据库操作
+
+```sql
+CREATE DATABASE IF NOT EXISTS `school`; -- 创建数据库
+DROP DATABASE IF EXISTS `school`; -- 删除数据库
+USE `school`; -- 使用数据库
+SHOW DATABASES; -- 查看所有数据库
+```
+
+## 表操作
+
+```sql
+CREATE TABLE IF NOT EXISTS `student` (
+	`id` INT(4) NOT NULL AUTO_INCREMENT COMMENT '学号',
+	`name` VARCHAR(30) NOT NULL DEFAULT '匿名' COMMENT '姓名',
+	`pws` VARCHAR(20) NOT NULL DEFAULT '123456' COMMENT '密码',
+	`sex` VARCHAR(2) NOT NULL DEFAULT '男' COMMENT '性别',
+	`birthday` DATETIME DEFAULT NULL COMMENT '出生日期',
+	`address` VARCHAR(100) DEFAULT NULL COMMENT '家庭住址',
+	`email` VARCHAR(50) DEFAULT NULL COMMENT '邮箱',
+	PRIMARY KEY(`id`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+```
+
+存储引擎目前默认为 INNODB
+
+| | INNODB | MYISAM |
+|---|---|---|
+| 事务支持 | 支持 | 不支持 |
+| 数据行锁定 | 支持 | 不支持 |
+| 外键约束 | 支持 | 不支持 |
+| 全文索引 | 不支持 | 支持 |
+| 表空间大小 | 约为 MYISAM 的两倍 | 较小 |

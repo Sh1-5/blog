@@ -1,0 +1,1218 @@
+---
+title: 'Java 基础完全指南'
+description: '全面介绍 Java 基础知识，涵盖数据类型、运算符、流程控制、方法、数组和面向对象编程等核心概念'
+author: 'Qi Hong'
+date: '2022-09-01'
+---
+
+## Hello World
+
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}
+```
+
+```bash
+javac HelloWorld.java
+java HelloWorld
+```
+
+一个源文件中只能有一个 public 类
+
+编译后，每一个类对应一个 .class
+
+可以将 main 方法写在非 public 类中
+
+## 注释
+
+```java
+public class Comment {
+    public static void main(String[] args) {
+        // 单行注释
+
+        /*
+        多行注释
+        多行注释
+        多行注释
+        */
+
+        /**
+         * @Description Comment
+         * @Author Sh1-5
+         */
+    }
+}
+```
+
+使用 javadoc 生成文档注释
+
+```bash
+javadoc -d ./doc -encoding UTF-8 -charset UTF-8 Doc.java
+```
+
+## 关键字、保留字、标识符
+
+标识符以字母、美元符、下划线开始，之后是字母、美元符、下划线、数字的任意组合
+
+## 转译字符
+
+- `\t`：一个制表位
+- `\n`：换行符
+- `\\`：\
+- `\"`："
+- `\'`：'
+- `\r`：回车
+
+```java
+public class EscapeCharacter {
+    public static void main(String[] args) {
+        System.out.println("北京\t上海\t广州\t深圳");
+        System.out.println("C:\\Windows\\System32\\cmd.exe");
+    }
+}
+```
+
+## 数据类型
+
+> Java 是强类型语言，所有变量都必须先定义后才能使用
+
+### 基本数据类型
+
+- byte[1]
+- short[2]
+- int[4]
+- long[8]
+- float[4]
+- double[8]
+- char[2]
+- boolean[1]
+
+```java
+public class BasicDataType {
+    public static void main(String[] args) {
+        byte num1 = 1;
+        short num2 = 2;
+        int num3 = 3;
+        long num4 = 4L;
+        float num5 = 5.0F;
+        double num6 = 6.0;
+        char c = 'c';
+        boolean isWrong = true;
+        System.out.println(num1);
+        System.out.println(num2);
+        System.out.println(num3);
+        System.out.println(num4);
+        System.out.println(num5);
+        System.out.println(num6);
+        System.out.println(c);
+        System.out.println(isWrong);
+    }
+}
+```
+
+### 进制
+
+```java
+public class NumberSystem {
+    public static void main(String[] args) {
+        int num1 = 0b10; // 二进制
+        int num2 = 010; // 八进制
+        int num3 = 10; // 十进制
+        int num4 = 0x10; // 十六制
+        System.out.println(num1);
+        System.out.println(num2);
+        System.out.println(num3);
+        System.out.println(num4);
+    }
+}
+```
+
+### 引用数据类型
+
+- class
+- interface
+- `[]`
+
+### 浮点数
+
+> 不适用浮点数进行比较
+
+- 浮点数 = 符号位 + 指数位 + 位数位
+- 尾数部分可能丢失，小数都是近似值
+- java 的浮点型常量默认为 double
+
+```java
+double num = 8.1 / 3; // 接近2.7的一个小数
+```
+
+### 自动转换（低精度向高精度）、强制转换（高精度往低精度）
+
+char -> int -> long -> float -> double
+
+byte -> short -> int -> long -> float -> double
+
+byte、short、int 三者参与运算，先转为 int
+
+强制转换需要注意数据溢出或者精度问题
+
+```java
+public class Convert {
+    public static void main(String[] args) {
+        // 低精度 -> 高精度，自动转换
+        short num1 = 1;
+        int num2 = num1;
+        System.out.println(num1);
+        System.out.println(num2);
+
+        // 高精度 -> 低精度，强制转换
+        int num3 = 128;
+        byte b = (byte)num3;
+        System.out.println(num3);
+        System.out.println(b); // 内存溢出
+    }
+}
+```
+
+### JDK7 新特性
+
+数字之间可以用下划线分割
+
+```java
+int num = 1_0000_0000;
+```
+
+### String -> 基本数据类型
+
+1.使用包装类的 parse 方法
+
+- Boolean.parseBoolean
+- Byte.parseByte
+- Short.parseShort
+- Integer.parseInt
+- Long.parseLong
+- Float.parseFloat
+- Double.parseDouble
+
+2.string.charAt()
+
+## 变量
+
+- Java 是一种强类型语言，每个变量都必须声明其类型
+- Java 变量是程序中最基本的存储单元，其要素包括变量名、变量类型和作用域
+
+```java
+type varName [= value] [{, varName [=value]}];
+```
+
+- 类变量：从属于类
+- 实例变量：从属于对象
+- 局部变量：必须声明和初始化值
+
+```java
+public class Variable {
+    static int num1 = 1; // 类变量
+    int num2 = 2; // 实例变量
+
+    public static void main(String[] args) {
+        int num3 = 3; // 局部变量
+    }
+}
+```
+
+## 常量
+
+初始化后不再改变的值
+
+```java
+public class Constant {
+    // 修饰符，不存在先后顺序
+    static final double PI = 3.14;
+
+    public static void main(String[] args) {
+        System.out.println(PI);
+    }
+}
+```
+
+## 运算符
+
+### 算术运算符
+
+- `+`
+- `-`
+- `*`
+- `/`
+- `%`
+- `++`
+- `--`
+
+```java
+public class ArithmeticOperator {
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 15;
+        System.out.println(num1 + num2); // 25
+        System.out.println(num1 - num2); // -5
+        System.out.println(num1 * num2); // 150
+        System.out.println(num1 / num2); // 0
+        System.out.println(num1 % num2); // 10
+        System.out.println(num1++); // 10
+        System.out.println(num1--); // 11
+        System.out.println(num1); // 10
+    }
+}
+```
+
+### 关系运算符
+
+- `==`
+- `!=`
+- `>`
+- `<`
+- `>=`
+- `<=`
+- instanceof
+
+```java
+public class RelationalOperator {
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 15;
+        System.out.println(num1 == num2); // false
+        System.out.println(num1 != num2); // true
+        System.out.println(num1 > num2); // false
+        System.out.println(num1 < num2); // true
+        System.out.println(num1 >= num2); // false
+        System.out.println(num1 <= num2); // true
+        String str = "Hello World!";
+        System.out.println(str instanceof String); // true
+    }
+}
+```
+
+### 逻辑运算符
+
+- `!`
+- `&&`（短路与）
+- `||`（短路或）
+
+```java
+public class LogicOperator {
+    public static void main(String[] args) {
+        boolean a = true;
+        boolean b = false;
+        System.out.println(a && b); // false
+        System.out.println(a || b); // true
+        System.out.println(!a); // false
+    }
+}
+```
+
+### 位运算符
+
+- `&`
+- `|`
+- `^`
+- `~`
+- `>>`
+- `<<`
+- `>>>`
+
+```java
+public class BitOperator {
+    public static void main(String[] args) {
+        int a = 60; // 0011 1100
+        int b = 13; // 0000 1101
+        System.out.println(a & b); // 12, 0000 1100
+        System.out.println(a | b); // 61, 0011 1101
+        System.out.println(a ^ b); // 49, 0011 0001
+        System.out.println(~a); // -61, 1100 0011
+        System.out.println(a << 2); // 240, 1111 0000
+        System.out.println(a >> 2); // 15, 0000 1111
+        System.out.println(a >>> 2); // 15, 0000 1111
+    }
+}
+```
+
+### 赋值运算符
+
+- `=`
+- `+=`、`-=`、`*=`、`/=`、`%=`
+- `&=`、`|=`、`^=`
+- `>>=`、`<<=`、`>>>=`
+
+复合赋值运算符会进行类型转换
+
+```java
+public class AssignmentOperator {
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 15;
+        System.out.println(num1 += num2); // 25
+        System.out.println(num1 -= num2); // 10
+        System.out.println(num1 *= num2); // 150
+        System.out.println(num1 /= num2); // 10
+        System.out.println(num1 %= num2); // 10
+        System.out.println(num1 &= num2); // 10
+        System.out.println(num1 |= num2); // 15
+        System.out.println(num1 ^= num2); // 0
+        System.out.println(num1 >>= num2); // 0
+        System.out.println(num1 <<= num2); // 0
+        System.out.println(num1 >>>= num2); // 0
+    }
+}
+```
+
+### 三元运算符
+
+条件表达式 ? 表达式1 : 表达式2
+
+```java
+public class TernaryOperator {
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 15;
+        int max = (num1 > num2) ? num1 : num2;
+        System.out.println(max); // 15
+    }
+}
+```
+
+## 包机制
+
+包的本质就是文件夹，包必须放在最上面
+
+## 交互 Scanner
+
+```java
+public class FirstScanner {
+    public static void main(String[] args) {
+        // 创建一个扫描器对象，用于接收接盘数据
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("使用nextLine方式接收：");
+        // 判断用户有没有输入字符串
+        if (scanner.hasNextLine()) {
+            String str = scanner.nextLine();
+            System.out.println("输入的内容为" + str);
+        }
+
+        // 凡是属于IO流的类如果不关闭会一直占用资源，要养成好习惯用完就关掉
+        scanner.close();
+    }
+}
+```
+
+`next()` 不能得到带有空格的字符串
+
+`nextLine()` 返回回车之前的所有字符
+
+hasNextXXX
+
+```java
+public class ScannerSum {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double sum = 0;
+        int num = 0;
+
+        while (scanner.hasNextDouble()) {
+            sum = sum + scanner.nextDouble();
+            num++;
+            System.out.println("你输入了第" + num + "个数据，当前和为：" + sum);
+        }
+
+        System.out.println("和：" + sum);
+        System.out.println("平均数：" + sum / num);
+
+        scanner.close();
+    }
+}
+```
+
+## 结构
+
+### 顺序结构
+
+```java
+public class SequentialStructure {
+    public static void main(String[] args) {
+        System.out.println(1);
+        System.out.println(2);
+        System.out.println(3);
+        System.out.println(4);
+        System.out.println(5);
+    }
+}
+```
+
+### if 选择结构
+
+```java
+public class IfChooseStructure {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("请输入成绩：");
+        int score = scanner.nextInt();
+        if (score > 100) {
+            System.out.println("成绩不合法");
+        } else if (score >= 90) {
+            System.out.println("优秀");
+        } else if (score >= 80) {
+            System.out.println("良好");
+        } else if (score >= 60) {
+            System.out.println("及格");
+        } else if (score >= 0) {
+            System.out.println("不及格");
+        } else {
+            System.out.println("成绩不合法");
+        }
+
+        scanner.close();
+    }
+}
+```
+
+### switch 选择结构
+
+```java
+public class SwitchChooseStructure {
+    public static void main(String[] args) {
+        char grade = 'C';
+        switch (grade) {
+            case 'A':
+                System.out.println("优秀");
+                break;
+            case 'B':
+                System.out.println("良好");
+                break;
+            case 'C':
+                System.out.println("及格");
+                break;
+            case 'D':
+                System.out.println("再接再厉");
+                break;
+            default:
+                System.out.println("未知");
+        }
+
+        // Java SE 7
+        String month = "一月";
+        switch (month) {
+            case "一月":
+                System.out.println(1);
+                break;
+            case "二月":
+                System.out.println(2);
+                break;
+            default:
+                System.out.println(0);
+        }
+    }
+}
+```
+
+### while 循环结构
+
+```java
+public class WhileCycle {
+    public static void main(String[] args) {
+        int i = 1;
+        while (i <= 10) {
+            System.out.println(i);
+            i++;
+        }
+    }
+}
+```
+
+### do-while 循环结构
+
+```java
+public class DoWhileCycle {
+    public static void main(String[] args) {
+        int i = 1;
+        // 一定会执行一次
+        do {
+            System.out.println(i);
+            i++;
+        } while(i < 1);
+
+        while(i < 1) {
+            System.out.println(i);
+            i++;
+        }
+    }
+}
+```
+
+### for 循环结构
+
+```java
+public class ForCycle {
+    public static void main(String[] args) {
+        int sum = 0;
+        for (int i = 1; i <= 10 ;i++) {
+            sum += i;
+        }
+        System.out.println(sum);
+    }
+}
+```
+
+### 打印九九乘法表
+
+```java
+public class MultiplicationTable {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 9; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j + " * "  + i + " = " + j * i);
+                System.out.print('\t');
+            }
+            System.out.print('\n');
+        }
+    }
+}
+```
+
+### 增强 for 循环
+
+```java
+public class EnhanceForWhile {
+    public static void main(String[] args) {
+        int[] numbers = { 10, 20, 30, 40, 50 };
+        for (int item : numbers) {
+            System.out.println(item);
+        }
+    }
+}
+```
+
+### break、continue
+
+```java
+public class JumpOutCycle {
+    public static void main(String[] args) {
+        int i = 1;
+        while (i <= 10) {
+            System.out.println(i);
+            i++;
+            if (i == 6) {
+                break;
+            }
+        }
+
+        int j = 1;
+        while (j <= 10) {
+            if (j == 6) {
+                System.out.println("666");
+                j++;
+                continue;
+            };
+            System.out.println(j);
+            j++;
+        }
+    }
+}
+```
+
+### 类似 goto
+
+goto 是保留字
+
+```java
+public class SimilarGoto {
+    public static void main(String[] args) {
+        outer: for(int i = 1; i <= 10; i++) {
+            if (i % 2 == 0) {
+                continue outer;
+            }
+            System.out.println(i);
+        }
+    }
+}
+```
+
+### 打印三角形
+
+```java
+public class Triangle {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5 - i; j++) {
+                System.out.print(' ');
+            }
+            for (int j = 1; j <= i; j++) {
+                System.out.print('*');
+            }
+            for (int j = 1; j <= i - 1; j++) {
+                System.out.print('*');
+            }
+            for (int j = 1; j <= 5 - i; j++) {
+                System.out.print(' ');
+            }
+            System.out.print('\n');
+        }
+    }
+}
+```
+
+## 方法
+
+方法是语句的集合，它们在一起执行一个功能
+
+```java
+public class Method1 {
+    public static void main(String[] args) {
+        System.out.println(add(10 , 15));
+    }
+
+    public static int add(int a, int b) {
+        return a + b;
+    }
+}
+```
+
+重载：一个类中，有相同的方法名称，但形参不同的方法
+
+```java
+public class Method2 {
+    public static void main(String[] args) {
+        int num1 = add(10, 15);
+        double num2 = add(10.0, 15.0);
+        System.out.println(num1);
+        System.out.println(num2);
+    }
+
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    public static double add(double a, double b) {
+        return a + b;
+    }
+}
+```
+
+可变参数：必须在后面
+
+```java
+public class Method3 {
+    public static void main(String[] args) {
+        add(1, 2);
+        add(2, 3, 4);
+        add(new int[] { 2, 3, 4 });
+    }
+
+    public static void add(int... i) {
+        System.out.println(i[0]);
+        System.out.println(i[1]);
+    }
+}
+```
+
+递归：必须要有边界条件，不然会陷入死循环，尽量少用递归
+
+```java
+public class Recursion {
+    public static void main(String[] args) {
+        int res = foo(5);
+        System.out.println(res);
+    }
+
+    public static int foo(int n) {
+        // 递归头，什么时候不调用自身
+        if (n == 1) {
+            return 1;
+        } else {
+            // 递归体，什么时候调用自身
+            return n * foo(n - 1);
+        }
+    }
+}
+```
+
+## 数组
+
+基本使用
+
+```java
+public class FirstArray {
+    public static void main(String[] args) {
+        int[] nums1 = {1, 2, 3};
+        int[] nums2 = new int[3];
+        nums2[0] = 1;
+        nums2[1] = 2;
+        nums2[2] = 3;
+        for (int i = 0; i < 3; i++) {
+            System.out.println(nums1[i]);
+            System.out.println(nums2[i]);
+        }
+        for (int i : nums2) {
+            System.out.println(i);
+        }
+    }
+}
+```
+
+Arrays 类
+
+```java
+public class ArraysClass {
+    public static void main(String[] args) {
+        int[] nums = {1, 4, 3, 2};
+        System.out.println(Arrays.toString(nums));
+        Arrays.sort(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+}
+```
+
+冒泡排序
+
+```java
+public class BubbleSort {
+    public static void main(String[] args) {
+        int[] nums = {3, 1, 6, 2, 9, 0, 7, 4, 5, 8};
+        bubbleSort(nums);
+        for (int i : nums) {
+            System.out.println(i);
+        }
+    }
+
+    public static void bubbleSort(int[] nums) {
+        for (int i = 0; i < nums.length - 1; i++) {
+            boolean flag = false;
+            for (int j = 0; j < nums.length - 1 - i; j++) {
+                int temp;
+                if (nums[j] > nums[j + 1]) {
+                    flag = true;
+                    temp = nums[j + 1];
+                    nums[j + 1] = nums[j];
+                    nums[j] = temp;
+                }
+            }
+            if (!flag) {
+                break;
+            }
+        }
+    }
+}
+```
+
+## OOP
+
+OOP（Object Oriented Programming，面向对象程序设计）：以类的方式组织代码，以对象的形式组织数据
+
+三大特性：封装、继承、多态
+
+new 本质在调用构造方法
+
+### 类与对象
+
+静态方式
+
+```java
+public class Student {
+    // 静态方法，可以直接通过类名调用
+    public static void study() {
+        System.out.println("Student.study");
+    }
+
+    // 非静态方法，需要通过实例调用
+    public void say() {
+        System.out.println("Student.say");
+    }
+}
+```
+
+形参和实参
+
+```java
+public class Parameter {
+    public static void main(String[] args) {
+        // 实际参数和形式参数一一对应
+        int result = add(10, 15);
+        System.out.println(result);
+    }
+
+    public static int add(int a, int b) {
+        return a + b;
+    }
+}
+```
+
+构造器
+
+使用 new 关键字本质是在调用构造器，初始化值
+
+类中的构造器也叫构造方法，是在进行创建对象的时候必须要调用的，并且构造器有以下两个特点：
+
+- 必须和类名相同
+- 必须没有返回类型，也不能写 void
+
+```java
+public class Person {
+    String name;
+    int age;
+
+    // 无参构造方法
+    public Person() {
+        System.out.println("Person.Person");
+    }
+
+    // 有参构造方法
+    // 构造方法的重载
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void say() {
+        System.out.println("Person.say");
+    }
+
+    public void introduce() {
+        System.out.println("我的名字是" + name + "，我" + age + "岁");
+    }
+}
+```
+
+### 封装
+
+属性私有（属性加上 private 关键字），get/set（提供可以操作属性的方法）
+
+- 提高程序的安全型，保护数据
+- 隐藏代码的实现细节
+- 统一接口
+- 提高可维护性
+
+```java
+public class Student {
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    // 静态方法，可以直接通过类名调用
+    public static void study() {
+        System.out.println("Student.study");
+    }
+
+    // 非静态方法，需要通过实例调用
+    public void say() {
+        System.out.println("Student.say");
+    }
+}
+```
+
+```java
+public class Encapsulation {
+    public static void main(String[] args) {
+        Student stu = new Student("张三", 18);
+        System.out.println(stu.getName());
+        System.out.println(stu.getAge());
+        stu.setName("李四");
+        stu.setAge(20);
+        System.out.println(stu.getName());
+        System.out.println(stu.getAge());
+    }
+}
+```
+
+### 继承
+
+所有类直接或间接继承 Object 类
+
+单继承
+
+- public
+- protected
+- default
+- private
+
+1. `super()` 调用父类的构造方法，必须在构造方法的第一行
+2. `super()` 只能出现在子类的方法或构造方法中
+3. `super()` 和 `this()` 不能同时存在
+
+```java
+public class Application {
+    public static void main(String[] args) {
+        Teacher teacher  = new Teacher();
+        teacher.say();
+        teacher.teach();
+
+        Student student = new Student();
+        student.say();
+        student.study();
+    }
+}
+```
+
+```java
+public class Person {
+    Person() {
+        System.out.println("Person constructor");
+    }
+
+    void say() {
+        System.out.println("I am a person");
+    }
+}
+```
+
+```java
+public class Teacher extends Person {
+    Teacher() {
+        // super(); // super() is called implicitly
+        System.out.println("Teacher constructor");
+    }
+
+    void teach() {
+        System.out.println("I am teaching");
+    }
+}
+```
+
+```java
+public class Student extends Person {
+    Student() {
+        // super(); // super() is called implicitly
+        System.out.println("Student constructor");
+    }
+
+    void study() {
+        System.out.println("I am studying");
+    }
+}
+```
+
+重写：需要有继承关系，子类重写父类的方法（只跟非静态方法有关），方法名必须相同，参数列表必须相同，修饰符的范围可以扩大不能缩小（public > protected > default > private），抛出的异常范围可以缩小不能扩大（ClassNotFoundException > Exception）
+
+```java
+public class Application {
+    public static void main(String[] args) {
+        A a = new A();
+        a.test();
+        a.test2();
+        B b = new A();
+        b.test();
+        b.test2();
+    }
+}
+```
+
+```java
+public class A extends B {
+    public static void test() {
+        System.out.println("A static test");
+    }
+
+    @Override
+    public void test2() {
+        System.out.println("A test");
+    }
+}
+```
+
+```java
+public class B {
+    public static void test() {
+        System.out.println("B static test");
+    }
+
+    public void test2() {
+        System.out.println("B test");
+    }
+}
+```
+
+### 多态
+
+同一个行为具有多个不同表现形式或形态的能力（就是同一个接口，使用不同的实例而执行不同操作）
+
+1. 存在条件：继承关系，方法需要重写，父类引用指向子类对象
+2. 多态是方法的多态，属性没有多态
+
+### static
+
+静态代码块（只执行一次）、匿名代码块、构造方法，静态导入包
+
+```java
+import static java.lang.Math.random;
+
+public class Static {
+    static {
+        System.out.println("Static block");
+    }
+
+    {
+        System.out.println("Anonymous block");
+    }
+
+    public Static() {
+        System.out.println("Constructor");
+        System.out.println("Random number: " + random());
+    }
+}
+```
+
+## 抽象类
+
+不能 new 抽象类，只能靠子类去实现，它是一个约束
+
+抽象类中可以写普通方法，抽象方法必须在抽象类中
+
+存在的意义：抽象有助于提高开发效率
+
+## 接口
+
+1. 普通类：只有具体实现
+2. 抽象类：具体实现和规范（抽象方法）都有
+3. 接口：只有规范，无法写方法，约束和实现分离
+
+接口就是规范，定义的是一组规则，本质是契约，是 OOP 的精髓，是对抽象的抽象
+
+### 要点
+
+1. 接口都需要有实现类
+2. 接口中的常量都是 public static final
+3. 接口中的方法都是 public abstract
+4. implements 可以实现多个接口
+5. 实现了接口的类必须重写接口中的所有方法
+
+### 作用
+
+1. 约束
+2. 定义一些方法，让不同的人实现
+
+## 内部类
+
+## 错误和异常
+
+### 异常
+
+```java
+public class Application {
+    public  void a() {
+        b();
+    }
+
+    public void b() {
+        a();
+    }
+
+    public static void main(String[] args) {
+        new Application().a();
+    }
+}
+```
+
+### 捕获异常和抛出异常
+
+```java
+public class Application {
+    public static void main(String[] args) {
+        int num1 = 15;
+        int num2 = 0;
+
+        try {
+            // 监控区域
+            if (num2 == 0) {
+                // 主动抛出异常，一般用在方法中
+                System.out.println("主动抛出异常");
+                throw new ArithmeticException();
+            }
+            System.out.println("捕获异常");
+            System.out.println(num1 / num2);
+        } catch (ArithmeticException e) {
+            // 捕获Exception
+            System.out.println("ArithmeticException");
+            e.printStackTrace();
+        } catch (Exception e) {
+            // 捕获Exception
+            System.out.println("Exception");
+            e.printStackTrace();
+        } catch (Throwable e) {
+            // 捕获Throwable
+            System.out.println("Throwable");
+            e.printStackTrace();
+        } finally {
+            // 善后工作，可以不要
+            System.out.println("finally");
+        }
+    }
+}
+```
+
+### 自定义异常
+
+```java
+public class Application extends Exception {
+    private int num;
+
+    public Application(int num) {
+        this.num = num;
+    }
+
+    @Override
+    public String toString() {
+        return "Application{" +
+                "num=" + num +
+                '}';
+    }
+}
+```
+
+```java
+public class Test {
+    static void test(int num) throws Application {
+        System.out.println("传递的参数为：" + num);
+        if (num > 15) {
+            throw new Application(num);
+        }
+        System.out.println("无异常");
+    }
+
+    public static void main(String[] args) {
+        try {
+            Test.test(15);
+        } catch (Application e) {
+            e.printStackTrace();
+        }
+        try {
+            Test.test(16);
+        } catch (Application e) {
+            e.printStackTrace();
+        }
+    }
+}
+```

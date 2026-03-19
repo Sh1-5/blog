@@ -1,0 +1,50 @@
+---
+title: 'Jenkins CI/CD 安装配置'
+description: 'CentOS 环境下 Jenkins CI/CD 的安装与基本配置，包括 Nginx、Java、Git 和 NodeJS 插件'
+author: 'Qi Hong'
+date: '2023-06-10'
+---
+
+## 前置准备
+
+先安装 Nginx：
+
+```bash
+yum install nginx
+systemctl start nginx
+systemctl enable nginx
+```
+
+## 安装 Jenkins（Java 和 Git 也安装上）
+
+参考：[Jenkins 官方文档](https://www.jenkins.io/doc/book/installing/linux/)
+
+```bash
+wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+yum upgrade
+yum install fontconfig java-17-openjdk git
+yum install jenkins
+
+systemctl daemon-reload
+systemctl start jenkins
+systemctl status jenkins
+systemctl enable jenkins
+```
+
+## 访问 ip:8080
+
+```bash
+cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+## 全局管理
+
+### 插件管理
+
+安装 NodeJS 插件并重启 Jenkins
+
+### 全局工具配置
+
+配置 NodeJS 安装

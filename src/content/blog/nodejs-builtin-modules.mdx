@@ -1,0 +1,194 @@
+---
+title: 'Node 基础（四）常见的内置模块'
+description: '介绍 Node.js 常见的内置模块，包括 path、fs 和 events 的用法'
+author: 'Qi Hong'
+date: '2023-02-07'
+---
+
+## path
+
+### 一些常用方法
+
+- `resolve`：路径拼接，会判读拼接的路径字符串中是否有以 `/` 或 `./` 或 `../` 开头去查找路径
+- `basename`：文件名
+- `dirname`：完整路径（不包括文件名）
+- `extname`：后缀名
+- `join`：不会判断是否以 `/` 或 `./` 或 `../` 开头而查找路径
+- `isAbsolute`：是否是绝对路径
+
+### resolve
+
+```javascript
+const basePath = '/User/kobe'
+const filename = 'demo.txt'
+
+const filepath = basePath + '/' + filename // 有的操作系统是 \
+console.log(filepath) // /User/kobe/demo.txt
+
+const path = require('path')
+const filepath = path.resolve(basePath, filename)
+console.log(filepath) // /User/kobe/demo.txt
+```
+
+## fs
+
+### 获取文件信息
+
+- `statSync`：获取文件信息，同步
+- `stat`：获取文件信息，异步
+- `promises.stat`：获取文件信息，Promise
+
+例子
+
+```javascript
+const fs = require('fs')
+
+const filepath = './abc.txt'
+
+// 1.同步操作
+const info = fs.statSync(filepath)
+console.log('后续需要执行的代码')
+console.log(info)
+
+// 2.异步操作
+fs.stat(filepath, (err, stats) => {
+  console.log(stats)
+})
+console.log('后续需要执行的代码')
+
+// 3.Promise
+fs.promises.stat(filepath).then((res) => {
+  console.log(res)
+})
+```
+
+### 文件描述符
+
+```javascript
+const fs = require('fs')
+
+fs.open('./abc.txt', (err, fd) => {
+  if (err) {
+    console.log(err)
+  } else {
+    fs.fstat(fd, (err, stats) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(stats)
+      }
+    })
+  }
+})
+```
+
+### 文件的读写
+
+#### 读取
+
+第二个参数 options 里面的 encoding 决定编码方式，flag 是文件系统标志
+
+```javascript
+const fs = require('fs')
+
+const filepath = './abc.txt'
+
+// 同步
+const data = fs.readFileSync(filepath, { encoding: 'utf-8' })
+console.log(data)
+
+// 异步
+fs.readFile(filepath, { encoding: 'utf-8' }, (err, data) => {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log(data)
+  }
+})
+```
+
+#### 写入
+
+```javascript
+const fs = require('fs')
+
+const filepath = './abc.txt'
+
+// 1.同步
+const err = fs.writeFileSync(filepath, 'write', {})
+console.log(err)
+
+// 2.异步
+fs.writeFile(filepath, 'write', {}, (err) => {
+  if (err) {
+    console.log(err)
+  }
+})
+```
+
+#### 文件夹操作
+
+```javascript
+const fs = require('fs')
+
+// 1.创建文件夹
+const dirname = './mkdir-demo'
+if (!fs.existsSync(dirname)) {
+  fs.mkdir(dirname, (err) => {
+    console.log(err)
+  })
+}
+
+// 2.读取文件夹中的所有文件，一层
+const dir = './readdir-demo'
+fs.readdir(dir, (err, files) => {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log(files)
+  }
+})
+
+// 3.文件夹的重命名
+const oldPath = './rename'
+fs.rename(oldPath, 'rename-demp', (err) => {
+  console.log(err)
+})
+```
+
+## events
+
+### 基础方法
+
+```javascript
+const EventEmitter = require('events')
+
+// 1.创建发射器
+const emitter = new EventEmitter()
+
+// 2.监听事件
+const listener = (args) => {
+  console.log('监听到click事件', args)
+}
+emitter.on('click', listener)
+
+// 3.发射事件
+emitter.emit('click', 'Hello', 'emitter')
+
+// 4.关闭监听
+emitter.off('click', listener)
+emitter.emit('click', 'World')
+```
+
+### 获取信息
+
+```javascript
+console.log(emitter.eventNames()) // 获取发射的事件
+console.log(emitter.listenerCount('click')) // 获取click事件的个数
+console.log(emitter.listeners('click')) // 获取click事件的回调函数
+```
+
+### 其它
+
+- `emitter.once`：添加一次性回调函数
+- `emitter.removeAllListeners`：移除所有事件，可以传入参数，决定移除哪些事件

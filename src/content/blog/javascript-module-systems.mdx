@@ -1,0 +1,403 @@
+---
+title: 'Node 基础（三）JavaScript 模块化'
+description: '深入了解 JavaScript 模块化的发展历程，从无模块化到 CommonJS、AMD、CMD 再到 ES Module'
+author: 'Qi Hong'
+date: '2023-02-05'
+---
+
+## 模块化是什么
+
+模块化的目的是将程序划分成一个个小的结构
+
+有自己的作用域，不会影响到其它结构
+
+这个结构可以将自己希望暴露的变量、函数、对象导出给其它结构使用
+
+可以通过某种方式，导入其它结构的变量、函数、对象等
+
+## 无模块化
+
+```javascript
+// bar.js
+var name = 'kobe'
+```
+
+```javascript
+// foo.js
+var name = 'james'
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./bar.js"></script>
+    <script src="./foo.js"></script>
+    <script>
+      console.log(name) // james
+    </script>
+  </body>
+</html>
+```
+
+导致变量被污染，如何解决？
+
+函数是有作用域的，可以通过 IIFE（立即函数调用表达式）解决这个问题
+
+```javascript
+// bar.js
+var moduleBar = (function () {
+  var name = 'kobe'
+  return {
+    name
+  }
+})()
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./bar.js"></script>
+    <script src="./foo.js"></script>
+    <script>
+      console.log(moduleBar.name) // kobe
+    </script>
+  </body>
+</html>
+```
+
+这就是命名空间
+
+但是带来了新的问题：
+
+1. 必须记得模块的名字
+2. 代码混乱不堪，需要包裹在匿名函数中
+3. 在没有合适的代码规范时，可能会出现模块名称相同的情况
+
+## CommonJS & Node
+
+### CommonJS
+
+CommonJS 是一个规范，最初提出是在浏览器以外的地方使用，并且当时被命名为 ServerJS，后来改为 CommonJS，简称 CJS
+
+- Node 是 CommonJS 在服务端的一个具有代表性的实现
+- Browserify 是 CommonJS 在浏览器的一个实现
+- webpack 打包工具具备对 CommonJS 的支持和转换
+
+```javascript
+// bar.js
+let name = 'kobe'
+const age = 18
+
+function sayHello(name) {
+  console.log('Hello ' + name)
+}
+
+setTimeout(() => {
+  console.log(name, 'bar') // kobe bar
+}, 5000)
+
+exports.name = name
+exports.age = age
+exports.sayHello = sayHello
+
+// index.js
+const bar = require('./bar')
+console.log(bar.name) // kobe
+console.log(bar.age) // 18
+bar.sayHello(bar.name) // Hello kobe
+
+setTimeout(() => {
+  bar.name = 'james'
+  console.log(bar.name, 'index') // james index
+}, 2000)
+```
+
+`module.exports` 又是什么？
+
+CommonJS 没有 `module.exports` 的概念，为了实现模块的导出，Node 中使用的是 Module 类，一个 js 文件就是一个 Module 实例（存在一个全局对象 module），真正负责导出的是 `module.exports`
+
+既然实际负责导出的是 `module.exports`，那么为什么需要 exports？
+
+CommonJS 规范要求有一个 exports 作为导出
+
+> 源码：先 `module.exports = {}`，然后 `exports = module.exports`
+
+### require 查找规则
+
+`require(x)`
+
+1. x 是一个核心模块，比如 path、fs，直接返回核心模块，停止查找
+
+2. x 是以 `./` 或 `../` 或 `/` 开头的，当作一个文件在对应目录下查找，如果没有后缀名：x > x.js > x.json > x.node；没有此文件，当作一个目录，查找下面的 index 文件：x/index.js > x/index.json > x/index.node
+
+3. 直接一个 x（没有路径），且不是核心模块，一层层往上查找 node_modules
+
+### 模块的加载过程（同步）
+
+- 模块在第一次被引入时，模块中的代码会运行一次
+- 模块被多次引入，会缓存，只加载一次
+- 如果有循环引入，加载顺序为深度优先搜索
+
+## AMD
+
+AMD 是 Asynchronous Module Definition（异步模块定义）
+
+采用异步加载模块
+
+require.js 是 AMD 的一个实现
+
+引入 require.js，添加属性 data-main
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"
+      integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      data-main="./index.js"
+    ></script>
+  </body>
+</html>
+```
+
+```javascript
+// index.js
+;(function () {
+  require.config({
+    baseUrl: '',
+    paths: {
+      bar: './modules/bar',
+      foo: './modules/foo'
+    }
+  })
+  require(['foo'], function (foo) {})
+})()
+
+// bar.js
+define(function () {
+  const name = 'bar'
+
+  return {
+    name
+  }
+})
+
+// foo.js
+define(['bar'], function (bar) {
+  console.log(bar.name) // bar
+})
+```
+
+## CMD
+
+CMD 是 Common Module Definition（通用模块定义）
+
+采用异步加载模块
+
+seajs 是 CMD 的一个实现
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/seajs/3.0.3/sea.js"
+      integrity="sha512-ap6h2XXibJXZxeYrzFI6KqCvV5cdh/5bn1GIu8ZKGRa4lLIUUoJOIWCVmjqt0RropWp6WFket/KHKLbXth2FnA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      seajs.use('./index.js')
+    </script>
+  </body>
+</html>
+```
+
+```javascript
+// index.js
+define(function (require, exports, module) {
+  const bar = require('./modules/bar')
+  console.log(bar.name) // bar
+})
+
+// bar.js
+define(function (require, exports, module) {
+  const name = 'bar'
+  module.exports = {
+    name
+  }
+})
+```
+
+## ES Module
+
+### import & export
+
+ES Module 采用 export 和 import 关键字来实现模块化
+
+`export` 的本质类似引用（`export` 和 module environment record 实时绑定，后续 `export` 有变化，也不会影响到 `import`）
+
+> 可以在 import 后去修改 export 吗？
+
+基本数据类型不可以，module environment record 里面是 const 定义的，import 的来源是 module environment record
+
+> module environment record 里面是 const 定义的，为什么 export 可以修改？
+
+这取决于实时绑定的实现，它会将需要修改的定义删除掉，然后重新定义
+
+ES Module 将自动采用严格模式
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>
+```
+
+```javascript
+// index.js
+console.log('index') // index
+
+// import * as bar from './modules/bar.js'
+// console.log(bar.name) // bar
+
+import { name } from './modules/bar.js'
+console.log(name) // bar
+
+// bar.js
+// export const name = 'bar'
+
+const name = 'bar'
+export { name }
+
+// const name = 'bar'
+// export { name as barName }
+```
+
+注意：需要加后缀名，import 和 export 里面的 `'{}'` 不是对象，只是大括号
+
+`export` 和 `import` 结合使用
+
+```javascript
+// foo.js
+export const name = 'foo'
+
+// bar.js
+export { name as fooName } from './foo.js'
+
+// index.js
+import { fooName } from './modules/bar.js'
+console.log(fooName) // foo
+```
+
+默认导入和导出
+
+`export default x`
+
+`import x from '...'`
+
+### import 函数的使用
+
+```javascript
+let flag = true
+if (flag) {
+  import x from '...'
+} else {
+  // ...
+}
+```
+
+语法错误
+
+这种写法是不被允许的，解析阶段必须知道依赖关系，而这种写法要到执行时才知道依赖关系
+
+通过 import 函数来实现
+
+```javascript
+let flag = true
+if (flag) {
+  // require('...') // webpack环境，支持CommonJS
+  import('...').then(res => {
+
+  }).catch(err => {
+
+  }) // ES Module环境
+} else {
+  // ...
+}
+```
+
+`import()` 函数是异步加载，返回一个 Promise
+
+## 在 Node 环境下使用 ES Module
+
+对 Node 版本有要求，低版本是实验性质的
+
+1. 使用 mjs 后缀
+
+```javascript
+// index.mjs
+import { name } from './modules/foo.mjs'
+
+console.log(name) // kobe
+
+// foo.mjs
+const name = 'kobe'
+
+export { name }
+```
+
+2. 配置 package.json
+
+```json
+"type": "module"
+```
+
+## CommonJS 与 ES Module 交互
+
+1. 通常情况下，CommonJS 不能导入 ES Module 的导出
+
+CommonJS 是同步加载的，需要先将文件下载下来，而 ES Module 必须经过静态分析
+
+Node 中不支持
+
+2. ES Module 可以导入 CommonJS
+
+低版本 Node 不支持

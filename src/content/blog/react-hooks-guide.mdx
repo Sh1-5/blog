@@ -1,0 +1,451 @@
+---
+title: 'React 进阶（八）Hook'
+description: 'React Hooks 大全：useState、useEffect、useContext、useReducer、useCallback、useMemo、useRef、useImperativeHandle、自定义 Hook'
+author: 'Qi Hong'
+date: '2023-03-24'
+---
+
+> Hook 是 React 16.8 新增的特性，为了解决函数组件不能保存状态和没有生命周期等问题。
+> Hook 是 JavaScript 函数，只能在函数最外层调用，不能在循环、条件判断和子函数中调用。
+> 只能在函数组件中调用（自定义 Hook 除外）。
+
+## useState
+
+添加状态。参数为初始化值，返回一个数组：`[当前值, 设置值的函数]`。
+
+```jsx
+import { memo, useState } from 'react'
+
+const App = memo(() => {
+  const [message, setMessage] = useState('Hello World')
+
+  return (
+    <div>
+      <h2>{message}</h2>
+      <button onClick={() => setMessage('Hello React')}>修改文本</button>
+    </div>
+  )
+})
+
+export default App
+```
+
+## useEffect
+
+处理副作用（网络请求、手动更新 DOM、事件监听）。
+
+参数：一个函数（setup，可返回一个 cleanup 函数）和一个依赖数组。
+
+```jsx
+import { memo, useEffect, useState } from 'react'
+
+const App = memo(() => {
+  const [counter, setCounter] = useState(0)
+
+  useEffect(() => {
+    document.title = counter
+    return () => {
+      // 清除副作用
+    }
+  }, [counter])
+
+  useEffect(() => {
+    console.log('订阅事件')
+    return () => {
+      console.log('取消订阅')
+    }
+  }, [])
+
+  return (
+    <div>
+      <h2>{counter}</h2>
+      <button onClick={() => setCounter(counter - 1)}>-</button>
+      <button onClick={() => setCounter(counter + 1)}>+</button>
+    </div>
+  )
+})
+
+export default App
+```
+
+## useContext
+
+简化多个 Context 的消费：
+
+```jsx
+import { memo, useContext } from 'react'
+import { UserContext, ThemeContext } from './context'
+
+const App = memo(() => {
+  const user = useContext(UserContext)
+  const theme = useContext(ThemeContext)
+
+  return (
+    <div>
+      <h2 style={{ color: theme.color }}>{user.name}</h2>
+    </div>
+  )
+})
+
+export default App
+```
+
+对比使用 Consumer 的嵌套写法：
+
+```jsx
+<UserContext.Consumer>
+  {(user) => (
+    <ThemeContext.Consumer>
+      {(theme) => <h2 style={{ color: theme.color }}>{user.name}</h2>}
+    </ThemeContext.Consumer>
+  )}
+</UserContext.Consumer>
+```
+
+## useReducer
+
+```jsx
+import { memo, useReducer } from 'react'
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { ...state, counter: state.counter + 1 }
+    case 'decrement':
+      return { ...state, counter: state.counter - 1 }
+    case 'add_number':
+      return { ...state, counter: state.counter + action.num }
+    case 'sub_number':
+      return { ...state, counter: state.counter - action.num }
+    default:
+      return state
+  }
+}
+
+const App = memo(() => {
+  const [state, dispatch] = useReducer(reducer, { counter: 0 })
+
+  return (
+    <div>
+      <h2>当前计数：{state.counter}</h2>
+      <button onClick={() => dispatch({ type: 'decrement' })}>-1</button>
+      <button onClick={() => dispatch({ type: 'increment' })}>+1</button>
+      <button onClick={() => dispatch({ type: 'sub_number', num: 5 })}>-5</button>
+      <button onClick={() => dispatch({ type: 'add_number', num: 5 })}>+5</button>
+    </div>
+  )
+})
+
+export default App
+```
+
+## useCallback
+
+优化子组件渲染性能，返回的是一个**缓存的函数**。
+
+```jsx
+import { memo, useState, useCallback } from 'react'
+
+const Increment = memo((props) => {
+  console.log('Increment render')
+  return <button onClick={props.increment}>+1</button>
+})
+
+const App = memo(() => {
+  const [counter, setCounter] = useState(0)
+
+  // 使用函数式更新，避免闭包陷阱
+  const increment = useCallback(() => {
+    setCounter((counter) => counter + 1)
+  }, [])
+
+  return (
+    <div>
+      <h2>当前计数：{counter}</h2>
+      <button onClick={increment}>+1</button>
+      <Increment increment={increment} />
+    </div>
+  )
+})
+
+export default App
+```
+
+## useMemo
+
+在每次重新渲染的时候缓存**计算的结果**。
+
+```jsx
+import { memo, useState, useMemo } from 'react'
+
+function getMessage() {
+  console.log('getMessage')
+  return 'React Hook'
+}
+
+const App = memo(() => {
+  const [counter, setCounter] = useState(0)
+  const message = useMemo(() => getMessage(), [])
+
+  return (
+    <div>
+      <h2>{message}</h2>
+      <h2>当前计数：{counter}</h2>
+      <button onClick={() => setCounter(counter + 1)}>+1</button>
+    </div>
+  )
+})
+
+export default App
+```
+
+> `useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)`
+
+## useRef
+
+返回一个 ref 对象，在组件的整个生命周期保持不变。
+
+```jsx
+import { memo, useRef } from 'react'
+
+const App = memo(() => {
+  const titleRef = useRef()
+  const getDOM = () => {
+    console.log(titleRef.current)
+  }
+
+  return (
+    <div>
+      <h2 ref={titleRef}>Hello React</h2>
+      <button onClick={getDOM}>获取DOM</button>
+    </div>
+  )
+})
+
+export default App
+```
+
+## useImperativeHandle
+
+自定义由 ref 暴露出来的句柄，限制父组件对子组件的操作：
+
+```jsx
+import { memo, useRef, forwardRef, useImperativeHandle } from 'react'
+
+const Child = memo(
+  forwardRef((props, ref) => {
+    useImperativeHandle(ref, () => ({
+      focus: () => {
+        console.log('focus')
+      }
+    }))
+    return <input ref={ref} type="text" />
+  })
+)
+
+const App = memo(() => {
+  const inputRef = useRef()
+  const getChildDOM = () => {
+    inputRef.current.focus()
+  }
+
+  return (
+    <div>
+      <Child ref={inputRef} />
+      <button onClick={getChildDOM}>获取子组件DOM</button>
+    </div>
+  )
+})
+
+export default App
+```
+
+## useLayoutEffect
+
+类似 useEffect，但会在 DOM 更新后、浏览器绘制前同步执行，会阻塞浏览器渲染。不建议频繁使用。
+
+```jsx
+import { memo, useState, useLayoutEffect } from 'react'
+
+const App = memo(() => {
+  const [counter, setCounter] = useState(0)
+
+  useLayoutEffect(() => {
+    if (counter === 1) {
+      setCounter(0)
+    }
+  }, [counter])
+
+  return (
+    <div>
+      <h2>{counter}</h2>
+      <button onClick={() => setCounter(counter + 1)}>+</button>
+    </div>
+  )
+})
+
+export default App
+```
+
+## 自定义 Hook
+
+自定义 Hook 必须使用 `use` 开头。
+
+### 生命周期 Hook
+
+```jsx
+import { useEffect } from 'react'
+
+function useLogLife(name) {
+  useEffect(() => {
+    console.log(`${name}组件被创建`)
+  })
+}
+
+export default useLogLife
+```
+
+### 全局信息 Hook
+
+```javascript
+import { useContext } from 'react'
+import { TokenContext } from '../context'
+
+function useToken() {
+  const token = useContext(TokenContext)
+  return [token]
+}
+
+export default useToken
+```
+
+### 监听窗口滚动 Hook
+
+```javascript
+import { useState, useEffect } from 'react'
+
+function useScrollPosition() {
+  const [scrollX, setScrollX] = useState(0)
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    function handleScroll() {
+      setScrollX(window.scrollX)
+      setScrollY(window.scrollY)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  })
+
+  return [scrollX, scrollY]
+}
+
+export default useScrollPosition
+```
+
+### localStorage Hook
+
+```javascript
+import { useState, useEffect } from 'react'
+
+function useLocalStorage(key) {
+  const [data, setData] = useState(() => {
+    const item = localStorage.getItem(key)
+    if (!item) return
+    return JSON.parse(item)
+  })
+
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(data))
+  }, [key, data])
+
+  return [data, setData]
+}
+
+export default useLocalStorage
+```
+
+## useId
+
+用于生成横跨服务端和客户端的稳定唯一 ID，避免 hydration 不匹配。
+
+```jsx
+import { memo, useState, useId } from 'react'
+
+const App = memo(() => {
+  const [counter, setCounter] = useState(0)
+  const id = useId()
+  console.log(id)
+
+  return (
+    <div>
+      <h2>{counter}</h2>
+      <button onClick={() => setCounter(counter + 1)}>+</button>
+    </div>
+  )
+})
+
+export default App
+```
+
+## useTransition
+
+在不阻塞 UI 的情况下更新状态：
+
+```jsx
+import { memo, useState, useTransition } from 'react'
+
+const App = memo(() => {
+  const [names, setNames] = useState(namesArray)
+  const [isPending, startTransition] = useTransition()
+
+  const valueChangeHandle = (e) => {
+    const value = e.target.value
+    startTransition(() => {
+      const newNames = namesArray.filter((name) => name.includes(value))
+      setNames(newNames)
+    })
+  }
+
+  return (
+    <div>
+      <input type="text" onInput={valueChangeHandle} />
+      <ul>
+        {isPending ? <span>loading...</span> : names.map((name, index) => <li key={index}>{name}</li>)}
+      </ul>
+    </div>
+  )
+})
+
+export default App
+```
+
+## useDeferredValue
+
+```jsx
+import { memo, useState, useDeferredValue } from 'react'
+
+const App = memo(() => {
+  const [names, setNames] = useState(namesArray)
+  const deferredValue = useDeferredValue(names)
+
+  const valueChangeHandle = (e) => {
+    const value = e.target.value
+    const newNames = namesArray.filter((name) => name.includes(value))
+    setNames(newNames)
+  }
+
+  return (
+    <div>
+      <input type="text" onInput={valueChangeHandle} />
+      <ul>
+        {deferredValue.map((name, index) => <li key={index}>{name}</li>)}
+      </ul>
+    </div>
+  )
+})
+
+export default App
+```

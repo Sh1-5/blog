@@ -1,0 +1,191 @@
+---
+title: 'React 进阶（三）过渡动画'
+description: 'react-transition-group 教程：CSSTransition、SwitchTransition、TransitionGroup 使用详解'
+author: 'Qi Hong'
+date: '2023-03-14'
+---
+
+## react-transition-group
+
+[官方文档](https://reactcommunity.org/react-transition-group/)
+
+```bash
+npm install react-transition-group
+```
+
+## CSSTransition
+
+```jsx
+import { PureComponent } from 'react'
+import { CSSTransition } from 'react-transition-group'
+
+import './style.css'
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = { isShow: true }
+  }
+
+  render() {
+    const { isShow } = this.state
+    return (
+      <div>
+        <button onClick={() => this.setState({ isShow: !isShow })}>切换</button>
+        <CSSTransition classNames="node" in={isShow} timeout={200} unmountOnExit={true}>
+          <div>CSSTransition</div>
+        </CSSTransition>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+```css
+.node-enter {
+  opacity: 0;
+}
+.node-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.node-exit {
+  opacity: 1;
+}
+.node-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+```
+
+## SwitchTransition
+
+```jsx
+import { PureComponent } from 'react'
+import { SwitchTransition, CSSTransition } from 'react-transition-group'
+
+import './style.css'
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = { isLogin: true }
+  }
+
+  render() {
+    const { isLogin } = this.state
+    return (
+      <div>
+        <SwitchTransition mode="out-in">
+          <CSSTransition classNames="login" key={isLogin ? 'exit' : 'login'} timeout={200}>
+            <button onClick={() => this.setState({ isLogin: !isLogin })}>
+              {isLogin ? '退出' : '登录'}
+            </button>
+          </CSSTransition>
+        </SwitchTransition>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+```css
+.login-enter {
+  transform: translateX(100px);
+  opacity: 0;
+}
+.login-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 1s ease;
+}
+.login-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+.login-exit-active {
+  transform: translateX(-100px);
+  opacity: 0;
+  transition: all 1s ease;
+}
+```
+
+## TransitionGroup
+
+```jsx
+import { PureComponent } from 'react'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+import './style.css'
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      books: [
+        { id: 1, name: 'React实战' },
+        { id: 2, name: 'Vue实战' },
+        { id: 3, name: 'Webpack实战' }
+      ]
+    }
+  }
+
+  addNewBook() {
+    const newBooks = [...this.state.books]
+    const id = new Date().getTime()
+    newBooks.push({ id, name: '新书' + id })
+    this.setState({ books: newBooks })
+  }
+  removeBook(index) {
+    const newBooks = [...this.state.books]
+    newBooks.splice(index, 1)
+    this.setState({ books: newBooks })
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>书籍列表：</h2>
+        <TransitionGroup component="ul">
+          {this.state.books.map((item, index) => (
+            <CSSTransition classNames="book" timeout={200} key={item.id}>
+              <li>
+                <span>{item.name}</span>
+                <button onClick={() => this.removeBook(index)}>删除</button>
+              </li>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+        <button onClick={() => this.addNewBook()}>添加新书</button>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+```css
+.book-enter {
+  transform: translateX(100px);
+  opacity: 0;
+}
+.book-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 1s ease;
+}
+.book-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+.book-exit-active {
+  transform: translateX(-100px);
+  opacity: 0;
+  transition: all 1s ease;
+}
+```

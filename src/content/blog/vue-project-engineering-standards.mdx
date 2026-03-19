@@ -1,0 +1,157 @@
+---
+title: 'Vue 项目工程化规范'
+description: '从零配置 Vue 项目工程化规范，包括 EditorConfig、Prettier、ESLint、Husky、Commitizen 等工具'
+author: 'Qi Hong'
+date: '2023-01-15'
+---
+
+## 使用 vite 创建项目
+
+```bash
+npm init vite@latest
+git init
+```
+
+## EditorConfig
+
+```ini
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+```
+
+## Prettier
+
+```bash
+npm install prettier -D
+```
+
+新建 `.prettierrc`
+
+```json
+{
+  "useTabs": false,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "semi": false
+}
+```
+
+新建 `.prettierignore`
+
+```text
+dist
+node_modules
+public
+```
+
+## ESLint
+
+```bash
+npm install eslint -D
+npx eslint --init
+```
+
+Where does your code run? -- browser, node
+
+## Husky & lint-staged
+
+```bash
+npm install husky lint-staged -D
+```
+
+```bash
+npx husky init
+echo "npm run lint" > .husky/pre-commit
+```
+
+```json
+"scripts": {
+  "lint": "lint-staged"
+},
+"lint-staged": {
+  "src/*.{js,ts,jsx,tsx,vue}": [
+    "node_modules/.bin/prettier --write .",
+    "node_modules/.bin/eslint --fix .",
+    "git add ."
+  ],
+  "src/*.{css,scss,less,json,html,md}": [
+    "node_modules/.bin/prettier --write .",
+    "git add ."
+  ]
+}
+```
+
+## Commitizen
+
+```bash
+npm install commitizen -D
+npx commitizen init cz-conventional-changelog --save-dev --save-exact
+```
+
+修改 `package.json`
+
+```json
+"scripts": {
+  "commit": "cz"
+}
+```
+
+## Commitlint
+
+```bash
+npm install @commitlint/config-conventional @commitlint/cli -D
+```
+
+新建 `commitlint.config.cjs`
+
+```javascript
+module.exports = {
+  extends: ['@commitlint/config-conventional']
+}
+```
+
+```bash
+echo "npx --no-install commitlint --edit $1" > .husky/commit-msg
+```
+
+## jsconfig.json / tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "exclude": ["dist", "node_modules", "public"]
+}
+```
+
+## TypeScript 项目配置
+
+如果是 TypeScript 项目，修改一下 `.eslintrc.cjs`
+
+```javascript
+parser: 'vue-eslint-parser',
+parserOptions: {
+  ecmaVersion: 'latest',
+  parser: '@typescript-eslint/parser',
+  sourceType: 'module'
+},
+```

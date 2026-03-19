@@ -1,0 +1,80 @@
+---
+title: 'Node 基础（五）NPM 包管理器'
+description: '介绍 NPM 包管理器的使用，包括安装包、package.json、依赖管理、版本规范和 npm install 原理'
+author: 'Qi Hong'
+date: '2023-02-09'
+---
+
+## npm 是什么
+
+Node Package Manager，Node 包管理器
+
+## npm 使用
+
+### 安装包
+
+```bash
+npm install [name] -g # 本地安装工具包
+npm install [name] # 项目安装一些库
+```
+
+### 创建 package.json
+
+在项目文件夹下
+
+```bash
+npm init -y
+```
+
+### scripts
+
+有些 npm scripts 可以简写
+
+```text
+npm run start -> npm start
+
+npm run test -> npm test
+
+npm run restart -> npm restart
+
+npm run stop -> npm stop
+```
+
+### dependencies & devDependencies
+
+生产环境依赖和开发环境依赖
+
+```bash
+npm install [name] -D # 安装到开发环境依赖
+npm install [name] # 安装到生产环境依赖
+npm install # 安装所有依赖
+npm install --production # 安装生产环境依赖
+```
+
+### 包的版本号
+
+npm 包一般遵从 semver 版本规范
+
+x.y.z
+
+- x（major）：不兼容的 API 修改（可能不兼容之前的版本）
+- y（minor）：向下兼容的功能新增（新功能增加，兼容之前的版本）
+- z（patch）：向下兼容的修改（没有新功能，修复之前的 bug）
+
+`^x.y.z`：x 不变，y 和 z 永远安装最新版本
+
+`~x.y.z`：x 和 y 不变，z 永远安装最新版本
+
+### npm install 原理
+
+npm install 会检查是否有 package-lock.json，如果没有则构建依赖关系，然后从 registry 下载压缩包到缓存，再解压到 node_modules，最后生成 package-lock.json。如果有 lock 文件，则检查依赖一致性，一致则使用缓存，不一致则重新构建依赖关系。
+
+### npm 其它命令
+
+```bash
+npm config get cache # 查找缓存文件夹
+
+npm rebuild # 强制重新build
+
+npm cache clean --force # 清除缓存
+```

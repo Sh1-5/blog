@@ -1,0 +1,237 @@
+---
+title: 'React 进阶（二）ref 和高阶组件'
+description: 'React ref 三种方式、forwardRef、受控组件、高阶组件(HOC)、createPortal、Fragment、StrictMode'
+author: 'Qi Hong'
+date: '2023-03-12'
+---
+
+## ref
+
+ref 用于直接操作 DOM，有三种方式：
+
+- ref 字符串
+- ref 对象（推荐，但是不能使用在函数式组件上）
+- ref 回调函数
+
+```jsx
+import { PureComponent, createRef } from 'react'
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.titleRef = createRef()
+    this.titleEl = ''
+  }
+
+  changeText1() {
+    this.refs.titleRef.innerHTML = 'Hello React'
+  }
+  changeText2() {
+    this.titleRef.current.innerHTML = 'Hello React'
+  }
+  changeText3() {
+    this.titleEl.innerHTML = 'Hello React'
+  }
+
+  render() {
+    return (
+      <div>
+        {/* 字符串 */}
+        <h2 ref="titleRef">Hello World</h2>
+        <button onClick={() => this.changeText1()}>改变文本1</button>
+        {/* 对象，推荐方式 */}
+        <h2 ref={this.titleRef}>Hello World</h2>
+        <button onClick={() => this.changeText2()}>改变文本2</button>
+        {/* 回调函数 */}
+        <h2 ref={(arg) => (this.titleEl = arg)}>Hello World</h2>
+        <button onClick={() => this.changeText3()}>改变文本3</button>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+## forwardRef
+
+函数组件没有实例，不能使用 ref，需要使用 forwardRef：
+
+```jsx
+import { PureComponent, createRef, forwardRef } from 'react'
+
+const About = forwardRef(function (props, ref) {
+  return <h2 ref={ref}>About</h2>
+})
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.aboutRef = createRef()
+  }
+
+  printRef() {
+    console.log(this.aboutRef.current)
+  }
+
+  render() {
+    return (
+      <div>
+        <About ref={this.aboutRef} />
+        <button onClick={() => this.printRef()}>打印ref</button>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+## 受控组件
+
+表单数据由 React 来管理的组件：
+
+```jsx
+import { PureComponent } from 'react'
+
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = { username: '' }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+  }
+  handleChange(e) {
+    this.setState({ username: e.target.value })
+  }
+
+  render() {
+    return (
+      <div>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+          <label htmlFor="username">
+            用户：
+            <input
+              type="text"
+              id="username"
+              value={this.state.username}
+              onChange={(e) => this.handleChange(e)}
+            />
+          </label>
+          <input type="submit" value="提交" />
+        </form>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+## 高阶组件（HOC）
+
+高阶组件是参数为组件，返回值为新组件的函数。
+
+应用场景：
+- props 增强
+- 渲染判断鉴权
+- 生命周期劫持
+
+```jsx
+import { PureComponent } from 'react'
+
+function enhanceComponent(WrappedComponent) {
+  class NewComponent extends PureComponent {
+    render() {
+      return <WrappedComponent />
+    }
+  }
+  NewComponent.displayName = 'Kobe'
+  return NewComponent
+}
+
+class App extends PureComponent {
+  render() {
+    return <div>App</div>
+  }
+}
+
+const EnhanceComponent = enhanceComponent(App)
+export default EnhanceComponent
+```
+
+## createPortal
+
+将子节点渲染到 root 节点以外：
+
+```jsx
+import { PureComponent } from 'react'
+import { createPortal } from 'react-dom'
+
+class Modal extends PureComponent {
+  render() {
+    return createPortal(this.props.children, document.getElementById('modal'))
+  }
+}
+
+class App extends PureComponent {
+  render() {
+    return (
+      <div>
+        <h2>Home</h2>
+        <Modal>
+          <h2>This is Modal</h2>
+        </Modal>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+## Fragment
+
+类似 Vue 的 template，避免多余的 DOM 包裹：
+
+```jsx
+import { PureComponent, Fragment } from 'react'
+
+class App extends PureComponent {
+  render() {
+    return (
+      <Fragment>
+        <h2>Hello</h2>
+        <h2>React</h2>
+      </Fragment>
+      // 短语法：<>...</>
+    )
+  }
+}
+
+export default App
+```
+
+## StrictMode
+
+用来突出显示应用程序中潜在问题的工具，不会渲染任何可见的 UI（仅在开发模式下运行）：
+
+- 识别不安全的生命周期
+- 关于使用过时字符串 ref API 的警告
+- 关于使用废弃的 findDOMNode 方法的警告
+- 检测意外的副作用（constructor 会调用两次）
+- 检测过时的 context API
+
+```jsx
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+)
+```

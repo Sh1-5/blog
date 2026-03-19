@@ -1,0 +1,385 @@
+---
+title: 'React 基础（三）组件化开发'
+description: 'React 组件化教程：脚手架、类组件生命周期、函数组件、props、Context、全局事件传递'
+author: 'Qi Hong'
+date: '2023-03-05'
+---
+
+## 脚手架
+
+```bash
+npm init react-app my-app
+```
+
+## 什么是组件化开发？
+
+组件化是一个分而治之的思想：将一个页面拆分成一个个小的功能块，每个功能块完成属于自己这部分独立的功能。组件化是 React 的核心思想。
+
+组件分类：
+
+- 根据组件的定义方式：函数组件（Functional Component）和类组件（Class Component）
+- 根据组件内部是否有状态维护：无状态组件（Stateless Component）和有状态组件（Stateful Component）
+- 根据不同的职责：展示型组件（Presentational Component）和容器型组件（Container Component）
+
+## 类组件
+
+```jsx
+import { Component } from 'react'
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      message: 'Hello World'
+    }
+  }
+
+  render() {
+    return <h2>{this.state.message}</h2>
+  }
+}
+
+export default App
+```
+
+### render 函数返回值
+
+- React 元素（通过 JSX 编写的代码就会被编译成 React.createElement，返回的就是一个 React 元素）
+- 数组或者 Fragments
+- Portals
+- 字符串或数值类型
+- 布尔型或 null（不显示）
+
+### 类组件的生命周期
+
+```jsx
+import { Component } from 'react'
+
+class App extends Component {
+  constructor(props) {
+    console.log('constructor')
+    super(props)
+    this.state = {
+      message: 'Hello World'
+    }
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+  componentDidUpdate() {
+    console.log('componentDidUpdate')
+  }
+  componentWillUnmount() {
+    console.log('componentWillUnmount')
+  }
+  static getDerivedStateFromProps(props, state) {
+    console.log('getDerivedStateFromProps')
+    return null
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate')
+    return true
+  }
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log('getSnapshotBeforeUpdate')
+    return null
+  }
+
+  render() {
+    console.log('render')
+    return (
+      <div>
+        <h2>{this.state.message}</h2>
+        <button onClick={() => { this.setState({ message: 'Hello React' }) }}>
+          按钮
+        </button>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+常用生命周期：
+
+- **constructor(props)**：初始化 state，为事件绑定 this
+- **componentDidMount**：DOM 操作，发送网络请求（官方建议），添加一些订阅
+- **componentDidUpdate(prevProps, prevState, snapshot)**：DOM 操作，前后 props 对比
+- **componentWillUnmount**：清理操作，清除 timer，取消网络请求，取消订阅
+
+其它生命周期：
+
+- **getDerivedStateFromProps(props, state)**：在调用 render 方法之前调用，初始挂载及后续更新时都会被调用。返回一个对象来更新 state，返回 null 则不更新。适用于 state 的值在任何时候都取决于 props 的罕见用例
+- **shouldComponentUpdate(nextProps, nextState)**：当 props 或 state 发生变化时，在渲染执行之前被调用。返回值默认为 true，仅作为性能优化的方式存在
+- **getSnapshotBeforeUpdate(prevProps, prevState)**：在最近一次渲染输出（提交到 DOM 节点）之前调用，使得组件能在发生更改之前从 DOM 中捕获一些信息（例如滚动位置）
+
+## 函数组件
+
+```jsx
+function App() {
+  return <h2>Hello World</h2>
+}
+
+export default App
+```
+
+函数式组件特点：
+
+- 没有 this
+- 没有内部的状态
+- 没有生命周期
+
+## props
+
+### 类组件传递属性
+
+```jsx
+import { Component } from 'react'
+
+class ChildCpn extends Component {
+  render() {
+    const { name, age } = this.props
+    return <h2>{'name ' + name + ' age ' + age}</h2>
+  }
+}
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <ChildCpn name="kobe" age={18} />
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+### 函数组件传递属性
+
+```jsx
+function ChildCpn(props) {
+  const { name, age } = props
+  return <h2>{'name ' + name + ' age ' + age}</h2>
+}
+
+function App() {
+  return (
+    <div>
+      <ChildCpn name="kobe" age={18} />
+    </div>
+  )
+}
+
+export default App
+```
+
+### 类型检查
+
+引入 prop-types：
+
+```jsx
+import PropTypes from 'prop-types'
+
+function ChildCpn(props) {
+  const { name, age, letters } = props
+  return (
+    <div>
+      <h2>{'name ' + name + ' age ' + age}</h2>
+      <ul>
+        {letters.map((item) => {
+          return <li key={item}>{item}</li>
+        })}
+      </ul>
+    </div>
+  )
+}
+
+ChildCpn.propTypes = {
+  name: PropTypes.string.isRequired,
+  age: PropTypes.number,
+  letters: PropTypes.array
+}
+
+ChildCpn.defaultProps = {
+  name: 'james',
+  age: 18,
+  letters: ['a', 'b']
+}
+```
+
+### 传递函数
+
+```jsx
+import { Component } from 'react'
+
+class CounterButton extends Component {
+  render() {
+    const { increment, decrement } = this.props
+    return (
+      <div>
+        <button onClick={increment}>+</button>
+        <button onClick={decrement}>-</button>
+      </div>
+    )
+  }
+}
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { counter: 0 }
+  }
+
+  increment() {
+    this.setState({ counter: this.state.counter + 1 })
+  }
+  decrement() {
+    this.setState({ counter: this.state.counter - 1 })
+  }
+
+  render() {
+    const { counter } = this.state
+    return (
+      <div>
+        <h2>当前计数：{counter}</h2>
+        <CounterButton
+          increment={() => this.increment()}
+          decrement={() => this.decrement()}
+        />
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+### slot（插槽）
+
+React 没有插槽这个概念。每个组件都可以获取到 `props.children`，它包含组件的开始标签到组件的结束标签之间的内容。
+
+```jsx
+<Welcome>Hello world!</Welcome>
+```
+
+在 Welcome 组件中获取 `props.children`，就可以得到字符串 `Hello World!`（如果是多个 ReactElement，那么 `props.children` 为数组）。
+
+```jsx
+function Welcome(props) {
+  return <h2>{props.children}</h2>
+}
+```
+
+对于类组件，使用 `this.props.children` 来获取。
+
+## Context
+
+无需为每层组件手动添加 props，就能在组件树间进行数据传递。
+
+```jsx
+import { Component, createContext } from 'react'
+
+const InfoContext = createContext({
+  name: 'james',
+  age: 18
+})
+
+// 设置contextType后，数据在this.context中
+class HomeCpn extends Component {
+  render() {
+    const { name, age } = this.context
+    return <h2>{'name ' + name + ' age ' + age}</h2>
+  }
+}
+HomeCpn.contextType = InfoContext
+
+// 使用Consumer，数据在回调函数中
+function About() {
+  return (
+    <InfoContext.Consumer>
+      {(value) => {
+        return <h2>{'name ' + value.name + ' age ' + value.age}</h2>
+      }}
+    </InfoContext.Consumer>
+  )
+}
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <InfoContext.Provider value={{ name: 'kobe', age: 18 }}>
+          <HomeCpn />
+          <About />
+        </InfoContext.Provider>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+## 全局事件传递
+
+使用第三方库 events：
+
+1. 创建 eventBus 对象
+2. 发出事件：`eventBus.emit(事件名称, 参数列表)`
+3. 监听事件：`eventBus.addListener(事件名称, 监听函数)`
+4. 移除事件：`eventBus.removeListener(事件名称, 监听函数)`
+
+```jsx
+import { Component } from 'react'
+import { EventEmitter } from 'events'
+
+const eventBus = new EventEmitter()
+
+class Home extends Component {
+  render() {
+    return (
+      <div>
+        Home
+        <button onClick={() => this.emitEvent()}>Home按钮</button>
+      </div>
+    )
+  }
+  emitEvent() {
+    eventBus.emit('sayHello', 'Hello Profile')
+  }
+}
+
+class Profile extends Component {
+  componentDidMount() {
+    eventBus.addListener('sayHello', this.handleSayHelloListener)
+  }
+  componentWillUnmount() {
+    eventBus.removeListener('sayHello', this.handleSayHelloListener)
+  }
+
+  handleSayHelloListener(message) {
+    console.log(message)
+  }
+
+  render() {
+    return <div>Profile</div>
+  }
+}
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Home />
+        <Profile />
+      </div>
+    )
+  }
+}
+
+export default App
+```
