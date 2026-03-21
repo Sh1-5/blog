@@ -1,11 +1,9 @@
 'use client'
 
-import { ArrowRightIcon, HashIcon } from 'lucide-react'
 import {
   ArrowRight,
   GitFork,
   Star,
-  GithubLogo,
   BookOpen
 } from '@phosphor-icons/react'
 import { ProjectItemType } from '@/config/infoConfig'

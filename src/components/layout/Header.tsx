@@ -13,7 +13,7 @@ import { navItems } from '@/config/siteConfig'
 import { ThemeToggle } from '@/components/shared/ThemeToggle'
 import { GithubRepo } from '@/components/shared/GithubRepo'
 import { name } from '@/config/infoConfig'
-import { ChevronDownIcon, XIcon } from 'lucide-react'
+import { CaretDown, X } from '@phosphor-icons/react'
 
 import TypingAnimation from '@/components/ui/typing-animation'
 
@@ -40,7 +40,7 @@ function MobileNavigation(
     <Popover {...props}>
       <Popover.Button className="group flex items-center rounded-full px-4 py-2 text-sm font-medium shadow-lg ring-1 ring-muted backdrop-blur ">
         Menu
-        <ChevronDownIcon className="ml-3 h-auto w-2" />
+        <CaretDown className="ml-3 h-auto w-2" />
       </Popover.Button>
       <Transition.Root>
         <Transition.Child
@@ -69,7 +69,7 @@ function MobileNavigation(
           >
             <div className="flex flex-row-reverse items-center justify-between">
               <Popover.Button aria-label="Close menu" className="-m-1 p-1">
-                <XIcon className="h-6 w-6 text-muted-foreground" />
+                <X className="h-6 w-6 text-muted-foreground" />
               </Popover.Button>
               <h2 className="text-sm font-medium text-muted-foreground">
                 {name}
@@ -301,13 +301,24 @@ export function Header() {
       isInitial.current = false
     }
 
+    let ticking = false
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateStyles()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
     updateStyles()
-    window.addEventListener('scroll', updateStyles, { passive: true })
-    window.addEventListener('resize', updateStyles)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
 
     return () => {
-      window.removeEventListener('scroll', updateStyles)
-      window.removeEventListener('resize', updateStyles)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
     }
   }, [isHomePage])
 

@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import clsx from 'clsx'
-import { ChevronRightIcon } from 'lucide-react'
 
 export function Card<T extends React.ElementType = 'div'>({
   as,
@@ -72,7 +71,7 @@ Card.Cta = function CardCta({ children }: { children: React.ReactNode }) {
       className="relative z-10 mt-4 flex items-center text-sm font-medium text-primary"
     >
       {children}
-      <ChevronRightIcon className="ml-1 h-4 w-4 stroke-current" />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="ml-1 h-4 w-4 fill-current"><path d="M181.66 133.66l-80 80a8 8 0 01-11.32-11.32L164.69 128 90.34 53.66a8 8 0 0111.32-11.32l80 80a8 8 0 010 11.32z" /></svg>
     </div>
   )
 }

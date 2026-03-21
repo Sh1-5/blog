@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import dynamic from 'next/dynamic'
 import { Container } from '@/components/layout/Container'
 import Feed from '@/components/home/Feed'
@@ -20,7 +22,6 @@ import {
 } from '@/config/infoConfig'
 import GitHubSnake from '@/components/home/GitHubSnake'
 import Link from 'next/link'
-import { ChevronRightIcon } from 'lucide-react'
 
 const IconCloud = dynamic(
   () => import('@/components/ui/icon-cloud'),
@@ -36,7 +37,11 @@ const MarqueeVertical = dynamic(
   () => import('@/components/home/MarqueeVertical').then((mod) => ({ default: mod.MarqueeVertical })),
   {
     ssr: false,
-    loading: () => <div className="h-[1000px]" />
+    loading: () => (
+      <div className="hidden h-[1000px] animate-pulse items-center justify-center rounded-lg bg-muted/30 lg:flex">
+        <span className="text-sm text-muted-foreground">Loading tweets...</span>
+      </div>
+    )
   }
 )
 
@@ -101,7 +106,7 @@ export default async function Home() {
               className="flex flex-row items-center text-sm font-semibold capitalize text-primary hover:underline"
             >
               Read more blogs
-              <ChevronRightIcon className="ml-1 h-4 w-4 stroke-current" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="ml-1 h-4 w-4 fill-current"><path d="M181.66 133.66l-80 80a8 8 0 01-11.32-11.32L164.69 128 90.34 53.66a8 8 0 0111.32-11.32l80 80a8 8 0 010 11.32z" /></svg>
             </Link>
           </div>
 

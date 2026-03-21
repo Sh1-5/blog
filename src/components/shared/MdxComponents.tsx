@@ -1,8 +1,6 @@
 import { type MDXComponents } from 'mdx/types'
 import Image, { type ImageProps } from 'next/image'
 import Link from 'next/link'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 const CustomLink = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   const href = props.href
@@ -33,80 +31,31 @@ const CustomLink = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   )
 }
 
-// 自定义代码块组件
+// 代码块由 rehype-prism 在编译时高亮，无需运行时 JS 高亮库
 const CustomCode = (props: any) => {
   const { children, className } = props
-  const match = /language-(\w+)/.exec(className || '')
+  const isLanguageCode = /language-(\w+)/.test(className || '')
 
-  // 如果是在pre标签内的code，可能是代码块的一部分
-  const isInPre =
-    typeof props.node?.parentNode?.tagName === 'string' &&
-    props.node.parentNode.tagName.toLowerCase() === 'pre'
-
-  // 对于行内代码（不在pre内且没有语言标记）
-  if (!isInPre && !match) {
+  // 行内代码（不在 pre 内且没有语言标记）
+  if (!isLanguageCode) {
     return (
       <code
-        className="mx-1 rounded-sm bg-zinc-100 px-1.5 py-0.5 font-mono text-sm text-zinc-800 dark:bg-background dark:text-zinc-200 "
+        className="mx-1 rounded-sm bg-zinc-100 px-1.5 py-0.5 font-mono text-sm text-zinc-800 dark:bg-background dark:text-zinc-200"
         {...props}
       />
     )
   }
 
-  // 对于带语言标记的代码块
-  if (match) {
-    return (
-      <SyntaxHighlighter
-        style={oneDark as any}
-        language={match[1]}
-        PreTag="div"
-        className="my-6 overflow-hidden rounded-xl shadow-lg"
-        showLineNumbers={true}
-        wrapLines={true}
-        customStyle={{
-          margin: '1.5rem 0',
-          borderRadius: '0.75rem',
-          fontSize: '0.875rem',
-          boxShadow:
-            '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-        }}
-      >
-        {String(children).replace(/\n$/, '')}
-      </SyntaxHighlighter>
-    )
-  }
-
-  // 对于pre内的普通代码（无语言标记的代码块）
-  // 返回普通代码，不添加任何样式，让CustomPre处理外层样式
-  return <code {...props}>{children}</code>
+  // 带语言标记的代码块，rehype-prism 已处理高亮
+  return <code className={className}>{children}</code>
 }
 
-// 自定义预格式化代码块容器
 const CustomPre = (props: any) => {
   const { children } = props
 
-  // 检查是否包含SyntaxHighlighter组件
-  if (children && children.type === SyntaxHighlighter) {
-    return children // 直接返回SyntaxHighlighter，不添加额外样式
-  }
-
-  // 检查children是否已经是经过CustomCode处理的元素
-  // 通过检查className判断是否已经应用了样式
-  if (
-    children &&
-    children.props &&
-    children.props.className &&
-    (children.props.className.includes('bg-zinc') ||
-      children.props.className.includes('language-'))
-  ) {
-    // 这种情况下直接返回children，避免重复添加背景色
-    return children
-  }
-
-  // 对于无语言标记的普通代码块，添加基本样式
   return (
     <pre
-      className="my-6 overflow-x-auto rounded-xl bg-zinc-100 p-4 font-mono text-sm tracking-tight shadow-md dark:bg-background"
+      className="my-6 overflow-x-auto rounded-xl bg-[#282c34] p-4 font-mono text-sm leading-relaxed tracking-tight shadow-lg"
       {...props}
     >
       {children}

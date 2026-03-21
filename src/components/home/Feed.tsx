@@ -1,8 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Rss, Copy, ClipboardText } from '@phosphor-icons/react'
-import { Check } from 'lucide-react'
+import { Rss, ClipboardText, Check } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 

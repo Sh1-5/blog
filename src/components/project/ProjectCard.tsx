@@ -1,8 +1,7 @@
 'use client'
 
-import { ArrowRightIcon, HashIcon } from 'lucide-react'
 import Image from 'next/image'
-import { ArrowUpRight } from '@phosphor-icons/react'
+import { ArrowUpRight, Hash } from '@phosphor-icons/react'
 import { ProjectItemType } from '@/config/infoConfig'
 import { utm_source } from '@/config/siteConfig'
 import Link from 'next/link'
@@ -46,7 +45,7 @@ export function ProjectCard({
                   key={index}
                   className="group flex items-center justify-center space-x-0.5"
                 >
-                  <HashIcon className="icon-scale h-3 w-3 text-muted-foreground" />
+                  <Hash className="icon-scale h-3 w-3 text-muted-foreground" />
                   <span className="text-xs tracking-tighter text-muted-foreground">
                     {tag}
                   </span>
